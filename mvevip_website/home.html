@@ -1,0 +1,613 @@
+
+
+
+    <div id="search_container" > 
+        <!-- style="background-image: url('img/headers/Marketing-Vip_Portada-Web_San-Valentin_2025.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover;" -->
+        <iframe 
+                src="https://www.youtube.com/embed/691Jqcg5xN0?autoplay=1&mute=1&loop=1&playlist=691Jqcg5xN0&start=16" 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                allowfullscreen
+                id="youtube_iframe">
+        </iframe>    
+
+        <div id="search">
+
+            <div class="intro_title" style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
+                <h3 class="animated fadeInDown">Marketing Vip</h3>
+                <p class="animated fadeInDown" style="font-size: 12px; color: white;">VIAJES INTERNACIONES PREMIUM</p>
+                <div>
+                    <a href="/listaCatalogos" class="animated fadeInUp button_intro">Destinos</a>
+                    <a href="/about" class="animated fadeInUp button_intro outline d-none d-sm-inline-block">Nosotros</a>
+                    <a href="/contact" class="animated fadeInUp button_intro outline d-none d-sm-inline-block">Contáctanos</a>
+                </div>
+            </div>   
+
+            <div style="display: none;">
+                <ul class="nav nav-tabs">
+                    <li><a href="#vuelos" data-bs-toggle="tab" class="active show"><i class="icon-airport"></i>Vuelos</a></li>
+                    <li style="display: none;"><a href="#hotels" data-bs-toggle="tab"><i class="icon-commerical-building"></i>Hoteles</a></li>
+                    <li style="display: none;"><a href="#transfers" data-bs-toggle="tab"><i class="icon-bus"></i>Traslados</a></li>
+                    <li style="display: none;"><a href="#tours" data-bs-toggle="tab"><i class="icon-bicycle"></i>Actividades</a></li>
+                </ul>
+
+                <div class="tab-content" style="background-color: rgba(255, 255, 255, 0.8);">
+
+                    <div class="tab-pane active show" id="vuelos">
+                        <h3><i class="icon-airport"></i>Encuentra tu vuelo Ideal</h3>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label><i class="icon-airport" style="transform: rotate(45deg); display: inline-block; font-size: 22px;"></i>Salida</label>
+                                    <div class="dropdown" style="width: 100%;">
+                                        <!-- <input type="text" class="form-control" id="autocomplete" name="firstname_booking" placeholder="Escriba su lugar de salida"> -->
+                                        <input type="text" id="salida" placeholder="Escriba una ciudad de su preferencia..." class="form-control dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" autocomplete="new-destination" data-bs-display="static" oninput="buscadorDestinosVuelos(event,0)"  onfocus="this.nextElementSibling.classList.add('show')">
+                                        <div class="dropdown-menu" style="width: 100%; max-height: 50vh; overflow-y: auto;" id="dropdownSalida">
+                                            <div id="spinnerContenidoVuelos" style="text-align: center; display: none;">                
+                                                <div class="spinner-border avatar-lg m-2" role="status" style="color: var(--color-primario);"></div>
+                                            </div>
+                                            <div id="buscadorContenidoVuelos" style="display: block;">
+                                                <div>
+                                                    <h6 class="dropdown-header" style="font-size: 16px; color: var(--color-primario);" id="tituloSalida">
+                                                        <i class="fas fa-building"></i>
+                                                        Principales Ciudades</h6>
+                                                    <div class="row" id="listaDestinos">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label><i class="icon-airport" style="transform: rotate(135deg); display: inline-block; font-size: 22px;"></i>Destino</label>
+                                    <input type="text" id="destino" placeholder="Escriba una ciudad de su preferencia..." class="form-control dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" autocomplete="new-destination" data-bs-display="static" oninput="buscadorDestinosVuelos(event,1)"  onfocus="this.nextElementSibling.classList.add('show')">
+                                    <div class="dropdown-menu" style="width: 100%; max-height: 50vh; overflow-y: auto;" id="dropdownDestino">
+                                        <div id="spinnerContenidoVuelos_d" style="text-align: center; display: none;">                
+                                            <div class="spinner-border avatar-lg m-2" role="status" style="color: var(--color-primario);"></div>
+                                        </div>
+                                        <div id="buscadorContenidoVuelos_d" style="display: block;">
+                                            <div>
+                                                <h6 class="dropdown-header" style="font-size: 16px; color: var(--color-primario);" id="tituloDestino">
+                                                    <i class="fas fa-building"></i>
+                                                    Principales Ciudades</h6>
+                                                <div class="row" id="listaDestinos_d">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label><i class="icon-group" style="font-size: 22px;"></i>Personas</label>
+                                    <div class="dropdown" style="width: 100%; position: relative;"  id="dropdownPersonas">
+                                        <input type="text" id="personas" name="firstname_booking" id="autocomplete" placeholder="1 PERSONA" class="form-control dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" autocomplete="off" data-bs-display="static" style="font-size: 16px; text-align: center; background-color: white;" readonly  onfocus="this.nextElementSibling.classList.add('show')">
+                                        <div class="dropdown-menu"  id="dropdownPersonasContent">
+                                            <div class="row" style="padding-left: 10px; padding-right: 10px;">
+                                                <div class="col-md-4 col-6 mt-1">
+                                                    <span>Adultos</span>
+                                                    <input type="number" value="1" id="numeroAdulto" class="form-control" min="1" max="10" style="font-size: 18px; text-align: center;">
+                                                </div>
+                                                <div class="col-md-4 col-6 mt-1">
+                                                    <span>Niños</span>
+                                                    <input type="number" value="0" id="numeroNino" class="form-control" min="0" max="10" style="font-size: 18px; text-align: center;">
+                                                    <span style="font-size: 10px;">(2-11 años)</span>
+                                                </div>
+                                                <div class="col-md-4 col-6 mt-1">
+                                                    <span>Bebes</span>
+                                                    <input type="number" value="0" id="numeroBebe" class="form-control" min="0" max="10" style="font-size: 18px; text-align: center;">
+                                                    <span style="font-size: 10px;">(0-2 años)</span>
+                                                </div>
+                                                <div class="col-md-4 col-6 mt-1">
+                                                    <span>3era Edad</span>
+                                                    <input type="number" value="0" id="terceraEdad" class="form-control" min="0" max="10" style="font-size: 18px; text-align: center;">
+                                                </div>
+                                                <div class="col-md-4 col-6 mt-1">
+                                                    <span>Discapacitados</span>
+                                                    <input type="number" value="0" id="discapacitados" class="form-control" min="0" max="10" style="font-size: 18px; text-align: center;">
+                                                </div>
+                                                <div class="col-md-12 mt-1" style="text-align: center;">
+                                                    <button class="btn_1 green" style="background-color: var(--color-primario);" onclick="cargarPersonas()"><i class="icon-search"></i>Guardar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label><i class="icon-switch" style="font-size: 22px;"></i>Tipo de vuelo</label>
+                                    <select class="form-select" id="tipo" style="font-size: 16px; align-items: center;">
+                                        <option value="ida_vuelta" selected style="font-size: 16px;">IDA Y VUELTA</option>
+                                        <option value="ida">SOLO IDA</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label><i class="icon-group" style="font-size: 22px;"></i>Clase</label>
+                                    <select class="form-select" id="claseVuelo" style="font-size: 16px; align-items: center;">
+                                        <option value="0" selected style="font-size: 16px;">CLASE TURISTA O ECONÓMICA</option>
+                                        <option value="1" style="font-size: 16px;">CLASE PREMIUM</option>
+                                        <option value="2" style="font-size: 16px;">CLASE EJECUTIVA O BUSINESS</option>
+                                        <option value="3" style="font-size: 16px;">PRIMERA CLASE</option>
+                                    </select>
+                                </div>
+                            </div>
+                        
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label><i class="icon-calendar-7" style="font-size: 22px;"></i> Fecha Salida</label>
+                                    <input type="text" id="salida-datepicker" class="form-control" placeholder="Fecha de salida" autocomplete="off" onchange="establecerRegreso()" style="background-color: white;">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label><i class="icon-calendar-7" style="font-size: 22px;"></i> Fecha retorno</label>
+                                    <input type="text" id="retorno-datepicker" class="form-control" placeholder="Fecha de regreso" autocomplete="off" readonly style="background-color: white;">
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <button class="btn_1 green" style="background-color: var(--color-primario);" onclick="validarDatosVuelos()"><i class="icon-search"></i>Buscar ahora</button>
+                    </div>
+                    <div class="tab-pane" id="tours">
+                        <h3>Visitas guiadas y excursiones por todo el mundo</h3>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label><i class="icon-airport" style="transform: rotate(135deg); display: inline-block; font-size: 22px;"></i>Destino</label>
+                                    <input type="text" id="destinoActividad" placeholder="Escriba una ciudad de su preferencia..." class="form-control dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" autocomplete="off" data-bs-display="static" oninput="buscadorDestinosActividad(event,1)"  onfocus="this.nextElementSibling.classList.add('show')" style="font-size: 16px; align-items: center;">
+                                    <div class="dropdown-menu" style="width: 100%; max-height: 50vh; overflow-y: auto;" id="dropdownDestino">
+                                        <div id="spinnerContenidoActividad" style="text-align: center; display: none;">                
+                                            <div class="spinner-border avatar-lg m-2" role="status" style="color: var(--color-primario);"></div>
+                                        </div>
+                                        <div id="buscadorContenidoActividad" style="display: block;">
+                                            <div>
+                                                <h6 class="dropdown-header" style="font-size: 20px; color: var(--color-primario);">
+                                                    <i class="fas fa-building"></i>
+                                                    Destinos</h6>
+                                                <div class="row" id="listaDestinosActividades">
+                                                </div>
+                                            </div>
+                                            <hr style="border: none; border-top: 2px solid rgb(213, 213, 213); margin: 20px 0;">
+                                            <div>
+                                                <h6 class="dropdown-header" style="font-size: 20px; color: var(--color-primario);">
+                                                    <i class=" fas fa-running"></i>
+                                                    Actividades</h6>
+                                                <div class="row" id="listaActividades">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>                                       
+                                    </div>
+                            </div>
+                            <div class="col-md-12"><p style="color: transparent;">hello</p></div>
+                        </div>
+                        <hr>
+                        <button class="btn_1 green" style="background-color: var(--color-primario);" onclick="listarActividades()"><i class="icon-search"></i>Buscar ahora</button>
+                    </div>
+                    <!-- End rab -->
+                    <div class="tab-pane" id="hotels">
+                        <h3>Encuentra tu hotel ideal</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label><i class="icon-airport" style="font-size: 22px;"></i> Destino</label>
+                                    <input type="text" id="destinoHotel" placeholder="Escriba una ciudad de su preferencia..." class="form-control dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" autocomplete="off" data-bs-display="static" oninput="buscadorDestinosHotel(event,1)"  onfocus="this.nextElementSibling.classList.add('show')" style="font-size: 16px; text-align: center;">
+                                    <div class="dropdown-menu" style="width: 100%; max-height: 50vh; overflow-y: auto;" id="dropdownHoteles">
+                                        <div id="spinnerContenidoHotel" style="text-align: center; display: none;">                
+                                            <div class="spinner-border avatar-lg m-2" role="status" style="color: var(--color-primario);"></div>
+                                        </div>
+                                        <div id="buscadorContenidoHotel" style="display: block;">
+                                            <div>
+                                                <h6 class="dropdown-header" style="font-size: 20px; color: var(--color-primario);">
+                                                    <i class="fas fa-building"></i>
+                                                    Destinos</h6>
+                                                <div class="row" id="listaDestinosHoteles">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>                                        
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label><i class="icon-group" style="font-size: 22px;"></i>Personas</label>
+                                    <div class="dropdown" style="width: 100%; position: relative; overflow: visible;"  id="dropdownPersonas">
+                                        <input type="text" id="personasHoteles" name="firstname_booking" id="autocomplete" placeholder="👤 2 PERSONAS y 🏠 1 HABITACIÓN" class="form-control dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" autocomplete="off" data-bs-display="static" style="font-size: 16px; text-align: center; background-color: white;" readonly  onfocus="this.nextElementSibling.classList.add('show')">
+                                        <div class="dropdown-menu" style="width: 100%; max-height: 35vh; overflow-y: auto; z-index: 1516165;" id="dropdownPersonasHoteles">
+                                            <div class="row mb-3">
+                                                <div class="col-12 justify-content-between align-items-center" style="display: flex; margin-left: 15px;">
+                                                    <strong><span style="font-size: 15px; color: var(--color-primario);">Añade mas habitaciones</span></strong> 
+                                                    <button type="button" class="btn" style="background-color: var(--color-primario); margin-right:20px" onclick="agregarHabitacion();  event.stopPropagation();">
+                                                        <i class="fas fa-plus" style="color: white;"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div  class="d-flex justify-content-between align-items-center">
+                                                <h6 class="dropdown-header" style="font-size: 16px; color: black;">
+                                                    <i class="fas fa-building"></i>
+                                                    Habitación 1
+                                                </h6>
+                                            </div>
+                                            <div class="row" style="margin-left: 15px; margin-right: 5px; align-items: center;">
+                                                <div class="col-lg-6 col-sm-12">
+                                                    <span>Adultos</span>
+                                                    <input type="number" value="2" min="1" max="8" id="numeroAdulto0" class="form-control" style="font-size: 18px; text-align: center; width: 50%;"  onchange="actualizarPersonas(0,0);" oninput="validarRango(this)">
+                                                </div>
+                                                <div class="col-lg-6 col-sm-12">
+                                                    <span>Niños <span style="font-size: 10px;">2-11 años</span></span>
+                                                    <input type="number" value="0" min="0" max="4" id="numeroNino0" class="form-control" style="font-size: 18px; text-align: center; width: 50%;"  onchange="actualizarPersonas(1,0);" oninput="validarRango(this)">
+                                                </div>
+                                                <div class="col-lg-12 col-sm-12" style="display: none;" id="edadesNinos_0">
+                                                    <span>Edad niños</span>
+                                                    <div class="row">
+                                                        <div class="col-3" style="display: flex; align-items: center; display: none;" id="ninoC_0_0">
+                                                            <input type="number" value="2" min="2" max="11" id="nino_0_0" class="form-control" style="font-size: 18px; text-align: center;" onchange="actualizarEdad(0,0)" oninput="validarRango(this)">
+                                                            <small style="margin-left: 15px; font-size: 12px;">años</small>
+                                                        </div>
+                                                        <div class="col-3" style="display: flex; align-items: center; display: none;" id="ninoC_0_1">
+                                                            <input type="number" value="2" min="2" max="11" id="nino_0_1" class="form-control" style="font-size: 18px; text-align: center;" onchange="actualizarEdad(0,1)" oninput="validarRango(this)">
+                                                            <small style="margin-left: 15px; font-size: 12px;">años</small>
+                                                        </div>
+                                                        <div class="col-3" style="display: flex; align-items: center; display: none;" id="ninoC_0_2">
+                                                            <input type="number" value="2" min="2" max="11" id="nino_0_2" class="form-control" style="font-size: 18px; text-align: center;" onchange="actualizarEdad(0,2)" oninput="validarRango(this)">
+                                                            <small style="margin-left: 15px; font-size: 12px;">años</small>
+                                                        </div>
+                                                        <div class="col-3" style="display: flex; align-items: center; display: none;" id="ninoC_0_3">
+                                                            <input type="number" value="2" min="2" max="11" id="nino_0_3" class="form-control" style="font-size: 18px; text-align: center;" onchange="actualizarEdad(0,3)" oninput="validarRango(this)">
+                                                            <small style="margin-left: 15px; font-size: 12px;">años</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="habitaciones" ></div>
+                                            <div class="row mt-4">
+                                                <div class="col-lg-12 col-sm-12" style="display: flex; align-items: center; justify-content: center;">
+                                                    <button class="btn_1 green" style="background-color: var(--color-primario);" onclick="cargarPersonasHoteles()"><i class="icon-search"></i>Guardar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label><i class="icon-calendar-7"></i> Check in</label>
+                                    <input class="date-pick form-control" type="text" id="chekInHotel" placeholder="Fecha de llegada" autocomplete="off" onchange="establecerRegresoHotel()" style="font-size: 16px; text-align: center; background-color: white;">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label><i class="icon-calendar-7"></i> Check out</label>
+                                    <input class="date-pick form-control" type="text" id="chekOutHotel" placeholder="Fecha de llegada" autocomplete="off" readonly style="font-size: 18px; text-align: center; background-color: white;">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <hr>
+                        <button class="btn_1 green" style="background-color: var(--color-primario);" onclick="buscarHoteles()"><i class="icon-search"></i>Buscar ahora</button>
+                    </div>
+                    <div class="tab-pane" id="transfers">
+                        <h3>Los traslados de tu viaje en nuestras manos</h3>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label><i class="icon_set_1_icon-23" style="font-size: 22px;"></i> Ciudad</label>
+                                    <input type="text" id="ciudadTraslados" placeholder="Escriba una ciudad de su preferencia..." class="form-control dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" autocomplete="off" data-bs-display="static" oninput="buscadorDestinosTraslados(event,1)"  onfocus="this.nextElementSibling.classList.add('show')" style="font-size: 16px; text-align: center;">
+                                    <div class="dropdown-menu" style="width: 100%; max-height: 50vh; overflow-y: auto;" id="dropdownTraslados">
+                                        <div id="spinnerContenidoTraslados" style="text-align: center; display: none;">                
+                                            <div class="spinner-border avatar-lg m-2" role="status" style="color: var(--color-primario);"></div>
+                                        </div>
+                                        <div id="buscadorContenidoTraslados" style="display: block;">
+                                            <div>
+                                                <h6 class="dropdown-header" style="font-size: 16px; color: var(--color-primario);" id="tituloDestinoTraslados">
+                                                    <i class="icon_set_1_icon-23"></i>
+                                                    Principales Ciudades</h6>
+                                                <div class="row" id="listaDestinosTralados">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>                                        
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label><i class="icon_set_1_icon-27" style="font-size: 22px;"></i>Desde</label>
+                                    <select class="form-select" id="desdeTraslados" style="font-size: 16px; align-items: center;" onchange="actualizarDestino()" disabled>
+                                        <option value="" selected style="font-size: 16px;">Seleccione una ciudad</option>
+                                    </select>                                        
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label><i class="icon_set_1_icon-27" style="font-size: 22px;"></i>Hasta</label>
+                                    <select class="form-select" id="hastaTraslados" style="font-size: 16px; align-items: center;" disabled>
+                                        <option value="" selected style="font-size: 16px;">Seleccione un lugar de recogida</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label><i class="icon-calendar-7"></i> Fecha</label>
+                                    <input class="form-control" placeholder="Seleccione la fecha de su tralado" type="text" id="fechaTraslado" readonly style="background-color: white; font-size: 16px; text-align: center;" onchange="iniciarHoraTraslados()">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label><i class=" icon-clock"></i> Hora</label>
+                                    <input class="form-control" placeholder="Seleccione la hora de su traslado" type="text" id="horaTraslado" readonly style="background-color: white; font-size: 16px; text-align: center;">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Personas</label>
+                                    <input type="number" value="2" min="1" max="15" id="personasTraslados" class="form-control" style="font-size: 16px; text-align: center;" oninput="validarRango(this)">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <button class="btn_1 green" style="background-color: var(--color-primario);" onclick="verTraslados()"><i class="icon-search"></i>Buscar ahora</button>
+                            </div>
+                            <div class="col-md-7" id="faqTraslados" style="display: none;">
+                                <div class="spinner-border avatar-sm m-2 spinner-cargando" role="status" style="color: var(--color-primario);" id="spinnerTraslado"></div>
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#full-width-modal" id="linkContenido"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+            
+    
+   
+    <div class="container margin_60">
+        <div class="main_title">
+            <h2>Nuestro<span> Catálogo</span></h2>
+            <p>Explora cada uno de nuestros tours, diseñados para que lo disfrutes en pareja, en familia o entre amigos.</p>
+        </div>
+        <div class="row mb-3" id="listaCatalogosHome">
+        </div><!-- End row -->
+        <p class="text-center nopadding">
+            <a href="/listaCatalogos" class="btn_1 medium" style="background-color: var(--color-primario); color: white;"><i class="icon-eye-7"></i>Ver catálogos</a>
+        </p>
+    </div><!-- End container -->
+    
+    <div class="white_bg">
+        <div class="container margin_60">
+            <div class="banner colored">
+                <h4>¿Por qué viajar con <span>nosotros?</span></h4>
+                <div class="row">
+                    <div class="col-md-10">
+                        <p class="mt-3" style="font-size: 18px; text-align: justify;">
+                            Somos la única operadora turística 100% ecuatoriana que cuenta con el respaldo de entidades reguladoras de turismo y entidades bancarias que avalan nuestros 16 años de experiencia en el mercado.					
+                        </p>
+                    </div>
+                    <div class="col-md-2">
+                        <a href="/about" class="btn_1 white">Leer más</a>
+                    </div>
+                </div>
+                
+               <br>
+            </div>
+            
+            <div class="row">
+
+                <div class="main_title">
+                    <h2>Servicios <span>Adicionales</span></h2>
+                    <p>
+                        Con nosotros puedes armar todo viaje de manera confiable y eficiente.                    
+                    </p>
+                </div>
+
+
+
+                <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.7s">
+                    <div class="tour_container">
+                        <div class="ribbon_3"><span>MKV</span></div>
+                        <div class="img_container">
+                            <!-- <a href="#" onclick="nada(); return false;"> -->
+                                <img src="img/servicios/visa.jpg" class="img-fluid" alt="Image" style="width: 100%; height: 300px;">
+                                
+                            <!-- </a> -->
+                        </div>
+                        <div class="tour_title">
+                            <div class="rating" style="text-align: justify;">
+                                Facilitamos tu proceso de visado con asesoría experta, brindándote el respaldo necesario para que cumplas con todos los requisitos y viajes sin contratiempos.									
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.4s">
+                    <div class="tour_container">
+                        <div class="ribbon_3"><span>MKV</span></div>
+                        <div class="img_container">
+                            <!-- <a href="#" onclick="nada(); return false;"> -->
+                                <img src="img/servicios/chip.jpg" class="img-fluid" alt="Image" style="width: 100%; height: 300px;">
+                                <div class="short_info">
+                                    <h3 style="font-size: 20px; margin-bottom: 0; text-align: end; color: white;"><strong>Sim Card internacional</strong></h3>
+                                </div>
+                            <!-- </a> -->
+                        </div>
+                        <div class="tour_title">
+                            <div class="rating" style="text-align: justify;">
+                                Si vas a viajar no gastes dinero en Roaming. Con nuestra Sim Card podrás estar comunicado con todos tus seres queridos por un costo mínimo								
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.3s">
+                    <div class="tour_container">
+                        <div class="ribbon_3"><span>MKV</span></div>
+                        <div class="img_container">
+                            <!-- <a href="#" onclick="nada(); return false;"> -->
+                                <img src="img/servicios/vuelos.jpg" class="img-fluid" alt="Image" style="width: 100%; height: 300px;">
+                                <div class="short_info">
+                                    <h3 style="font-size: 20px; margin-bottom: 0; text-align: end; color: white;"><strong>Reserva de vuelos</strong></h3>
+                                </div>
+                            <!-- </a> -->
+                        </div>
+                        <div class="tour_title">
+                            <div class="rating" style="text-align: justify;">
+                                Reserva tus vuelos con facilidad y accede a las mejores opciones para que cada etapa de tu viaje sea tan cómoda como planeas.									
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <p class="text-center nopadding">
+                <a href="/serviciosAdicionales" class="btn_1 medium" style="background-color: var(--color-primario); color: white;"><i class="icon-eye-7"></i>Ver servicios adicionales</a>
+            </p>
+        </div>
+    </div>
+
+    <section class="promo_full">
+        <div class="promo_full_wp magnific">
+            <div>
+                <h3>CONOCE MAS SOBRE NOSOTROS</h3>
+                <p style="text-align: justify;">
+                    Descubre quiénes somos y por qué somos tu mejor opción en viajes. En nuestro video, te mostramos nuestra pasión por crear experiencias únicas y personalizadas, respaldadas por años de experiencia y un compromiso inquebrantable con tu satisfacción. Conoce nuestro equipo, nuestras historias de éxito y cómo transformamos cada viaje en una experiencia inolvidable. ¡Haz clic para ver el video y déjate inspirar!					</p>
+                <a href="https://www.youtube.com/watch?v=xCBQn-PxhI0" class="video"><i class="icon-play-circled2-1"></i></a>
+            </div>
+        </div>
+    </section>
+	
+
+    <div class="container margin_60">
+
+        <div class="main_title">
+            <h2>Motivos <span>Claves</span> para elegirnos</h2>
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-4 wow zoomIn" data-wow-delay="0.2s">
+                <div class="feature_home">
+                    <i class="icon_set_1_icon-41" style="color: var(--color-primario);"></i>
+                    <h3><span>+40</span> Destinos</h3>
+                    <p style="text-align: justify;">
+                        Te ofrecemos más de 40 destinos alrededor del mundo, brindándote opciones para cada tipo de aventura. Desde viajes de aventura hasta cruceros de relax y descanso.					
+                    </p>
+                    <a href="/about" class="btn_1 outline">Leer más</a>
+                </div>
+            </div>
+
+            <div class="col-lg-4 wow zoomIn" data-wow-delay="0.4s">
+                <div class="feature_home">
+                    <i class="icon_set_1_icon-30" style="color: var(--color-primario);"></i>
+                    <h3><span>+ 980k</span> Viajeros</h3>
+                    <p style="text-align: justify;">
+                        Más de 330 mil familias han viajado con la confianza y respaldo de nuestra empresa. Clientes satisfechos que día a día refieren nuestros servicios a más personas.						
+                    </p>
+                    <a href="/about" class="btn_1 outline">Leer más</a>
+                </div>
+            </div>
+
+            <div class="col-lg-4 wow zoomIn" data-wow-delay="0.6s">
+                <div class="feature_home">
+                    <i class="icon_set_1_icon-57" style="color: var(--color-primario);"></i>
+                    <h3><span>Soporte </span>24/7</h3>
+                    <p style="text-align: justify;">
+                        Nuestro equipo de soporte estará junto a ti en todo momento para que tu viaje esté respaldado por lo mejores. Contamos con múltiples canales de contacto.					
+                    </p>
+                    <a href="/about" class="btn_1 outline">Leer más</a>
+                </div>
+            </div>
+
+        </div>
+        <hr>
+       <br><br>
+        <div class="main_title">
+            <h2>Convenios<span> Bancarios</span></h2>
+            <p>Descubre los beneficios que tenemos para cada una de tus tarjetas de crédito.</p>
+        </div>
+        <div class="row mb-3" id="listaBancosHome">
+        </div><!-- End row -->
+        <p class="text-center nopadding">
+            <a href="/bancos" class="btn_1 medium" style="background-color: var(--color-primario); color: white;"><i class="icon-eye-7"></i>Ver Bancos</a>
+        </p>
+        <hr>
+        <br>
+        <div class="row mt-4">
+            <div class="col-md-6" style="display: flex; justify-content: center; align-items: center;">
+                <img src="img/logo.png" style="width: 60%;">
+            </div>
+            <div class="col-md-6">
+                <h3><span>Empieza hoy</span> con Marketing Vip</h3>
+                <p>
+                    Te brindamos facilidades para que inicies hoy mismo.
+                </p>
+                <ul class="list_order">
+                    <li><span>1</span>Selecciona tu destino</li>
+                    <li><span>2</span>Reserva tus paquetes</li>
+                    <li><span>3</span>Los asesores se comunicaran para brindarte soporte</li>
+                </ul>
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-9">
+                        <a href="/listaCatalogos" class="btn_1" style="background-color: var(--color-primario);">Iniciar ahora</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End row -->
+    
+    </div>
+    <script src="js/functions.js?v=1.0.0" defer></script>
+    <script src="/js/modulos/vuelos/buscadorVuelos.js"></script>
+    <script src="/js/modulos/actividades/buscadorActividades.js"></script>
+    <script src="/js/modulos/traslados/buscadorTraslados.js"></script>
+    <script src="/js/modulos/hoteles/buscadorHoteles.js"></script>
+    <script src="/js/modulos/comun.js"></script>
+    <script src="js/modulos/home.js"></script>
+    <script src="js/modulos/catalogo/catalogoComun.js"></script>
+    <script src="js/modulos/banco.js"></script>
+
+
+    <script>
+
+
+        $(document).ready(e => {
+            cerrarSpinner()
+            scrollTop()
+            //Vuelos
+            mostrarValoresDefaultVuelos(0)
+            mostrarValoresDefaultVuelos(1)
+            establecerSalida();
+
+            //Actividades
+            mostrarValoresDefaultActividades()
+
+            //Traslados
+            iniciarDatesTraslados()
+            mostrarValoresDefaultTraslados()
+
+            //Hoteles
+            mostrarValoresDefaultHoteles()
+            establecerSalidaHoteles();
+
+            //home
+            consultarCatalogosHome()
+            consultarBancosHome()
+            cerrarMenu()
+
+        })
+
+
+	</script>
+    

@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="mvevip">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Marketing Vip - Viajes Internaciones Premium.">
+    <meta name="author" content="DavidP.">
+    <title>MARKETING VIP | OFICIAL</title>
+
+    <!-- Favicons-->
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" type="image/x-icon" href="img/apple-touch-icon-57x57-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="img/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="img/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="img/apple-touch-icon-144x144-precomposed.png">
+
+    <!-- GOOGLE WEB FONT -->
+    <link href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- COMMON CSS -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css?v=1.0" rel="stylesheet">
+	<link href="css/vendors.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://cdn.materialdesignicons.com/6.5.95/css/materialdesignicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+    <link href="css/aloha.css" rel="stylesheet">
+    
+    <!-- REVOLUTION SLIDER CSS -->
+    <link href="layerslider/css/layerslider.css" rel="stylesheet">	
+	
+     <!-- CSS -->
+	<link href="css/blog.css" rel="stylesheet">
+    <!-- SPECIFIC CSS -->
+	<link href="css/shop.css" rel="stylesheet">
+	<link href="css/timeline.css" rel="stylesheet">
+	<!-- CUSTOM CSS -->
+	<link href="css/custom.css?v=1.0" rel="stylesheet">
+    <base href="/">
+</head>
+<body>
+
+
+    <div class="modal fade" id="modalCorreo" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" >Verificación de Correo</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <p>Ingrese el código enviado a su correo</p>
+                            <div class="form-group">
+                                <label>Codigo verificacion</label>
+                                <input type="text" class="form-control"  placeholder="Escriba el código" id="codigo_verificacion">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" onclick="guardarRegistro()">Enviar</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+    
+    
+    <div class="modal fade" id="modal-politica" tabindex="200" role="dialog"
+        aria-labelledby="scrollableModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable" role="document" style="height: 60%; margin-top: 150px;">
+                
+                <div class="modal-content" id="ubicaciones">
+                    <div class="modal-header"> 
+                        <div class="container">
+                            <div class="main_title">
+                                <h2>Política de <span>privacidad</span></h2>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="modal-body">
+                        <p style="text-align: justify;">
+                            <strong>Última actualización:</strong> 01/01/2025
+                            <br><br>
+                            En <strong>Marketing VIP</strong>, la privacidad de nuestros clientes es una prioridad. Esta Política de Privacidad describe cómo recopilamos, usamos y protegemos su información personal cuando utiliza nuestros servicios de reserva y asesoramiento en viajes.
+                            <br><br>
+                            <strong>1. Información que recopilamos</strong> <br>
+                            Recopilamos los siguientes tipos de información cuando utiliza nuestros servicios:
+                            <br>
+                            <ul>
+                                <li style="text-align: justify;">
+                                    <strong>Información personal:</strong> Nombre, dirección, correo electrónico, número de teléfono y datos de identificación necesarios para realizar reservas o gestionar su viaje.
+                                </li>
+                                <li style="text-align: justify;">
+                                    <strong>Información de viaje:</strong> Detalles del itinerario, preferencias de viaje, fechas de salida y regreso, y datos de acompañantes (si aplica).
+                                </li>
+                                <li style="text-align: justify;">
+                                    <strong>Información de pago:</strong> Detalles necesarios para procesar pagos, como tarjetas de crédito/débito o transferencias bancarias.
+                                </li>
+                                <li style="text-align: justify;">
+                                    <strong>Información técnica:</strong> Datos sobre su dispositivo y conexión, como dirección IP, tipo de navegador y sistema operativo, al interactuar con nuestra página web.
+                                </li>
+                            </ul>
+                            <strong>2. Uso de la información</strong> <br>
+                            Utilizamos la información recopilada para: 
+                            <br><br>
+                            <ul>
+                                <li style="text-align: justify;">
+                                    Gestionar y confirmar reservas de vuelos, hoteles, tours y otros servicios relacionados.
+                                </li>
+                                <li style="text-align: justify;">
+                                    Proveer actualizaciones sobre el estado de su itinerario y reservas.
+                                </li>
+                                <li style="text-align: justify;">
+                                    Mejorar nuestros servicios y experiencia del cliente.
+                                </li>
+                                <li style="text-align: justify;">
+                                    Cumplir con requisitos legales y normativos.
+                                </li>
+                                <li style="text-align: justify;">
+                                    Comunicarnos con usted sobre promociones, ofertas exclusivas y actualizaciones relevantes (si ha dado su consentimiento).
+                                </li>
+                            </ul>
+                            <strong>3. Compartir información</strong> <br>
+                            <p style="text-align: justify;">
+                                Solo compartimos su información con terceros en las siguientes circunstancias:
+                            </p>
+                            <ul>
+                                <li style="text-align: justify;">
+                                    <strong>Proveedores de servicios:</strong> Aerolíneas, hoteles, operadores turísticos, aseguradoras de viaje y otros socios necesarios para la gestión de sus reservas.
+                                </li>
+                                <li style="text-align: justify;">
+                                    <strong>Requisitos legales:</strong> Cuando sea necesario para cumplir con leyes, regulaciones o mandatos judiciales.
+                                </li>
+                                <li style="text-align: justify;">
+                                    <strong>Consentimiento:</strong> Cuando usted autorice explícitamente compartir su información.
+                                </li>
+                            </ul>
+                            <strong>4. Protección de su información </strong><br>
+                            <p style="text-align: justify;">
+                                Adoptamos medidas de seguridad físicas, técnicas y administrativas para proteger su información personal contra accesos no autorizados, pérdida o divulgación indebida. Sin embargo, ningún método de transmisión por Internet o almacenamiento electrónico es 100% seguro.
+                            </p>
+                            <strong>5. Retención de datos</strong> <br>
+                            <p style="text-align: justify;">
+                                Conservamos su información personal solo durante el tiempo necesario para cumplir con los fines descritos en esta Política, a menos que la ley exija un período de retención más prolongado.
+                            </p>
+                            
+                            <strong>6. Derechos del usuario</strong> <br>
+                            Dependiendo de su ubicación, puede tener derechos sobre su información personal, tales como:
+                            <br><br>
+                            <ul>
+                                <li>
+                                    Acceso, rectificación o eliminación de sus datos.
+                                </li>
+                                <li>
+                                    Restricción del procesamiento de su información.
+                                </li>
+                                <li>
+                                    Portabilidad de datos.
+                                </li>
+                                <li>
+                                    Revocar su consentimiento en cualquier momento.
+                                </li>
+                                <li>
+                                    Puede ejercer estos derechos contactándonos a través de [correo electrónico/contacto].
+                                </li>
+                            </ul>
+                            <strong>7. Cookies y tecnologías similares</strong> <br>
+                            <p style="text-align: justify;">
+                                Usamos cookies y tecnologías similares para mejorar su experiencia en nuestro sitio web. Puede gestionar sus preferencias de cookies desde la configuración de su navegador.
+                            </p>
+                            <strong>8. Cambios en esta Política</strong> <br>
+                            <p style="text-align: justify;">
+                                Nos reservamos el derecho de actualizar esta Política de Privacidad. Cualquier cambio será notificado mediante la publicación de una versión actualizada en nuestro sitio web con la fecha de modificación.
+                            </p>
+                            
+                            <strong>9. Contacto</strong> <br>
+                            Si tiene preguntas o inquietudes sobre nuestra Política de Privacidad, contáctenos:
+                            <br><br>
+                            <ul>
+                                <li>
+                                    Correo electrónico: <p id="correoPolitica" style="display: inline; white-space: nowrap;"></p>
+                                </li>
+                                <li>
+                                    Teléfono: <p id="telefonoPolitica" style="display: inline; white-space: nowrap;"></p>
+                                </li>
+                                <li>
+                                    Dirección: Francisco Andrade Marín E6-24 y Eloy Alfaro, <br>Edificio Carolina Milenium, piso 2, oficina 2C, <br>Quito - Ecuador
+
+                                </li>
+                            </ul>
+                        </p>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+
+
+    <div class="modal fade" id="scrollable-modal" tabindex="-1" role="dialog"
+            aria-labelledby="scrollableModalTitle">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            
+            <div class="modal-content" id="ubicaciones">
+                <div class="modal-header"> 
+                    <div class="container">
+                        <div class="main_title">
+                            <h2>Reestablecer<span> contraseña</span></h2>
+                            <p>Ingrese todos los datos</p>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label><i class="icon-email" style="font-size: 22px;"></i>Email</label>
+                            <input type="text"  id="emailResta" class="form-control" placeholder="Ingrese su carreo para restablecer su contraseña">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn" style="background-color: #99c21c; color: white;" onclick="restablecerEmail()">Enviar</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+
+ <!-- Full width modal content -->
+ <div id="full-width-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="fullWidthModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-full-width" >
+        <div class="modal-content" style="width: 70vh; height: 80vh;">
+            <div class="modal-header">
+                <h4 class="modal-title" id="fullWidthModalLabel"></h4>
+            </div>
+            <div class="modal-body" style="overflow-y: auto;">
+                <div class="row">
+                    <div class="col-lg-12" id="faq">
+                        <div id="payment" class="accordion_styled">
+                            <div id="listaFAQ">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" data-bs-dismiss="modal" style="background-color: var(--color-primario); color: white;">Cerrar</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal --> 
+
+
+
+    <div class="modal fade" id="centermodal" tabindex="-1" role="dialog" inert>
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">        
+                <div class="modal-body">
+                    <div class="col-12" style="display: flex; flex-direction: column; align-items: center; justify-content: center;" id="spinner">
+                        <div class="spinner-border avatar-lg m-2 spinner-cargando" role="status" style="color: var(--color-primario);"></div>
+                        <h4 class="spinner-cargando" id="mensajeSpinner" style="color: var(--color-primario);"></h4>    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="preloader">
+        <div class="sk-spinner sk-spinner-wave">
+            <div class="sk-rect1"></div>
+            <div class="sk-rect2"></div>
+            <div class="sk-rect3"></div>
+            <div class="sk-rect4"></div>
+            <div class="sk-rect5"></div>
+        </div>
+    </div>
+    <!-- End Preload -->
+
+    <div class="layer"></div>
+    <!-- Mobile menu overlay mask -->
+
+    <!-- Header================================================== -->
+    <header>
+        <div id="top_line">
+            <div class="container">
+                <div class="row">
+                    <div class="col-6">
+                        <a href="#" onclick="abrirChatWhatsApp('Hola quisiera tener mas información sobre sus servicios...'); return false" style="color: inherit; text-decoration: none;">
+                            <i class="fab fa-whatsapp"></i> <strong>Chat en línea</strong>
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <ul id="top_links">
+                            <li style="display: none;"><a href="/login"><i class="icon-login-2" style="font-size: 15px;"></i> Iniciar Sesión</a></li>
+                        </ul>
+                    </div>
+                </div><!-- End row -->
+            </div><!-- End container-->
+        </div><!-- End top line-->
+        
+        <div class="container">
+            <div class="row">
+                <div class="col-3">
+                    <div id="logo_home">
+                    	<h1><a href="/home" title="Web site mkv">Marketing Vip web site</a></h1>
+                    </div>
+                </div>
+                <nav class="col-9">
+                    <a onclick="abrir_cerrar_menu(); return false;" class="cmn-toggle-switch open_close" href="#" ><span>Menu mobile</span></a>
+                    <div class="main-menu">
+                        <div id="header_menu">
+                            <img src="img/logo.png" width="160" height="34" alt="Marketing Vip">
+                        </div>
+                        <a href="#"  onclick="abrir_cerrar_menu(); return false;" id="close_in"><i class="icon_set_1_icon-77"></i></a>
+                         <ul>
+                            <!-- <li style="margin-right: 20px;">
+                                <a href="/home" >Home</a>  
+                            </li> -->
+                            <li style="margin-right: 20px;">
+                                <a href="/listaCatalogos" >Destinos</a>  
+                            </li>
+                            <li style="margin-right: 20px;">
+                                <a href="/serviciosAdicionales" >Servicios Adicionales</a>  
+                            </li>
+                            <li style="margin-right: 20px;">
+                                <a href="/bancos" >Beneficios Bancos</a>  
+                            </li>
+                            <li style="margin-right: 20px;">
+                                <a href="/about" >Nosotros</a>  
+                            </li>
+                            <li style="margin-right: 20px;">
+                                <a href="/tips" >Tips</a>  
+                            </li>
+                            <li style="margin-right: 20px;">
+                                <a href="/FAQ" >FAQs</a>  
+                            </li>
+                            <li style="margin-right: 20px;">
+                                <a href="/contact" >Contáctanos</a>  
+                            </li>
+                            <li style="margin-right: 20px;">
+                                <a href="/contratos" >Contratos</a>  
+                            </li>
+                            <li class="submenu" style="display: none;">
+                                <a href="javascript:void(0);" class="show-submenu">Paginas<i class="icon-down-open-mini"></i></a>
+                                    <ul>
+                                        <li><a href="/contratos">Contratos</a></li>
+                                        <li><a href="/mantenimiento">Referidos</a></li>
+                                        <li><a href="/encuesta">Encuesta de satisfacción</a></li>
+                                        <li><a href="/mantenimiento"><i class="icon-cog-1"></i>Mi cuenta</a></li> 
+                                    </ul>
+                                </a>
+                            </li>
+                        </ul>
+                    </div><!-- End main-menu -->
+                    <ul id="top_tools">
+                        <li>
+                            <a href="/carrito" class="cart_bt" id="numeroItemsIndexCarrito"></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div><!-- container -->
+    </header><!-- End Header -->
+
+    
+    <main ng-view>
+    </main>
+
+    <div class="home-content">
+        <p style="font-size: 8px; color: white;">Marketing Vip - todos derechos reservados 2024</p>
+    </div>
+
+	<footer class="revealed">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2" style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+                    <h3>¿Necesitas ayuda?</h3>
+                    <ul id="contact-info">
+                        <li class="mb-3"><i class="fab fa-whatsapp" style="font-size: 24px; margin-right: 20px;"></i><a href="#" onclick="abrirChatWhatsApp('Hola quisiera tener mas información sobre sus servicios...'); return false;">Envíanos un mensaje</a></li>
+                        <li class="mb-3"><i class="fas fa-phone-alt" style="font-size: 24px; margin-right: 20px;"></i><a href="#" onclick="abrirLlamada(); return false;" class="phone">Llámanos ahora</a></li>
+                        <li class="mb-3"><i class="fas fa-mail-bulk" style="font-size: 24px; margin-right: 20px;"></i><a href="#" onclick="enviarCorreo('Consulta','Hola, me gustaría obtener más información sobre...'); return false;">Déjanos un email</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-8" style="display: flex; justify-content: center; align-items: center;">
+                    <p><img src="img/tarjetas/tarjeta-blanco-31.png" width="231" height="30" alt="Image" class="img-fluid"></p>
+                    <p><img src="img/tarjetas/tarjeta blanco-34.png" width="231" height="30" alt="Image" class="img-fluid"></p>
+                    <p><img src="img/tarjetas/tarjeta blanco-32.png" width="231" height="30" alt="Image" class="img-fluid"></p>
+                    <p><img src="img/tarjetas/tarjeta blanco-33.png" width="231" height="30" alt="Image" class="img-fluid"></p>
+                </div>
+
+                <div class="col-md-2" style="text-align: center;">
+                    <h3>Acerca</h3>
+                    <ul>
+                        <li><a href="/about">Sobre nosotros</a></li>
+                        <li><a href="/FAQ">FAQs</a></li>
+                        <li><a href="/contact">Contáctanos</a></li>
+                    </ul>
+                </div>           
+            </div>
+            <div class="row">
+				<div class="col-lg-12">
+					<div id="social_footer">
+						<ul>
+							<li>
+                                <a href="#" onclick="abrirFacebook(); return false;">
+                                    <i class="fab fa-facebook"></i>
+                                </a>
+							</li>
+							<li>
+                                <a href="#" onclick="abrirTiktok(); return false;">
+                                    <i class="fab fa-tiktok"></i>
+                                </a>
+							</li>
+							<li>
+                                <a href="#" onclick="abrirInstagram(); return false;">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+							</li>
+							<li>
+                                <a href="#" onclick="abrirYoutube(); return false;">
+                                    <i class="fab fa-youtube"></i>
+                                </a>
+							</li>
+						</ul>
+						<p>© MaketingVip 2025</p>
+					</div>
+				</div>
+			</div>
+            <div class="row">
+                <div class="col-lg-4" style="text-align: center;">
+                    <p style="font-size: 9px; color: #979797;"><strong>LUAE:</strong> 2023WEBLUAE288407</p>
+                </div>
+                <div class="col-lg-4" style="text-align: center;">
+                    <p style="font-size: 9px; color: #979797;"><strong>REGISTRO TURÍSTICO:</strong> 1792554144001.001.9002889</p>
+                </div>
+                <div class="col-lg-4" style="text-align: center;">
+                    <p style="font-size: 9px; color: #979797;"><strong>BOMBEROS QUITO:</strong> 127006103651334</p>
+                </div>
+            </div>
+        </div><!-- End container -->
+    </footer><!-- End footer -->
+
+	<div id="toTop"></div><!-- Back to top button -->
+	
+	<!-- Common scripts -->
+    
+	<script src="js/jquery-3.6.0.min.js"></script>
+	<script src="js/common_scripts_min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/modulos/routes.js?v=2"></script>
+    <script src="js/modulos/api.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+    <script src="js/modulos/comun.js"></script>
+	<script src="js/modernizr.js"></script>    
+    <script src="js/video_header.js"></script>
+    <script src="js/modulos/index.js"></script>
+    <script src="js/functions.js?v=1.0.0" defer></script>
+
+    
+    <script>
+
+        $(document).ready(e => {
+            // verificarCarritosIndex()
+            obtenerTelefono()
+            $("#telefonoPolitica").html(obtenerNumero())
+            $("#correoPolitica").html(obtenerCorreo())
+            cargarScript()
+        })
+        
+    </script>   
+    
+</body>
+</html>

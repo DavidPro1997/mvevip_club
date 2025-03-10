@@ -1,0 +1,75 @@
+ 
+ 
+<section id="hero" class="background-image" data-background="url(img/headers/catalogos.jpg)">
+	<div class="opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)">
+		<div class="intro_title">
+			<h3 class="animated fadeInDown" id="tituloDestino">DESTINOS</h3>
+			<p class="animated fadeInDown">Especialistas en sueños.</p>
+		</div>
+	</div>
+	<!-- End opacity-mask-->
+</section>
+
+
+
+
+		<div id="position">
+			<div class="container">
+				<ul>
+					<li><a href="/home">Home</a>
+					</li>
+					<li><a href="/listaCatalogos">Catalogos</a>
+					</li>
+					<li>Lista Destinos</li>
+				</ul>
+			</div>
+		</div>
+		
+
+
+		<div class="container margin_60">
+
+			<div class="row">
+
+				<aside class="col-lg-3">
+					<div class="fijo">
+						<div class="box_style_2 d-none d-sm-block">
+							<i class="fab fa-whatsapp" style="color: var(--color-primario);"></i>
+							<h4>¿Necesitas <span>Ayuda?</span></h4>
+							<a href="#" onclick="abrirChatWhatsApp(); return false;" class="phone" id="numero3"></a>
+							<small>Contacta uno de nuestros asesores</small>
+						</div>
+						<div class="alert alert-warning mt-3" role="alert">
+							<p style="text-align: justify;">
+								Los precios están <strong>sujetos a variación</strong> en función de la cantidad de personas, la duración de la estancia y las actividades.
+							</p>
+						</div>
+					</div>
+				</aside>
+				
+				<div class="col-lg-9">
+
+					<div id="listDestinos">
+						
+					</div>
+
+				</div>
+				<!-- End col lg-9 -->
+			</div>
+			<!-- End row -->
+		</div>
+		<script src="js/functions.js?v=1.0.0" defer></script>
+	<script src="js/modulos/catalogo/catalogoDestino.js"></script>
+	<script src="js/modulos/catalogo/catalogoComun.js"></script>
+	<script src="js/modulos/comun.js"></script>
+
+	<script>
+            
+		$(document).ready(e => {
+			scrollTop()
+			recibirInformacion()
+			$("#numero3").html(obtenerNumero())
+		})
+
+	</script>
+	

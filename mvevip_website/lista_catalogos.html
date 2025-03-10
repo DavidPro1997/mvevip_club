@@ -1,0 +1,71 @@
+
+
+	<!-- <section class="parallax-window" data-parallax="scroll" data-image-src="img/headers/catalogos.jpg" data-natural-width="1400" data-natural-height="470" style="background-image: url('img/headers/catalogos.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover;">
+		<div class="parallax-content-1 opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
+			<div class="animated fadeInDown">
+				<h1>DESTINOS</h1>
+				<p>Descubre destinos únicos con nuestros catálogos de viaje.</p>
+			</div>
+		</div>
+	</section> -->
+	<!-- End section -->
+
+
+
+	<section id="hero" class="background-image" data-background="url(img/headers/catalogos.jpg)">
+        <div class="opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)">
+            <div class="intro_title">
+                <h3 class="animated fadeInDown">DESTINOS</h3>
+                <p class="animated fadeInDown">Descubre destinos únicos con nuestros catálogos de viaje.</p>
+            </div>
+        </div>
+        <!-- End opacity-mask-->
+    </section>
+
+
+		<div id="position">
+			<div class="container">
+				<ul>
+					<li><a href="#">Home</a>
+					</li>
+					<li>Destinos</li>
+				</ul>
+			</div>
+		</div>
+		
+
+		<div class="container margin_60">
+			<div class="row">
+                
+				<aside class="col-lg-3">
+                    <div class="box_style_2 d-none d-sm-block fijo">
+                        <i class="fab fa-whatsapp" style="color: var(--color-primario);"></i>
+                        <h4>¿Necesitas <span>Ayuda?</span></h4>
+                        <a href="#" onclick="abrirChatWhatsApp()" class="phone" id="numero2"></a>
+                        <small>Contacta a uno de nuestros asesores</small>
+                    </div>
+				</aside>
+				
+				<div class="col-lg-9">
+					<div class="row" id="listaCatalogos">
+					</div>
+				</div>
+			</div>
+		</div>
+
+        <script src="js/functions.js?v=1.0.0" defer></script>
+        <script src="/js/modulos/comun.js"></script>
+		<script src="js/modulos/catalogo/catalogos.js"></script>
+		<script src="js/modulos/catalogo/catalogoComun.js"></script>
+
+
+		<script>
+            
+            $(document).ready(e => {
+                scrollTop()
+				consultarCatalogos()
+				$("#numero2").html(obtenerNumero())
+				cerrarMenu()
+            })
+
+        </script>

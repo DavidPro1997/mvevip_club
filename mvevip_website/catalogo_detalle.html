@@ -1,0 +1,148 @@
+	<div id="headerDetalle">
+
+	</div>
+	<!-- End section -->
+
+		<div id="position">
+			<div class="container">
+				<ul>
+					<li><a href="/home">Home</a>
+					</li>
+					<li><a href="/listaCatalogos">Catalogos</a>
+					</li>
+					<li><a href="/listaCatalogosTours">Lista Destinos</a>
+					</li>
+					<li>Detalle Destino
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- End Position -->
+
+		<div class="collapse" id="collapseMap">
+			<div id="map" class="map"></div>
+		</div>
+		<!-- End Map -->
+
+		<div class="container margin_60">
+			<div class="row">
+				<div class="col-lg-8" id="single_tour_desc">
+
+					<div id="single_tour_feat">
+						<ul id="listaEmogis">
+							
+						</ul>
+					</div>
+
+					
+					<div id="Img_carousel" class="slider-pro listaImagenes">
+						
+					</div>
+
+					<hr>
+
+
+					<div class="row">
+						<div class="col-lg-3">
+							<h3>Descripción</h3>
+						</div>
+						<div class="col-lg-9" id="descripcionTour">
+						</div>
+					</div>
+
+					<hr>
+
+					<div class="row">
+						<div class="col-lg-3">
+							<h3>Políticas</h3>
+						</div>
+						<div class="col-lg-9">
+							<div class="table-responsive">
+								<table class="table table-striped">
+									<thead>
+										<tr>
+											<th colspan="2">
+												Términos y condiciones
+											</th>
+										</tr>
+									</thead>
+									<tbody id="listaPoliticas">
+										
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<hr>
+				</div>
+				<!--End  single_tour_desc-->
+
+				<aside class="col-lg-4">
+					
+					<div class="box_style_1 expose">
+						<h3 class="inner">- Reservar -</h3>
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<label><i class="icon-calendar-7"></i> Fecha</label>
+									<input class="date-pick form-control" type="text" id="fechaReserva" style="background-color: white;" readonly>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-6">
+								<div class="form-group">
+									<label>Adultos</label>
+									<div class="numbers-row">
+										<input type="text" value="1" id="adults" class="qty2 form-control" name="quantity">
+									</div>
+								</div>
+							</div>
+							<div class="col-6">
+								<div class="form-group">
+									<label>Niños <small style="font-size: 8px;">(hasta 8 años)</small></label>
+									<div class="numbers-row">
+										<input type="text" value="0" id="children" class="qty2 form-control" name="quantity">
+									</div>
+								</div>
+							</div>
+						</div>
+						<br>
+						<a class="btn_full" style="background-color: var(--color-primario); color: white;" href="#" onclick="reservar(); return false;">Reservar</a>
+						<a class="btn_full_outline" href="#" id="descargarBtn"><i class="icon-download"></i>Descargar PDF</a>
+					</div>
+
+					<div class="box_style_4 fijo">
+						<i class="fab fa-whatsapp" style="color: var(--color-primario);"></i>
+						<h4><span>Reservar</span> con un asesor</h4>
+						<a href="#" onclick="abrirChatWhatsApp('Hola me ayudas a reservar un paquete de marketing Vip'); return false;" class="phone" id="numeroTelefono"></a>
+					</div>
+
+				</aside>
+			</div>
+			<!--End row -->
+		</div>
+		<!--End container -->
+		
+	<div id="overlay"></div>
+	<!-- Mask on input focus -->
+	
+	<script src="js/functions.js?v=1.0.0" defer></script>
+	<script src="js/modulos/catalogo/catalogoDetalle.js"></script>
+	<script src="js/modulos/catalogo/catalogoComun.js"></script>
+	<script src="js/modulos/comun.js"></script>
+	<!-- Gallery -->
+	<script src="js/jquery.sliderPro.js"></script>
+
+	<script>
+
+		$(document).ready(e => {
+			scrollTop()
+			recibirInformacion()
+			establecerDateReserva()
+			sacarNumeroTelefono()
+		})
+		
+	</script>
+
+	
