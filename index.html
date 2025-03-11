@@ -301,11 +301,6 @@
                             <i class="fab fa-whatsapp"></i> <strong>Chat en línea</strong>
                         </a>
                     </div>
-                    <div class="col-6">
-                        <ul id="top_links">
-                            <li style="display: none;"><a href="/login"><i class="icon-login-2" style="font-size: 15px;"></i> Iniciar Sesión</a></li>
-                        </ul>
-                    </div>
                 </div><!-- End row -->
             </div><!-- End container-->
         </div><!-- End top line-->
@@ -325,9 +320,9 @@
                         </div>
                         <a href="#"  onclick="abrir_cerrar_menu(); return false;" id="close_in"><i class="icon_set_1_icon-77"></i></a>
                          <ul>
-                            <!-- <li style="margin-right: 20px;">
+                            <li style="margin-right: 20px;">
                                 <a href="/home" >Home</a>  
-                            </li> -->
+                            </li>
                             <li style="margin-right: 20px;">
                                 <a href="/listaCatalogos" >Destinos</a>  
                             </li>
@@ -337,7 +332,7 @@
                             <li style="margin-right: 20px;">
                                 <a href="/bancos" >Beneficios Bancos</a>  
                             </li>
-                            <li style="margin-right: 20px;">
+                            <!-- <li style="margin-right: 20px;">
                                 <a href="/about" >Nosotros</a>  
                             </li>
                             <li style="margin-right: 20px;">
@@ -361,13 +356,21 @@
                                         <li><a href="/mantenimiento"><i class="icon-cog-1"></i>Mi cuenta</a></li> 
                                     </ul>
                                 </a>
-                            </li>
+                            </li> -->
+                            
                         </ul>
                     </div><!-- End main-menu -->
                     <ul id="top_tools">
                         <li>
                             <a href="/carrito" class="cart_bt" id="numeroItemsIndexCarrito"></a>
                         </li>
+                        <li  id="botonCerrarSession">
+                            <a href="#" onclick="cerrarSesion(); return false;"><i class="icon-logout" style="font-size: 16px;"></i>Cerrar Sesión</a>
+                        </li>
+                        <li id="botonInciarSession">
+                            <a href="/login"><i class="icon-login-2" style="font-size: 15px;"></i> Iniciar Sesión</a>
+                        </li>
+
                     </ul>
                 </nav>
             </div>
@@ -472,6 +475,7 @@
 	<script src="js/modernizr.js"></script>    
     <script src="js/video_header.js"></script>
     <script src="js/modulos/index.js"></script>
+    <script src="js/modulos/login.js"></script>
     <script src="js/functions.js?v=1.0.0" defer></script>
 
     
@@ -479,6 +483,8 @@
 
         $(document).ready(e => {
             // verificarCarritosIndex()
+            //login
+            verificarAutenticacion()
             obtenerTelefono()
             $("#telefonoPolitica").html(obtenerNumero())
             $("#correoPolitica").html(obtenerCorreo())

@@ -157,7 +157,7 @@
 						<div class="collapse show" id="collapseFilters">
 							<div class="filter_type">
 								<h6>Nombre</h6>
-								<input type="text" id="nombreHotel" placeholder="Ingrese el nombre de hotel" class="form-control" oninput="filtrarNombre(this)">
+								<input type="text" id="nombreHotelFiltro" placeholder="Ingrese el nombre de hotel" class="form-control" onkeydown="filtrarNombreHotel(event, this)">
 							<br>
 							</div>
 							<!-- <div class="filter_type">
@@ -197,7 +197,7 @@
 							</div>
 
 
-							<div class="filter_type">
+							<!-- <div class="filter_type">
 								<h6>Por Categoría</h6>
 								<div style="text-align: end;">
 									<a href="#" data-group="grupo1" id="toggle-grupo1">Quitar todos</a>
@@ -215,7 +215,7 @@
 								<ul id="listaTipoHabitacion_hotel">
 									
 								</ul>
-							</div>
+							</div> -->
 
 							<div class="row mt-4">
 								<div class="col-12" style="align-items: center; display: flex; justify-content: center;">

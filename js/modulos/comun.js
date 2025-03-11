@@ -24,7 +24,8 @@ function mensajeUsuario(icono,titulo,mensaje){
     setTimeout(function() {
         cerrarSpinner()    
     }, 1000);
-    Swal.fire({
+
+    return Swal.fire({
         title: titulo,
         text: mensaje,
         icon: icono,
@@ -224,4 +225,26 @@ function abrirYoutube(){
 function cerrarMenu(){
     $('.main-menu').removeClass('show'); 
     $('.layer').removeClass('layer-is-visible');
+}
+
+
+function actualizarValor(cambio, id, parametro1, parametro2, tipoFuncion, min, max) {
+    let input = document.getElementById(id);
+    let valorActual = parseInt(input.value);    
+    valorActual += cambio;
+    if (valorActual < min) valorActual = min;
+    if (valorActual > max) valorActual = max;
+    input.value = valorActual;
+    if(tipoFuncion == 2){
+        actualizarPersonas(parametro1,parametro2)
+    }
+    else if(tipoFuncion == 1){
+        actualizarEdad(parametro1,parametro2)
+    }
+    else if(tipoFuncion == 3){
+        if(verificarPasajerosVuelos()>9){
+            input.value = valorActual -1
+        }
+    }
+
 }

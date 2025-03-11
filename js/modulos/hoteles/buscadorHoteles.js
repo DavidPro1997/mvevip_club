@@ -1,82 +1,76 @@
-function mostrarValoresDefaultHoteles(){
+function mostrarValoresDefaultHoteles(idBuscador){
     var lista = `
         <div class="col-12">
-            <a class="dropdown-item text-wrap" href="#" onclick="escogerSalida('UIO - Quito - Ecuador');return false;" style="white-space: normal;">
-                <strong>UIO - Quito</strong> 
-                <span class="text-muted" style="font-size: small;">Ecuador</span>
+            <a class="dropdown-item text-wrap" href="#" onclick="escogerSalida('CTG - Cartagena - Colombia','`+idBuscador+`');return false;" style="white-space: normal;">
+                <strong>CTG - Cartagena</strong> 
+                <span class="text-muted" style="font-size: small;">Colombia</span>
+            </a>
+        </div>
+        <div class="col-12">
+            <a class="dropdown-item text-wrap" href="#" onclick="escogerSalida('PTY - Ciudad de Panama - Panama','`+idBuscador+`');return false;" style="white-space: normal;">
+                <strong>PTY - Ciudad de Panama</strong> 
+                <span class="text-muted" style="font-size: small;">Panama</span>
             </a>
         </div>
          <div class="col-12">
-            <a class="dropdown-item text-wrap" href="#" onclick="escogerSalida('NYC - New York - USA');return false;" style="white-space: normal;">
-                <strong>NYC - New York</strong> 
-                <span class="text-muted" style="font-size: small;">USA</span>
+            <a class="dropdown-item text-wrap" href="#" onclick="escogerSalida('ADZ - San Andres - Colombia','`+idBuscador+`');return false;" style="white-space: normal;">
+                <strong>ADZ - San Andres</strong> 
+                <span class="text-muted" style="font-size: small;">Colombia</span>
             </a>
         </div>
         <div class="col-12">
-            <a class="dropdown-item text-wrap" href="#" onclick="escogerSalida('MIA - Miami, Florida - USA');return false;" style="white-space: normal;">
-                <strong>MIA - Miami, Florida</strong> 
-                <span class="text-muted" style="font-size: small;">USA</span>
+            <a class="dropdown-item text-wrap" href="#" onclick="escogerSalida('MDE - Medellin - Colombia','`+idBuscador+`');return false;" style="white-space: normal;">
+                <strong>MDE - Medellin</strong> 
+                <span class="text-muted" style="font-size: small;">Colombia</span>
             </a>
         </div>
         <div class="col-12">
-            <a class="dropdown-item text-wrap" href="#" onclick="escogerSalida('PUJ - Punta Cana - Republica Dominicana');return false;" style="white-space: normal;">
+            <a class="dropdown-item text-wrap" href="#" onclick="escogerSalida('PUJ - Punta Cana - Republica Dominicana','`+idBuscador+`');return false;" style="white-space: normal;">
                 <strong>PUJ - Punta Cana</strong> 
                 <span class="text-muted" style="font-size: small;">Republica Dominicana</span>
             </a>
         </div>
         <div class="col-12">
-            <a class="dropdown-item text-wrap" href="#" onclick="escogerSalida('CUN - Cancún - México');return false;" style="white-space: normal;">
+            <a class="dropdown-item text-wrap" href="#" onclick="escogerSalida('CUN - Cancún - México','`+idBuscador+`');return false;" style="white-space: normal;">
                 <strong>CUN - Cancún </strong> 
                 <span class="text-muted" style="font-size: small;">México</span>
             </a>
         </div>
-        <div class="col-12">
-            <a class="dropdown-item text-wrap" href="#" onclick="escogerSalida('MCO - Orlando - USA');return false;" style="white-space: normal;">
-                <strong>MCO - Orlando</strong> 
-                <span class="text-muted" style="font-size: small;">USA</span>
-            </a>
-        </div>
-        <div class="col-12">
-            <a class="dropdown-item text-wrap" href="#" onclick="escogerSalida('CTG - Cartagena - Colombia');return false;" style="white-space: normal;">
-                <strong>CTG - Cartagena</strong> 
-                <span class="text-muted" style="font-size: small;">Colombia</span>
-            </a>
-        </div>
     `
-    $("#listaDestinosHoteles").html(lista)
+    $("#listaDestinosHoteles_"+idBuscador).html(lista)
 }
 
 
 
 
 var proteccionHoteles = true
-function buscadorDestinosHotel(event){
-    $("#spinnerContenidoHotel").show()
-    $("#buscadorContenidoHotel").hide()
+function buscadorDestinosHotel(event, idBuscador){
+    $("#spinnerContenidoHotel_"+idBuscador).show()
+    $("#buscadorContenidoHotel_"+idBuscador).hide()
     
     setTimeout(function() {
-        let textoIngresado = document.getElementById("destinoHotel").value;
+        let textoIngresado = document.getElementById("destinoHotel_"+idBuscador).value;
         let numero = parseInt(textoIngresado.length)
-        if(numero > 3 && proteccionHoteles){
+        if(numero > 0 && proteccionHoteles){
             proteccionHoteles = false
-            mostrarDestinosHoteles(textoIngresado)
-        }else if(numero < 3){
-            $("#spinnerContenidoHotel").hide()
-            $("#buscadorContenidoHotel").show() 
-            mostrarValoresDefaultHoteles()
+            mostrarDestinosHoteles(textoIngresado, idBuscador)
+        }else if(numero <= 0){
+            $("#spinnerContenidoHotel_"+idBuscador).hide()
+            $("#buscadorContenidoHotel_"+idBuscador).show() 
+            mostrarValoresDefaultHoteles(idBuscador)
         }       
     }, 2000);
     
 }
 
 
-function mostrarDestinosHoteles(buscador){
+function mostrarDestinosHoteles(buscador, idBuscador){
     proteccionHoteles = false
     Obtener_API_Vuelos(null, '/api/hotelbeds/destinos?buscador='+buscador, datos => {
         var destinos = []
         if (datos.estado) {
             proteccionHoteles = true
-            datos.consulta.forEach((element, index) => {
+            datos.consulta.forEach((element) => {
                 let existe = destinos.some(aux => aux.id === element.destinationId)
                 if(!existe){
                         let nuevoDestino = {
@@ -87,9 +81,9 @@ function mostrarDestinosHoteles(buscador){
                         destinos.push(nuevoDestino)
                 }
             });
-            armarDestinosHoteles(destinos)
-            $("#spinnerContenidoHotel").hide()
-            $("#buscadorContenidoHotel").show()  
+            armarDestinosHoteles(destinos, idBuscador)
+            $("#spinnerContenidoHotel_"+idBuscador).hide()
+            $("#buscadorContenidoHotel_"+idBuscador).show()  
         }
         else{
             mensajeUsuario("error","Ooops...",datos.error)
@@ -100,31 +94,33 @@ function mostrarDestinosHoteles(buscador){
 }
 
 
-function armarDestinosHoteles(destinos){
+function armarDestinosHoteles(destinos, idBuscador){
     var lista = ""
-    destinos.forEach((element, index) => {
+    destinos.forEach((element) => {
         lista += `
                 <div class="col-lg-12 col-sm-12">
-                    <a class="dropdown-item text-wrap" href="#" onclick="escogerSalida('`+element.id+` - `+element.ciudad+` - `+element.pais+`');return false;" style="white-space: normal;">
+                    <a class="dropdown-item text-wrap" href="#" onclick="escogerSalida('`+element.id+` - `+element.ciudad+` - `+element.pais+`', '`+idBuscador+`');return false;" style="white-space: normal;">
                         <strong>`+element.id+` - `+element.ciudad+`</strong> 
                         <span class="text-muted" style="font-size: small;">`+element.pais+`</span>
                     </a>
                 </div>
         `
-        $("#listaDestinosHoteles").html(lista)
+        $("#listaDestinosHoteles_"+idBuscador).html(lista)
         return
     });
 }
 
 
 
-function escogerSalida(ciudadEscogida){
-    document.getElementById("destinoHotel").value = ciudadEscogida.toUpperCase()
-    var dropdown = document.getElementById("dropdownHoteles");
+function escogerSalida(ciudadEscogida, idBuscador){
+    document.getElementById("destinoHotel_"+idBuscador).value = ciudadEscogida.toUpperCase()
+    var dropdown = document.getElementById("dropdownHoteles_"+idBuscador);
     if (dropdown) {
         dropdown.classList.remove('show');
     }
 }
+
+
 
 function establecerSalidaHoteles(){
     flatpickr("#chekInHotel", {
@@ -165,6 +161,7 @@ var occupancies = [
         paxes: []
     }
 ]
+
 function agregarHabitacion(){
     let nuevahabitacion = {
         rooms: 1,
@@ -196,37 +193,69 @@ function mostrarHabitaciones(){
                         </button>
                     </div>
                     <div class="row" style="margin-left: 15px; margin-right: 5px; align-items: center;">
-                        <div class="col-lg-6 col-sm-12">
-                            <span>Adultos</span>
-                            <input type="number" value="`+(element.adults)+`" min="1" id="numeroAdulto`+(index)+`" class="form-control" style="font-size: 18px; text-align: center; width: 50%;" onchange="actualizarPersonas(0,`+(index)+`);">
+
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Adultos</label>
+                                <div class="d-flex align-items-center">
+                                    <button type="button" class="btn border-gray rounded" onclick="actualizarValor(-1, 'numeroAdulto`+(index)+`',0,'`+(index)+`',2,0,6)"><i class="icon-minus" style="color: #aaa9a9;"></i></button></button>
+                                    <input type="text" value="`+(element.adults)+`" id="numeroAdulto`+(index)+`" class="form-control form-control-lg" style="width:43px; background-color: white;" readonly  onchange="actualizarPersonas(0,`+(index)+`);">                                                                                    
+                                    <button type="button" class="btn border-gray rounded" onclick="actualizarValor(1, 'numeroAdulto`+(index)+`',0,'`+(index)+`',2,0,6)"><i class="icon-plus" style="color: #aaa9a9;"></i></button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-lg-6 col-sm-12">
-                            <span>Niños <span style="font-size: 10px;">2-11 años</span></span>
-                            <input type="number" value="`+(element.children)+`" min="0" max="4" id="numeroNino`+(index)+`" class="form-control" style="font-size: 18px; text-align: center; width: 50%;"  onchange="actualizarPersonas(1,`+(index)+`);">
+                        
+
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Niños</label>
+                                <div class="d-flex align-items-center">
+                                    <button type="button" class="btn border-gray rounded" onclick="actualizarValor(-1, 'numeroNino`+(index)+`',1,'`+(index)+`',2,0,4)"><i class="icon-minus" style="color: #aaa9a9;"></i></button></button>
+                                    <input type="text" value="`+(element.children)+`" id="numeroNino`+(index)+`" class="form-control form-control-lg" style="width:43px; background-color: white;" readonly onchange="actualizarPersonas(1,`+(index)+`);">
+                                    <button type="button" class="btn border-gray rounded" onclick="actualizarValor(1, 'numeroNino`+(index)+`',1,'`+(index)+`',2,0,4)"><i class="icon-plus" style="color: #aaa9a9;"></i></button>
+                                </div>
+                            </div>
                         </div>
+                        
                         <div class="col-lg-12 col-sm-12" `
                         if(element.children <0){
                             lista += `style="display: none;"`
                         }
                         lista +=` id="edadesNinos_`+(index)+`">
-                            <span>Edad niños</span>
+                            <span>Edades niños</span>
                             <div class="row">`
                                 let contador = 0
                                 element.paxes.forEach(edades => {
                                     lista += `
-                                        <div class="col-3" style="display: flex; align-items: center; display: block;" id="ninoC_`+(index)+`_`+(contador)+`">
-                                            <input type="number" value="`+(edades.age)+`" min="2" max="11" id="nino_`+(index)+`_`+(contador)+`" class="form-control" style="font-size: 18px; text-align: center;" onchange="actualizarEdad(`+(index)+`,`+(contador)+`)">
-                                            <small style="margin-left: 15px; font-size: 12px;">años</small>
+                                        <div class="col-4" style="display: flex; align-items: center; display: none;" id="ninoC_`+(index)+`_`+(contador)+`">
+                                            <div class="form-group">
+                                                <div class="d-flex align-items-center">
+                                                    <button type="button" class="btn border-gray rounded" onclick="actualizarValor(-1, 'nino_`+(index)+`_`+(contador)+`',`+(index)+`,`+(contador)+`,1,0,11)"><i class="icon-minus" style="color: #aaa9a9;"></i></button></button>
+                                                    <input type="text" value="`+(edades.age)+`" id="nino_`+(index)+`_`+(contador)+`" class="form-control" onchange="actualizarEdad(`+(index)+`,`+(contador)+`)" style="width:43px; background-color: white;" readonly>
+                                                    <button type="button" class="btn border-gray rounded" onclick="actualizarValor(1, 'nino_`+(index)+`_`+(contador)+`',`+(index)+`,`+(contador)+`,1,0,11)"><i class="icon-plus" style="color: #aaa9a9;"></i></button>
+                                                </div>
+                                                <p style="text-align:center; font-size:13px;">años</p>
+                                            </div>
                                         </div>
                                     `
                                     contador = contador+1
                                 })
                                 for(let i=contador; i<4; i++){
                                     lista += `
-                                        <div class="col-3" style="display: flex; align-items: center; display: none;" id="ninoC_`+(index)+`_`+i+`">
-                                            <input type="number" value="2" min="2" max="11" id="nino_`+(index)+`_`+i+`" class="form-control" style="font-size: 18px; text-align: center;" onchange="actualizarEdad(`+(index)+`,`+i+`)">
-                                            <small style="margin-left: 15px; font-size: 12px;">años</small>
+
+                                        <div class="col-4" style="display: flex; align-items: center; display: none;" id="ninoC_`+(index)+`_`+i+`">
+                                            <div class="form-group">
+                                                <div class="d-flex align-items-center">
+                                                    <button type="button" class="btn border-gray rounded" onclick="actualizarValor(-1, 'nino_`+(index)+`_`+i+`',`+(index)+`,`+i+`,1,0,11)"><i class="icon-minus" style="color: #aaa9a9;"></i></button></button>
+                                                    <input type="text" value="2" id="nino_`+(index)+`_`+i+`" class="form-control" onchange="actualizarEdad(`+(index)+`,`+i+`)" style="width:43px; background-color: white;" readonly>
+                                                    <button type="button" class="btn border-gray rounded" onclick="actualizarValor(1, 'nino_`+(index)+`_`+i+`',`+(index)+`,`+i+`,1,0,11)"><i class="icon-plus" style="color: #aaa9a9;"></i></button>
+                                                </div>
+                                                <p style="text-align:center; font-size:13px;">años</p>
+                                            </div>
                                         </div>
+
                                     `
                                 }
                                 lista +=
@@ -241,6 +270,15 @@ function mostrarHabitaciones(){
     });
     
     $("#habitaciones").html(lista)
+
+    let contenedor = document.getElementById("dropdownPersonasHoteles");
+    if (contenedor) {
+        setTimeout(() => {
+            contenedor.scrollTop = contenedor.scrollHeight;
+        }, 50);
+        
+    }
+    
     
 }
 
@@ -301,6 +339,7 @@ function actualizarEdad(numeroItem,numeroEdad){
     occupancies[numeroItem].paxes[numeroEdad].age = parseInt(valor)        
 }
 
+
 function cargarPersonasHoteles() {
     let personas = 0
     let habitaciones = occupancies.length
@@ -316,14 +355,28 @@ function cargarPersonasHoteles() {
 
 
 
-function buscarHoteles(){
+// function cargarPersonasHoteles(index) {
+//     let personas = 0
+//     let habitaciones = itemsCotizaciones[index].formularioHotel.occupancies.length
+//     itemsCotizaciones[index].formularioHotel.occupancies.forEach(element => {
+//         personas= personas+element.adults+element.children
+//     });
+//     document.getElementById("personasHoteles_"+index).value = "👤 "+personas+" PERSONAS Y 🏠 "+habitaciones+" HABITACIONES"
+//     var dropdown = document.getElementById("dropdownPersonasHoteles_"+index);
+//     if (dropdown) {
+//         dropdown.classList.remove('show');
+//     }
+// }
+
+function buscarHoteles(idBuscador){
+    
     let destino = ""
     let fechaLlegada = ""
     let fechaSalida = ""
     let datos = {}
-    if(validarDatos()){
+    if(validarDatos(idBuscador)){
         let result = mergeUniqueRooms(occupancies);
-        destino = (document.getElementById("destinoHotel").value).substring(0, 3);
+        destino = (document.getElementById("destinoHotel_"+idBuscador).value).substring(0, 3);
         fechaLlegada = document.getElementById("chekInHotel").value
         fechaSalida = document.getElementById("chekOutHotel").value
         datos = 
@@ -335,6 +388,7 @@ function buscarHoteles(){
             },
             occupancies: result
         }
+        
         let datosString = encodeURIComponent(JSON.stringify(datos));
         var url = window.location.origin + "/listaHoteles?datos=" + datosString
         window.location.href = url;
@@ -345,9 +399,43 @@ function buscarHoteles(){
     
 }
 
-function validarDatos(){
+
+
+// function buscarHoteles(){
+//     let destino = ""
+//     let fechaLlegada = ""
+//     let fechaSalida = ""
+//     let datos = {}
+//     if(validarDatos()){
+//         let result = mergeUniqueRooms(occupancies);
+//         destino = (document.getElementById("destinoHotel").value).substring(0, 3);
+//         fechaLlegada = document.getElementById("chekInHotel").value
+//         fechaSalida = document.getElementById("chekOutHotel").value
+//         datos = 
+//         {
+//             destinationId: destino,
+//             stay: {
+//                 checkIn: fechaLlegada,
+//                 checkOut: fechaSalida
+//             },
+//             occupancies: result
+//         }
+//         let datosString = encodeURIComponent(JSON.stringify(datos));
+//         var url = window.location.origin + "/listaHoteles?datos=" + datosString
+//         window.location.href = url;
+//     }
+//     else{
+//         mensajeUsuario('info','Oops...','Debe llenar todos los campos')
+//     }
+    
+// }
+
+
+
+
+function validarDatos(idBuscador){
     if(
-        document.getElementById("destinoHotel").value &&
+        document.getElementById("destinoHotel_"+idBuscador).value &&
         document.getElementById("chekInHotel").value &&
         document.getElementById("chekOutHotel").value
     ){
@@ -355,6 +443,22 @@ function validarDatos(){
     }
     return false
 }
+
+
+
+
+// function validarDatos(){
+//     if(
+//         document.getElementById("destinoHotel").value &&
+//         document.getElementById("chekInHotel").value &&
+//         document.getElementById("chekOutHotel").value
+//     ){
+//         return true
+//     }
+//     return false
+// }
+
+
 
 function mergeUniqueRooms(arr) {
     const uniqueArray = [];

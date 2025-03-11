@@ -14,37 +14,20 @@ function abrirModalPolitica(){
 }
 
 
-function conSesion(data){
-    $("#homeRegistrar").show()
-    $("#homePaquetes").show()
-    $("#homeDirecciones").show()
-    $("#registroPaquetes").show()
-    $("#tusPaquetes").show()
-    $("#tusDirecciones").show()
-    $("#fqs").show()
-    $("#contactos").show()
-    $("#perfil").show()
-    texto = `<li><i class="icon-user" style="font-size: 16px;"></i>`+data.primerNombre+`</li>`
-    $("#top_links").html(texto)
-    if(data.rol == 1){
-        $("#clientes").show()
-    }
+function conSesion(){
+    $("#mkv_sinSesion").hide()
+    $("#mkv_conSesion").show()
+    $("#botonInciarSession").hide()
+    $("#botonCerrarSession").show()
 
 }
 
 
 function sinSesion(){
-    $("#homeRegistrar").hide()
-    $("#homePaquetes").hide()
-    $("#homeDirecciones").hide()
-    $("#registroPaquetes").hide()
-    $("#tusPaquetes").hide()
-    $("#tusDirecciones").hide()
-    $("#fqs").show()
-    $("#contactos").show()
-    $("#perfil").hide()
-    $("#top_links").html('<li><a href="/login"><i class="icon-login" style="font-size: 16px;"></i>Ingresar</a></li>')
-
+    $("#mkv_sinSesion").show()
+    $("#mkv_conSesion").hide()
+    $("#botonCerrarSession").hide()
+    $("#botonInciarSession").show()
 }
 
 
@@ -121,34 +104,35 @@ function restablecerEmail(){
 
 function iniciarSesion(){
     const info = {
-        correo: document.getElementById("emailSesion").value,
+        username: document.getElementById("emailSesion").value,
         password: document.getElementById("passwordSesion").value
     }
-    API_POST(JSON.stringify(info), '/login', datos => {
+
+    Enviar_API_Vuelos(JSON.stringify(info), '/api/v2/login', datos => {
         if (datos.estado){
-            localStorage.setItem("authToken",datos.datos.token)
-            localStorage.setItem("userRole",datos.datos.rol)
-            mensajeUsuario('success','¡Bien!',datos.mensaje).then(() => {
+            localStorage.setItem("authToken",datos.token)
+            mensajeUsuario('success','¡Bien!',"Sesión iniciada correctamente.").then(() => {
                 window.location.href = "/home";
             });
             
         }else{
-            mensajeUsuario('info','Oops...',datos.mensaje)
+            mensajeUsuario('info','Oops...',datos.error)
         }
+
     })
 }
 
 
+
+
 function verificarAutenticacion() {
-    cerrarSpinner()
     const token = localStorage.getItem("authToken");
-    const rol = localStorage.getItem("userRole");
-    if (!token || !rol) {
+    if (!token) {
         sinSesion()
     } else {
         console.log("Verificando token")
-        apiToken().then(isValid => {
-            conSesion(isValid)
+        apiToken().then(() => {
+            conSesion()
         })
         .catch(error => {
             console.error("Error:", error);
@@ -157,16 +141,17 @@ function verificarAutenticacion() {
 }
 
 
+
 function apiToken() {
     return new Promise((resolve, reject) => {
-        API_GET(null, '/verificarSesion', datos => {
+        Obtener_API_Vuelos(null, '/api/v2/sesion', datos => {
             if (datos.estado) {
                 resolve(datos.datos); // Resuelve la promesa con verdadero si el token es válido
             } else {
                 sinSesion()
                 reject(datos.mensaje); // Rechaza la promesa si hay un error
             }
-        });
+        })
     });
 }
 
@@ -175,11 +160,13 @@ function apiToken() {
 
 function cerrarSesion(){
     abrirSpinner("Cerrando Sesion")
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("userRole");
-    window.location.href = '/home';
-    
+    setTimeout(() => {
+        localStorage.removeItem("authToken");
+        window.location.href = '/home';
+    }, 500);
 }
+
+
 
 
 function detectarEnter(event) {

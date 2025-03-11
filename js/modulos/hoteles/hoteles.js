@@ -85,18 +85,10 @@ function guardarDatosCache(info, hoteles){
 
 
 
-function filtrarNombre(input) {
-    const valorInput = input.value.toLowerCase();
-    if(valorInput.length > 3){
-        const hotelesFiltrados = hotelesGlobal.filter(hotel =>
-            hotel.name.toLowerCase().includes(valorInput)
-        );
-        setTimeout(function() {
-            armarHoteles(hotelesFiltrados);    
-        }, 500);
-    }
-    else if(valorInput.length == 0){
-        armarHoteles(hotelesGlobal)
+function filtrarNombreHotel(event,input) {
+    if (event.key === "Enter" || event.key === "Tab") {
+        event.preventDefault(); 
+        filtrarHoteles()
     }
 }
 
@@ -129,14 +121,8 @@ function armarfiltros(hoteles){
             }
             categorias[puntos].push(element);
     
-    
-    
             //Pension //tipo habitacion
             sacar_tipos_pension(element.rooms)
-    
-    
-    
-    
     
         });
         hotelesFiltradosGlobalCat = categorias
@@ -147,8 +133,6 @@ function armarfiltros(hoteles){
         sacarTipoHabitacion(tipoHabitacionGlobal)
         armarFiltroPension(pensionGlobal)
     }
-    
-    
 }
 
 
@@ -171,7 +155,7 @@ function sacar_tipos_pension(rooms){
 
 
 var tiposGlobal = []
-function sacarTipoHabitacion(){
+function sacarTipoHabitacion(tipoHabitacion_){
     Enviar_API_Vuelos(JSON.stringify(tipoHabitacionGlobal), '/api/hotelbeds/booking/roomtypes', datos => {
         if (datos.estado){
             tiposGlobal = datos.consulta
@@ -203,7 +187,8 @@ function armarFiltroTipoHabitacion(cat){
 
 function armarFiltroPension(pension){
     let lista = ""
-    pension.forEach(element => {
+    let lista2 = ""
+    pension.forEach((element,indice) => {
         lista += `
             <li>
                 <label class="container_check">
@@ -215,8 +200,8 @@ function armarFiltroPension(pension){
         `
     });
     $("#listaHabitacionPension").html(lista)
+    
 }
-
 
 
 function armarFiltroCategorias(cat){
@@ -245,24 +230,23 @@ function armarFiltroCategorias(cat){
 }
 
 
-
-document.getElementById('toggle-grupo2').addEventListener('click', function () {
-    const group = this.dataset.group; // Obtener el grupo del botón
-    const checkboxes = document.querySelectorAll(`.checkbox-item[data-group="${group}"]`); // Seleccionar checkboxes del grupo
-    const allChecked = Array.from(checkboxes).every(checkbox => checkbox.checked); // Verificar si todos están seleccionados
-    checkboxes.forEach(checkbox => checkbox.checked = !allChecked);
-    this.textContent = allChecked ? "Marcar todos" : "Quitar todos";
-});
-
+// document.getElementById('toggle-grupo2').addEventListener('click', function () {
+//     const group = this.dataset.group; // Obtener el grupo del botón
+//     const checkboxes = document.querySelectorAll(`.checkbox-item[data-group="${group}"]`); // Seleccionar checkboxes del grupo
+//     const allChecked = Array.from(checkboxes).every(checkbox => checkbox.checked); // Verificar si todos están seleccionados
+//     checkboxes.forEach(checkbox => checkbox.checked = !allChecked);
+//     this.textContent = allChecked ? "Marcar todos" : "Quitar todos";
+// });
 
 
-document.getElementById('toggle-grupo1').addEventListener('click', function () {
-    const group = this.dataset.group; // Obtener el grupo del botón
-    const checkboxes = document.querySelectorAll(`.checkbox-item[data-group="${group}"]`); // Seleccionar checkboxes del grupo
-    const allChecked = Array.from(checkboxes).every(checkbox => checkbox.checked); // Verificar si todos están seleccionados
-    checkboxes.forEach(checkbox => checkbox.checked = !allChecked);
-    this.textContent = allChecked ? "Marcar todos" : "Quitar todos";
-});
+
+// document.getElementById('toggle-grupo1').addEventListener('click', function () {
+//     const group = this.dataset.group; // Obtener el grupo del botón
+//     const checkboxes = document.querySelectorAll(`.checkbox-item[data-group="${group}"]`); // Seleccionar checkboxes del grupo
+//     const allChecked = Array.from(checkboxes).every(checkbox => checkbox.checked); // Verificar si todos están seleccionados
+//     checkboxes.forEach(checkbox => checkbox.checked = !allChecked);
+//     this.textContent = allChecked ? "Marcar todos" : "Quitar todos";
+// });
 
 document.getElementById('toggle-grupo3').addEventListener('click', function () {
     const group = this.dataset.group; // Obtener el grupo del botón
@@ -277,15 +261,32 @@ document.getElementById('toggle-grupo3').addEventListener('click', function () {
 
 function filtrarHoteles(){
     abrirSpinner("Filtrando...")
+    const valor = document.getElementById("nombreHotelFiltro").value.toLowerCase();
     setTimeout(function() {
-        var hotelesFiltrados = {}
-        hotelesFiltrados = validarCategoria()
+        let hotelesFiltrados = {}
+        hotelesFiltrados = filtrarHotelesInput(valor)
+        // hotelesFiltrados = validarCategoria()
         hotelesFiltrados = validarHabitacionesPension(hotelesFiltrados)
-        hotelesFiltrados = validarTipoHabitaciones(hotelesFiltrados)
-        // hotelesFiltrados = validarPrecios(hotelesFiltrados)
+        // hotelesFiltrados = validarTipoHabitaciones(hotelesFiltrados)
         hotelesFiltrados = validarOrdenPrecio(hotelesFiltrados)
-        armarHoteles(hotelesFiltrados)   
+        armarHoteles(hotelesFiltrados)  
+        // actualizarPreciosConFiltros(hotelesFiltrados)
     }, 500);
+}
+
+
+
+
+function filtrarHotelesInput(valorInput){
+    if(valorInput.length > 0){
+        const hotelesFiltrados = hotelesGlobal.filter(hotel =>
+            hotel.name.toLowerCase().includes(valorInput)
+        );
+        return hotelesFiltrados    
+    }
+    else if(valorInput.length == 0){
+        return hotelesGlobal
+    }
 }
 
 
@@ -301,26 +302,28 @@ function validarHabitacionesPension(hoteles){
             notSelected.push(checkbox.value); // Almacenar el valor si no está seleccionado
         }
     });
-    const arrayFiltradoPension = armarHabitacionesPension(hoteles,selected)
-    return arrayFiltradoPension
+    return armarHabitacionesPension(hoteles,selected)
 }
 
 
 
 function armarHabitacionesPension(hoteles, seleccionados) {
-
-    return hoteles.filter(hotel => {
+    // Crear una copia profunda del array de hoteles
+    const hotelesCopia = JSON.parse(JSON.stringify(hoteles));
+    const hotelesFiltrados = hotelesCopia.filter(hotel => {
         // Verificar que `rooms` sea un array
         if (!Array.isArray(hotel.rooms)) {
             return false;
         }
 
         // Verificar si alguna habitación tiene `rates` con un `boardName` en `seleccionados`
-        return hotel.rooms.some(room => 
-            Array.isArray(room.rates) && 
-            room.rates.some(rate => seleccionados.includes(rate.boardName))
-        );
+        hotel.rooms.forEach((room) => {
+            room.rates = room.rates.filter(rate => seleccionados.includes(rate.boardName));
+        });
+        return hotel.rooms.some(room => room.rates.length > 0);
     });
+
+    return hotelesFiltrados;
 }
 
 
@@ -354,19 +357,43 @@ function armarHabitacionesFiltradas(hoteles, seleccionados) {
 
 
 
-function validarOrdenPrecio(hoteles){
+function validarOrdenPrecio(hoteles) {
     const ordenSelec = document.querySelector('input[name="ordenarPrecio"]:checked');
-    if(ordenSelec){
-        if(ordenSelec.value == 0){
-            hoteles.sort((a, b) => parseFloat(a.minRate) - parseFloat(b.minRate));
-        }
-        else if(ordenSelec.value == 1){
-            hoteles.sort((a, b) => parseFloat(b.minRate) - parseFloat(a.minRate));
-        }
-        
+    if (ordenSelec) {
+        hoteles.sort((a, b) => {
+            const netA = obtenerPrimerNetValido(a.rooms);
+            const netB = obtenerPrimerNetValido(b.rooms);
+
+            if (ordenSelec.value == 0) {
+                return netA - netB; // Orden ascendente
+            } else if (ordenSelec.value == 1) {
+                return netB - netA; // Orden descendente
+            }
+            return 0; // Sin cambios
+        });
     }
-    return hoteles
-    
+    return hoteles;
+}
+
+
+
+function obtenerPrimerNetValido(rooms) {
+    // Encuentra el primer rates válido y devuelve su net
+    if (Array.isArray(rooms)) {
+        for (let room of rooms) {
+            if (Array.isArray(room.rates)) {
+                for (let rate of room.rates) {
+                    if (rate?.sellingRate) {
+                        return parseFloat(rate.sellingRate); // Devuelve el net encontrado
+                    }
+                    else if (rate?.net) {
+                        return parseFloat(rate.net); // Devuelve el net encontrado
+                    }
+                }
+            }
+        }
+    }
+    return Infinity; // Valor alto por defecto si no hay net válido
 }
 
 
@@ -468,124 +495,105 @@ function obtenerExclusiveDeal(id){
 }
 
 
-function armarHoteles(datos){
+async function armarHoteles(datos) {
     $("#listaHoteles").html("")
-    var lista = ""
+    let lista = ""
     if(datos){
-        datos.forEach(element => {
-            lista = ""
-            lista += `
-                <div class="strip_all_tour_list wow fadeIn" data-wow-delay="0.1s">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-4 position-relative">`
-                            if(element.exclusiveDeal){
-                                lista += `
-                                <div class="ribbon_3"><span style="font-size:7px;">`+obtenerExclusiveDeal(element.exclusiveDeal)+`</span></div>
-                                `
-                            }
-                            lista += `
-                            <div class="img_list">
-                                <a href="#"  onclick="verHotel('`+element.code+`'); return false;">`
-                                    if(element.images.length>0){
-                                        lista+= `<img src="`+element.images[0][element.images[0].length-1]+`" alt="Image">`
-                                    }else{
-                                        lista+= `<img src="img/hoteles/mkv.png" alt="Image">`
-                                    }
-                                    lista +=`
-                                    <div class="short_info">
-                                        <i class="pe-7s-camera" style="margin-right: 10px;"></i>Ver fotografías completas
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-lg-5 col-md-5">
-                            <div class="tour_list_desc" style="overflow-y: auto; margin-bottom: 15px;">
-                                <div class="rating">`
-                                    let puntos = element.categoryName.match(/\d+/)
-                                    if(puntos){
-                                        lista += obtenerPuntacion(parseInt(puntos[0])).icono
-                                    }else{
-                                        lista += `<span class="voted">`+element.categoryName+`</span>`
-                                    }
+        for (const element of datos) {
+            if(parseFloat(element.minRate) < 10000){
+                lista = ""
+                lista += `
+                    <div class="strip_all_tour_list wow fadeIn" data-wow-delay="0.1s">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 position-relative">`
+                                if(element.exclusiveDeal){
                                     lista += `
+                                    <div class="ribbon_3"><span style="font-size:7px;">`+obtenerExclusiveDeal(element.exclusiveDeal)+`</span></div>
+                                    `
+                                }
+                                lista += `
+                                <div class="img_list">
+                                    <a href="#"  onclick="verHotel('`+element.code+`'); return false;">`
+
+                                    let imagenURL = "img/hoteles/mkv.jpg"; // Imagen por defecto
+
+                                    if (element.images && element.images[0] && element.images[0].length > 0) {
+                                        let lastImage = element.images[0][0];
+                                        imagenURL = lastImage // Espera la verificación de la imagen
+                                    }
+                                
+                                    lista += `<img src="${imagenURL}" alt="Image" style="width: 100%; object-fit: cover; left:0;">
+                                        
+                                    </a>
                                 </div>
-                                <h3><strong>`+element.name+`</strong></h3>
-                                <p>`+element.rooms.length+` tipos de habitaciones se adaptan a tu busqueda:</p>
-                                <div clas="row" style="display: flex;">
-                                    <div class="col-2">
-                                        <i class="icon-location" style ="color:#99c21c;"></i>
-                                    </div>
-                                    <div class="col-9" style="display: flex; flex-direction: column;">
-                                        <span>`+element.destinationName+` / `+element.address+` / <a href="https://www.google.com/maps?q=${element.latitude},${element.longitude}" target="_blank">
-                                            Ver ubicación en el Mapa
-                                        </a></span>
-                                    </div>
-                                </div> 
-                                <div clas="row" style="display: flex;">
-                                    <div class="col-2">
-                                        <i class="icon-phone" style ="color:#99c21c;"></i>
-                                    </div>
-                                    <div class="col-9" style="display: flex; flex-direction: column;">
-                                        <span>`
-                                        if(element.phones[0].phone_number){
-                                           lista += element.phones[0].phone_number 
-                                        }lista+=
-                                        `</span>
-                                    </div>
-                                </div>
-                                <br>
-                                <div clas="row" style="display: flex;">
-                                    <div class="col-2">
-                                        <i class="icon-food" style ="color:#99c21c;"></i>
-                                    </div>
-                                    <div class="col-9" style="display: flex; flex-direction: column;">
-                                        <span>Servicio del Hotel:</span>
-                                    </div>
-                                </div>
-                                <div clas="row" style="display: flex;">
-                                    <div class="col-12 mt-1" style="display: flex; flex-direction: column; margin-left: 25px">
-                                        <span>
-                                        <ul class="list_ok">`
-                                        if(element.facilities){
-                                            element.facilities.forEach(facilidades => {
-                                                lista += `<li>`+facilidades.name
-                                                if(facilidades.ind_yes_or_not){
-                                                    lista += ` (<i class ="icon-money" style="color:#99c21c"></i>+)`
-                                                }
-                                                lista += `</li>`
-                                            });
+                            </div>
+                            <div class="col-lg-5 col-md-5">
+                                <div class="tour_list_desc" style="overflow-y: auto; margin-bottom: 15px;">
+                                    <div class="rating">`
+                                        let puntos = element.categoryName.match(/\d+/)
+                                        if(puntos){
+                                            lista += obtenerPuntacion(parseInt(puntos[0])).icono
+                                        }else{
+                                            lista += `<span class="voted">`+element.categoryName+`</span>`
                                         }
-                                            
-                                            lista += `
-                                        </ul>
-                                        </span>
+                                        lista += `
+                                    </div>
+                                    <h3><strong>`+element.name+`</strong></h3>
+                                    <p>`+element.rooms.length+` tipos de habitaciones se adaptan a tu busqueda:</p>
+                                    <div clas="row" style="display: flex;">
+                                        <div class="col-2">
+                                            <i class="icon-location" style ="color:#99c21c;"></i>
+                                        </div>
+                                        <div class="col-9" style="display: flex; flex-direction: column;">
+                                            <span>`+element.destinationName+` / `+element.address+` / <a href="https://www.google.com/maps?q=${element.latitude},${element.longitude}" target="_blank">
+                                                Ver ubicación en el Mapa
+                                            </a></span>
+                                        </div>
+                                    </div> 
+                                    <div clas="row" style="display: flex;">
+                                        <div class="col-2">
+                                            <i class="icon-phone" style ="color:#99c21c;"></i>
+                                        </div>
+                                        <div class="col-9" style="display: flex; flex-direction: column;">
+                                            <span>`
+                                            if(element.phones[0].phone_number){
+                                            lista += element.phones[0].phone_number 
+                                            }lista+=
+                                            `</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3">
+                                <div class="price_list">
+                                    <div>
+                                        <small>Desde</small>
+                                        <sup>$</sup>`
+                                        const id_minimo = "precioMinimo_"+element.code
+                                        const precio = parseFloat(element.minRate)
+                                        lista += `<span id="${id_minimo}">` + (precio * fee_por_habitacion).toFixed(2) + `</span>`
+                                        lista += `<small>*Por ` + noches + ` noche(s)</small>
+                                        <p>
+                                            <a href="#" onclick="verHotel('` + element.code + `'); return false;" class="btn_1" style ="background-color: #99c21c;">Ver Hotel</a>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-3">
-                            <div class="price_list">
-                                <div>
-                                    <small>Desde</small>
-                                    <sup>$</sup>`
-                                    const precio = parseFloat(element.minRate)
-                                    lista += (precio*1.75).toFixed(2)+`
-                                    <small>*Por `+noches+` noche(s)</small>
-                                    <p>
-                                        <a href="#" onclick="verHotel('`+element.code+`'); return false;" class="btn_1" style ="background-color: #99c21c;">Ver Hotel</a>
-                                    </p>
-                                </div>
-                            </div>
+                        <div class="row">
+                            ` + armarStringHoteles(ocupantes, element.code) + `
                         </div>
                     </div>
-                    <div class="row">
-                        `+armarStringHoteles(ocupantes, element.code)+`
-                    </div>
-                </div>
-            `
-            $("#listaHoteles").append(lista)
-            dividir(element.rooms, element.code, element.name)
-        });
+                `
+                const listaHotelesElement = $("#listaHoteles");
+                if (listaHotelesElement.length) {
+                    listaHotelesElement.append(lista);
+                } else {
+                    console.log("El elemento con id 'listaHoteles no existe en el DOM.");
+                }
+                dividir(element.rooms, element.code, element.name)
+            }
+        }
     }
     
     cerrarSpinner()
@@ -596,12 +604,17 @@ function armarHoteles(datos){
 function dividir(rooms, codigoHotel, nombreHotel){
     let lista = ""
     const datos_por_habitacion = dividirPorIdRate(rooms)
+    let precioMin = 0
+    
     datos_por_habitacion.forEach(element => {
         lista = ""
-        lista += obtenerRooms(1,element.rooms, element.id, codigoHotel, nombreHotel).lista
+        const rooms = obtenerRooms(1,element.rooms, element.id, codigoHotel, nombreHotel)
+        lista += rooms.lista
+        precioMin = precioMin + parseFloat(rooms.precioMin)
         lista += `<br><br><br><br>`
         $("#pasajero_"+element.id+"_"+codigoHotel).html(lista)        
     });
+    $("#precioMinimo_"+codigoHotel).html(precioMin.toFixed(2))
 }
 
 

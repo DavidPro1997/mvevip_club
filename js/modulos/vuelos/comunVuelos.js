@@ -1,49 +1,74 @@
-var fee_por_persona =  45
+var fee_por_persona = {
+    fee_1_persona: 35,
+    fee_2_persona: 25,
+    fee_3_persona: 20,
+    fee_4_persona: 15,
+} 
+
+
+function obtenerFee(personas,price){
+    const numePax = contarPersonas(personas, price)
+    let fee = 0
+    if(numePax == 1){
+        fee = fee_por_persona.fee_1_persona
+    }
+    else if(numePax == 2){
+        fee = fee_por_persona.fee_2_persona
+    }
+    else if(numePax == 3){
+        fee = fee_por_persona.fee_3_persona
+    }
+    else if(numePax > 3){
+        fee = fee_por_persona.fee_4_persona
+    }
+    return fee
+}
+
+
+
+
 function armarCostos(precios, personas){
     let lista = ""
     lista += `
        
-            <div class="border p-3 mt-4 mt-lg-0 rounded mb-3">
+            <div class="border p-3 mt-4 rounded">
                 <h4 class="header-title mb-3">Resumen de costos</h4>
                 <div class="table-responsive">
                     <table class="table mb-0">
                         <tbody>`
-                            if(personas.adultos>0 && precios.adults){
+                            const fee = obtenerFee(personas, precios)
+                            if(precios.adults){
                                 lista +=`<tr>
                                 <td>`+precios.adults.quantity+` Adultos:</td>
-                                <td>$`+(precios.adults.fare +  (fee_por_persona*personas.adultos)).toFixed(2)+`</td>
+                                <td>$`+(precios.adults.fare +  (fee*precios.adults.quantity)).toFixed(2)+`</td>
                                 </tr>`
                             }
-                            if(personas.ninos>0 && precios.children){
+                            if(precios.children){
                                 lista +=`<tr>
                                 <td>`+precios.children.quantity+` Niños:</td>
-                                <td>$`+(precios.children.fare +  (fee_por_persona*personas.ninos)).toFixed(2)+`</td>
+                                <td>$`+(precios.children.fare +  (fee*precios.children.quantity)).toFixed(2)+`</td>
                                 </tr>`
                             }
-                            if(personas.bebes>0 && precios.infants){
+                            if(precios.infants){
                                 lista +=`<tr>
-                                <td>`+precios.infants.quantity+` Bebes:</td>
-                                <td>$`+(precios.infants.fare +  (fee_por_persona*personas.bebes)).toFixed(2)+`</td>
+                                <td>`+precios.infants.quantity+` Infantes:</td>
+                                <td>$`+(precios.infants.fare +  (fee*precios.infants.quantity)).toFixed(2)+`</td>
                                 </tr>`
                             }
-                            if(personas.viejos>0 && precios.senior){
+                            if(precios.seniors){
                                 lista +=`<tr>
-                                <td>`+precios.senior.quantity+` Ter. Edad:</td>
-                                <td>$`+(precios.senior.fare +  (fee_por_persona*personas.viejos)).toFixed(2)+`</td>
+                                <td>`+precios.seniors.quantity+` Ter. Edad:</td>
+                                <td>$`+(precios.seniors.fare +  (fee*precios.seniors.quantity)).toFixed(2)+`</td>
                                 </tr>`
                             }
                             lista += `
                             <tr>
-                                <th><strong>Cargos:<strong></th>
-                                <th>$`+(precios.detail.charges).toFixed(2)+`</th>
-                            </tr>
-                            <tr>
-                                <th><strong>Impuestos:<strong></th>
-                                <th>$`+(precios.taxes).toFixed(2)+`</th>
+                                <th><strong>Cargos/<br>Impuestos:<strong></th>
+                                <th>$`+(precios.detail.charges+precios.taxes).toFixed(2)+`</th>
                             </tr>
                             <tr>
                                 <th><strong>Total:<strong></th>
-                                <th>$`+actualizarFeePrecios(personas, precios).toFixed(2)+`</th>
+                                <th>$`+totalPrecioVuelo(personas, precios).toFixed(2)+`</th>
                             </tr>
                         </tbody>
                     </table>
@@ -219,67 +244,61 @@ function armarVuelos(vuelos, buscador, personas, aux){
     let lista = ""
     vuelos.forEach((element,index) => {
         lista += `
-            <div class="strip_all_tour_list wow fadeIn" data-wow-delay="0.1s">
-                
-                    <a href="#sidebarTickets`+index+`" data-bs-toggle="collapse" style="color: inherit;" id="vuelo`+index+`"> 
-                        <div class="row my-1 mx-1">
-                            <div class="col-4 d-flex align-items-center flex-wrap">
-                                <img src="`+sacarLogoAereolina(element.validating_carrier.code)+`" style=" margin-right: 15px;" alt="" height="30" width="30">
-                                <small class="small-text" style="font-size: 1rem; align-items: center; display: flex;">`+resumenNombreAereolina(element.validating_carrier.name)+`</small>
-                            </div>
-                            <div class="col-4" style="display:flex; align-items:center; justify-content:center; flex-direction:column;">
-                                <span>`+buscador.salida+`-`+buscador.destino+`</span>
-                                <span>`+buscador.destino+`-`+buscador.salida+`</span>
-                            </div>
-                            <div class="col-4" style="text-align:end;">
-                                <span><strong>$`+actualizarFeePrecios(personas, element.price).toFixed(2)+` USD </strong></span><br>
-                                <small class="small-text" style="font-size: 0.8rem;">Ida y vuelta </small> 
-                            </div>
+            <div class="strip_all_tour_list wow fadeIn" data-wow-delay="0.`+index+`s">
+                <a href="#sidebarTickets`+index+`" data-bs-toggle="collapse" style="color: inherit;" id="vuelo`+index+`"> 
+                    <div class="row my-1 mx-1">
+                        <div class="col-4 d-flex align-items-center flex-wrap">
+                            <img src="`+sacarLogoAereolina(element.validating_carrier.code)+`" style=" margin-right: 15px;" alt="" height="30" width="30">
+                            <small class="small-text" style="font-size: 1rem; align-items: center; display: flex;">`+resumenNombreAereolina(element.validating_carrier.name)+`</small>
                         </div>
-                    </a>
-                    <div class="collapse show mt-3" id="sidebarTickets`+index+`">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <div class="row mx-2">
-                                    <div class="col-12" style="display: flex; align-items: center;">
-                                        <i class="icon-plane" style="transform: rotate(45deg); margin-right: 10px; font-size: 20px;"></i>
-                                        <h5 style="margin-right: 20px; font-size: 16px;">IDA</h5>
-                                        <h5 style="font-size: 16px;"> `+buscador.fechaSalida+`</h5>
-                                    </div>
-                                </div>
-                                `+armarDetalleVuelo(0,element.segments, buscador, index)+`
-                                <br>
-                                <div class="row">
-                                    <div class="col-12" style="display: flex; align-items: center;">
-                                        <i class="icon-plane" style="transform: rotate(315deg); margin-right: 10px; font-size: 20px;"></i>
-                                        <h5 style="margin-right: 20px; font-size: 16px;">VUELTA</h5>
-                                        <h5 style="font-size: 16px;"> `+buscador.fechaRetorno+`</h5>
-                                    </div>
-                                </div>
-                                `+armarDetalleVuelo(1,element.segments, buscador, index)+`
-                            </div>
-                            <div class="col-md-4" style="padding:30px;">
-                                `+armarCostos(element.price,personas)+`
-                                `
-                                if(aux){
-                                    lista += `
-                                        <div class="row my-2">
-                                            <div class="col-12" style="align-items: center; display: flex; justify-content: center;">
-                                                <button class="btn_1 green" style="background-color: var(--color-primario);" onclick="reservar(`+index+`)"><i class="icon-search"></i>Reservar</button>
-                                            </div>
-                                        </div> 
-                                    `
-                                }
-                                lista += `
-                            </div>
+                        <div class="col-4" style="display:flex; align-items:center; justify-content:center; flex-direction:column;">
+                        </div>
+                        <div class="col-4" style="text-align:end;">
+                            <span><strong>$`+totalPrecioVuelo(personas, element.price).toFixed(2)+` USD </strong></span><br>
+                            <small class="small-text" style="font-size: 0.8rem;">Ida y vuelta </small> 
                         </div>
                     </div>
-                
+                </a>
+                <div class="collapse show mt-3" id="sidebarTickets`+index+`">
+                    <div class="row">
+                        <div class="col-md-`
+                            if(aux == 15){
+                                lista += `12`
+                            }
+                            else{
+                                lista += `8`
+                            }
+                            lista += `">
+                            `+armarDetalleVuelo(element.segments, buscador, index, aux)+`
+                        </div>
+                        <div class="col-md-4" style="padding:30px; `
+                            if(aux == 15){
+                                lista += `display: none;`
+                            }
+                            lista += `">
+                            `+armarCostos(element.price,personas,0)+`
+                            `
+                            if(aux){
+                                lista += `
+                                    <div class="row my-2">
+                                        <div class="col-12" style="align-items: center; display: flex; justify-content: center;">
+                                            <button class="btn_1 green" style="background-color: var(--color-primario);" onclick="reservar(`+index+`)"><i class="icon-search"></i>Agregar</button>
+                                        </div>
+                                    </div> 
+                                `
+                            }
+                            lista += `
+                        </div>
+                    </div>
+                </div>
             </div>
         `
     });
     return lista 
 }
+
+
+
 
 
 function resumenNombreAereolina(str) {
@@ -288,69 +307,90 @@ function resumenNombreAereolina(str) {
 }
 
 
-function armarDetalleVuelo(tipo, datos, buscador, index){
+function armarDetalleVuelo(segmentos, buscador, index, aux){
     let lista =""
-    datos[tipo].options.forEach((element,indice) => {
+
+    segmentos.forEach((vuelo,auxIndex) => {
         lista +=`
-                <hr style="margin-top: 0; margin-bottom: 0;">
-                <div class="row mx-1" style="align-items: center;">
-                    <div class="col-lg-1">
-                        <input type="radio" id="`+index+`_`+tipo+`" name="customRadio`+index+`_`+tipo+`" value="`+element.id+`" class="form-check-input" style="transform: scale(1.5);" `
-                        if(indice == 0){
-                            lista +=`checked>`
-                        }else{
-                            lista += `>`
-                        }
-                        lista +=`
-                    </div>
-                    <div class="col-lg-4">
-                        <span>
-                            `+datos[tipo].origin.code+`: <strong>`+element.departure_time+`</strong>
-                            <i class="icon-left" style="font-size: 22px;"></i>
-                            `+datos[tipo].destination.code+`: <strong>`+element.arrival_time+`</strong>`
-                            if(element.departure_date != element.arrival_date){
-                                lista += `<span style="color: var(--color-primario);"> <strong>+1</strong></span>`
+        <br>
+            <div class="row mx-2">
+                <div class="col-12" style="display: flex; align-items: center;">
+                    <i class="icon-plane" style="transform: rotate(45deg); margin-right: 10px; font-size: 20px;"></i>
+                    <h5 style="margin-right: 20px; font-size: 16px;">Vuelo `+(auxIndex+1)+`</h5>
+                    <h5 style="font-size: 16px;"> `+buscador[auxIndex].fecha+`</h5>
+                </div>
+            </div>
+        `
+        vuelo.options.forEach((element,indice) => {
+            lista +=`
+                    <hr style="margin-top: 0; margin-bottom: 0;">
+                    <div class="row mx-1" style="align-items: center;">
+                        <div class="col-lg-1">
+                            <input type="radio" id="`+index+`_`+auxIndex+`" name="customRadio`+index+`_`+auxIndex+`" value="`+element.id+`" class="form-check-input" style="transform: scale(1.5);" `
+                            if(indice == 0){
+                                lista +=`checked>`
+                            }else{
+                                lista += `>`
                             }
-                            lista += ` 
-                        </span>
-                    </div>
-                    <div class="col-lg-2 col-3">
-                        <span><strong>`+formatoHora(element.duration)+`</strong></span>
-                    </div>
-                    <div class="col-lg-3 col-4">`
-                        if(element.legs.length - 1 == 0){
-                            lista += `<span>Directo</span>`
-                        }
-                        else{
-                            lista += `<span>`+(element.legs.length-1)+` Escala(s)</span>`
-                        }
-                        lista +=`
-                    </div>
-                    <div class="col-lg-1 col-3 d-flex align-items-center justify-content-center">
-                        `+revisarEquipajes(element.baggage_allowances)+`
-                    </div>
-                    <div class="col-lg-1 col-2" style="text-align: end;">`
+                            lista +=`
+                        </div>
+                        <div class="col-lg-4">
+                            <span>
+                                `+vuelo.origin.code+`: <strong>`+element.departure_time+`</strong>
+                                <i class="icon-left" style="font-size: 22px;"></i>
+                                `+vuelo.destination.code+`: <strong>`+element.arrival_time+`</strong>`
+                                if(element.departure_date != element.arrival_date){
+                                    lista += `<span style="color: var(--color-primario);"> <strong>+1</strong></span>`
+                                }
+                                lista += ` 
+                            </span>
+                        </div>
+                        <div class="col-lg-2 col-3">
+                            <span><strong>`+formatoHora(element.duration)+`</strong></span>
+                        </div>
+                        <div class="col-lg-3 col-4">`
+                            if(element.legs.length - 1 == 0){
+                                lista += `<span>Directo</span>`
+                            }
+                            else{
+                                lista += `<span>`+(element.legs.length-1)+` Escala(s)</span>`
+                            }
+                            lista +=`
+                        </div>
+                        <div class="col-lg-1 col-3 d-flex align-items-center justify-content-center">
+                            `+revisarEquipajes(element.baggage_allowances)+`
+                        </div>
+                        <div class="col-lg-1 col-2" style="text-align: end;">`
+                            if(element.legs.length - 1 > 0){
+                                lista += `
+                                <a href="#sidebarTickets`+index+`_`+auxIndex+`_`+indice+`" data-bs-toggle="collapse">
+                                    <i class="icon-down-open" style="font-size: 22px;"></i>
+                                </a>`
+                                
+                            }
+                            lista +=`
+                        </div> `
                         if(element.legs.length - 1 > 0){
                             lista += `
-                            <a href="#sidebarTickets`+index+`_`+tipo+`_`+indice+`" data-bs-toggle="collapse">
-                                <i class="icon-down-open" style="font-size: 22px;"></i>
-                            </a>`
+                            <div class="collapse `
+                            if(aux == 15){
+                                lista += `show`
+                            }
+                            lista +=`
+                            " id="sidebarTickets`+index+`_`+auxIndex+`_`+indice+`"> 
+                                `+armarDetalleEscala(element.legs,0)+`
+                            </div>`
                             
                         }
                         lista +=`
-                    </div> `
-                    if(element.legs.length - 1 > 0){
-                        lista += `
-                        <div class="collapse" id="sidebarTickets`+index+`_`+tipo+`_`+indice+`"> 
-                            `+armarDetalleEscala(element.legs,0)+`
-                        </div>`
-                        
-                    }
-                    lista +=`
-                    <hr style="font-size: 16px;">
-                </div>
-            `
+                        <hr style="font-size: 16px;">
+                    </div>
+                `
+        });
+
     });
+
+    
     return lista
 }
 
@@ -408,4 +448,30 @@ function actualizarFeePrecios(personas, precios){
         contador = contador + precios.senior.quantity
     }
     return precios.total+(contador*fee_por_persona)
+}
+
+
+
+function totalPrecioVuelo(personas, precios){
+    const numPax = contarPersonas(personas, precios)
+    const fee = obtenerFee(personas,precios)
+    return precios.total+(numPax*fee)
+}
+
+
+function contarPersonas(personas, precios){
+    let contador = 0
+    if(precios.adults){
+        contador = contador + precios.adults.quantity
+    }
+    if(precios.children){
+        contador = contador + precios.children.quantity
+    }
+    if(precios.infants){
+        contador = contador + precios.infants.quantity
+    }
+    if(precios.seniors){
+        contador = contador + precios.seniors.quantity
+    }
+    return contador
 }

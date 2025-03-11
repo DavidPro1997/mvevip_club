@@ -1,3 +1,13 @@
+<style>
+.border-gray {
+    border: 1px solid #ccc;
+}
+
+/* Estilo de los botones redondeados */
+.rounded {
+    border-radius: 0.25rem; /* Puedes ajustar el valor para más o menos curvatura */
+}
+</style>
 
 
 
@@ -14,7 +24,7 @@
 
         <div id="search">
 
-            <div class="intro_title" style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
+            <div class="intro_title" style="display: flex; align-items: center; justify-content: center; flex-direction: column;" id="mkv_sinSesion">
                 <h3 class="animated fadeInDown">Marketing Vip</h3>
                 <p class="animated fadeInDown" style="font-size: 12px; color: white;">VIAJES INTERNACIONES PREMIUM</p>
                 <div>
@@ -24,91 +34,100 @@
                 </div>
             </div>   
 
-            <div style="display: none;">
+            <div id="mkv_conSesion" style="display: none;">
                 <ul class="nav nav-tabs">
                     <li><a href="#vuelos" data-bs-toggle="tab" class="active show"><i class="icon-airport"></i>Vuelos</a></li>
-                    <li style="display: none;"><a href="#hotels" data-bs-toggle="tab"><i class="icon-commerical-building"></i>Hoteles</a></li>
-                    <li style="display: none;"><a href="#transfers" data-bs-toggle="tab"><i class="icon-bus"></i>Traslados</a></li>
-                    <li style="display: none;"><a href="#tours" data-bs-toggle="tab"><i class="icon-bicycle"></i>Actividades</a></li>
+                    <li><a href="#hotels" data-bs-toggle="tab"><i class="icon-commerical-building"></i>Hoteles</a></li>
+                    <li><a href="#transfers" data-bs-toggle="tab"><i class="icon-bus"></i>Traslados</a></li>
+                    <li><a href="#tours" data-bs-toggle="tab"><i class="icon-bicycle"></i>Actividades</a></li>
                 </ul>
 
                 <div class="tab-content" style="background-color: rgba(255, 255, 255, 0.8);">
 
                     <div class="tab-pane active show" id="vuelos">
+
+
+
                         <h3><i class="icon-airport"></i>Encuentra tu vuelo Ideal</h3>
                         <div class="row">
-                            <div class="col-md-4">
+
+                            <div class="col-md-6">
                                 <div class="form-group">
-                                    <label><i class="icon-airport" style="transform: rotate(45deg); display: inline-block; font-size: 22px;"></i>Salida</label>
-                                    <div class="dropdown" style="width: 100%;">
-                                        <!-- <input type="text" class="form-control" id="autocomplete" name="firstname_booking" placeholder="Escriba su lugar de salida"> -->
-                                        <input type="text" id="salida" placeholder="Escriba una ciudad de su preferencia..." class="form-control dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" autocomplete="new-destination" data-bs-display="static" oninput="buscadorDestinosVuelos(event,0)"  onfocus="this.nextElementSibling.classList.add('show')">
-                                        <div class="dropdown-menu" style="width: 100%; max-height: 50vh; overflow-y: auto;" id="dropdownSalida">
-                                            <div id="spinnerContenidoVuelos" style="text-align: center; display: none;">                
-                                                <div class="spinner-border avatar-lg m-2" role="status" style="color: var(--color-primario);"></div>
-                                            </div>
-                                            <div id="buscadorContenidoVuelos" style="display: block;">
-                                                <div>
-                                                    <h6 class="dropdown-header" style="font-size: 16px; color: var(--color-primario);" id="tituloSalida">
-                                                        <i class="fas fa-building"></i>
-                                                        Principales Ciudades</h6>
-                                                    <div class="row" id="listaDestinos">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <label><i class="icon-switch" style="font-size: 22px;"></i>Tipo de vuelo</label>
+                                    <select class="form-select" id="tipoVuelo" onchange="revisarTipoVuelo()">
+                                        <option value="0" selected>IDA Y VUELTA</option>
+                                        <option value="1">MULTIDESTINOS</option>
+                                        <option value="2">SOLO IDA</option>
+                                    </select>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label><i class="icon-airport" style="transform: rotate(135deg); display: inline-block; font-size: 22px;"></i>Destino</label>
-                                    <input type="text" id="destino" placeholder="Escriba una ciudad de su preferencia..." class="form-control dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" autocomplete="new-destination" data-bs-display="static" oninput="buscadorDestinosVuelos(event,1)"  onfocus="this.nextElementSibling.classList.add('show')">
-                                    <div class="dropdown-menu" style="width: 100%; max-height: 50vh; overflow-y: auto;" id="dropdownDestino">
-                                        <div id="spinnerContenidoVuelos_d" style="text-align: center; display: none;">                
-                                            <div class="spinner-border avatar-lg m-2" role="status" style="color: var(--color-primario);"></div>
-                                        </div>
-                                        <div id="buscadorContenidoVuelos_d" style="display: block;">
-                                            <div>
-                                                <h6 class="dropdown-header" style="font-size: 16px; color: var(--color-primario);" id="tituloDestino">
-                                                    <i class="fas fa-building"></i>
-                                                    Principales Ciudades</h6>
-                                                <div class="row" id="listaDestinos_d">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
+
+
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label><i class="icon-group" style="font-size: 22px;"></i>Personas</label>
                                     <div class="dropdown" style="width: 100%; position: relative;"  id="dropdownPersonas">
-                                        <input type="text" id="personas" name="firstname_booking" id="autocomplete" placeholder="1 PERSONA" class="form-control dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" autocomplete="off" data-bs-display="static" style="font-size: 16px; text-align: center; background-color: white;" readonly  onfocus="this.nextElementSibling.classList.add('show')">
+                                        <input type="text" id="personas" name="firstname_booking" id="autocomplete" placeholder="2 PERSONAS" class="form-control dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" autocomplete="off" data-bs-display="static" style="font-size: 16px; text-align: center; background-color: white;" readonly  onfocus="this.nextElementSibling.classList.add('show')">
                                         <div class="dropdown-menu"  id="dropdownPersonasContent">
                                             <div class="row" style="padding-left: 10px; padding-right: 10px;">
+
+
                                                 <div class="col-md-4 col-6 mt-1">
-                                                    <span>Adultos</span>
-                                                    <input type="number" value="1" id="numeroAdulto" class="form-control" min="1" max="10" style="font-size: 18px; text-align: center;">
+                                                    <div class="form-group">
+                                                        <label>Adultos</label>
+                                                        <div class="d-flex align-items-center">
+                                                            <button type="button" class="btn border-gray rounded" id="decremento" onclick="actualizarValor(-1, 'numeroAdulto',0,0,3,0,9)"><i class="icon-minus" style="color: #aaa9a9;"></i></button></button>
+                                                            <input type="text" value="2" id="numeroAdulto" class="form-control" style="width:43px; background-color: white;" readonly>
+                                                            <button type="button" class="btn border-gray rounded" id="incremento" onclick="actualizarValor( 1, 'numeroAdulto',0,0,3,0,9)"><i class="icon-plus" style="color: #aaa9a9;"></i></button>
+                                                        </div>
+                                                    </div>
                                                 </div>
+
+
                                                 <div class="col-md-4 col-6 mt-1">
-                                                    <span>Niños</span>
-                                                    <input type="number" value="0" id="numeroNino" class="form-control" min="0" max="10" style="font-size: 18px; text-align: center;">
-                                                    <span style="font-size: 10px;">(2-11 años)</span>
+                                                    <div class="form-group">
+                                                        <label>Niños</label>
+                                                        <div class="d-flex align-items-center">
+                                                            <button type="button" class="btn border-gray rounded" id="decremento" onclick="actualizarValor(-1, 'numeroNino',0,0,3,0,9)"><i class="icon-minus" style="color: #aaa9a9;"></i></button></button>
+                                                            <input type="text" value="0" id="numeroNino" class="form-control" style="width:43px; background-color: white;" readonly>
+                                                            <button type="button" class="btn border-gray rounded" id="incremento" onclick="actualizarValor(1, 'numeroNino',0,0,3,0,9)"><i class="icon-plus" style="color: #aaa9a9;"></i></button>
+                                                        </div>
+                                                    </div>
                                                 </div>
+
                                                 <div class="col-md-4 col-6 mt-1">
-                                                    <span>Bebes</span>
-                                                    <input type="number" value="0" id="numeroBebe" class="form-control" min="0" max="10" style="font-size: 18px; text-align: center;">
-                                                    <span style="font-size: 10px;">(0-2 años)</span>
+                                                    <div class="form-group">
+                                                        <label>Infantes</label>
+                                                        <div class="d-flex align-items-center">
+                                                            <button type="button" class="btn border-gray rounded" id="decremento" onclick="actualizarValor(-1, 'numeroBebe',0,0,3,0,9)"><i class="icon-minus" style="color: #aaa9a9;"></i></button></button>
+                                                            <input type="text" value="0" id="numeroBebe" class="form-control" style="width:43px; background-color: white;" readonly>
+                                                            <button type="button" class="btn border-gray rounded" id="incremento" onclick="actualizarValor(1, 'numeroBebe',0,0,3,0,9)"><i class="icon-plus" style="color: #aaa9a9;"></i></button>
+                                                        </div>
+                                                    </div>
                                                 </div>
+
                                                 <div class="col-md-4 col-6 mt-1">
-                                                    <span>3era Edad</span>
-                                                    <input type="number" value="0" id="terceraEdad" class="form-control" min="0" max="10" style="font-size: 18px; text-align: center;">
+                                                    <div class="form-group">
+                                                        <label>3era Edad</label>
+                                                        <div class="d-flex align-items-center">
+                                                            <button type="button" class="btn border-gray rounded" id="decremento" onclick="actualizarValor(-1, 'terceraEdad',0,0,3,0,9)"><i class="icon-minus" style="color: #aaa9a9;"></i></button></button>
+                                                            <input type="text" value="0" id="terceraEdad" class="form-control" style="width:43px; background-color: white;" readonly>
+                                                            <button type="button" class="btn border-gray rounded" id="incremento" onclick="actualizarValor(1, 'terceraEdad',0,0,3,0,9)"><i class="icon-plus" style="color: #aaa9a9;"></i></button>
+                                                        </div>
+                                                    </div>
                                                 </div>
+
                                                 <div class="col-md-4 col-6 mt-1">
-                                                    <span>Discapacitados</span>
-                                                    <input type="number" value="0" id="discapacitados" class="form-control" min="0" max="10" style="font-size: 18px; text-align: center;">
+                                                    <div class="form-group">
+                                                        <label>Discapacitados</label>
+                                                        <div class="d-flex align-items-center">
+                                                            <button type="button" class="btn border-gray rounded" id="decremento" onclick="actualizarValor(-1, 'discapacitados',0,0,3,0,9)"><i class="icon-minus" style="color: #aaa9a9;"></i></button></button>
+                                                            <input type="text" value="0" id="discapacitados" class="form-control" style="width:43px; background-color: white;" readonly>
+                                                            <button type="button" class="btn border-gray rounded" id="incremento" onclick="actualizarValor(1, 'discapacitados',0,0,3,0,9)"><i class="icon-plus" style="color: #aaa9a9;"></i></button>
+                                                        </div>
+                                                    </div>
                                                 </div>
+
                                                 <div class="col-md-12 mt-1" style="text-align: center;">
                                                     <button class="btn_1 green" style="background-color: var(--color-primario);" onclick="cargarPersonas()"><i class="icon-search"></i>Guardar</button>
                                                 </div>
@@ -117,42 +136,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label><i class="icon-switch" style="font-size: 22px;"></i>Tipo de vuelo</label>
-                                    <select class="form-select" id="tipo" style="font-size: 16px; align-items: center;">
-                                        <option value="ida_vuelta" selected style="font-size: 16px;">IDA Y VUELTA</option>
-                                        <option value="ida">SOLO IDA</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label><i class="icon-group" style="font-size: 22px;"></i>Clase</label>
-                                    <select class="form-select" id="claseVuelo" style="font-size: 16px; align-items: center;">
-                                        <option value="0" selected style="font-size: 16px;">CLASE TURISTA O ECONÓMICA</option>
-                                        <option value="1" style="font-size: 16px;">CLASE PREMIUM</option>
-                                        <option value="2" style="font-size: 16px;">CLASE EJECUTIVA O BUSINESS</option>
-                                        <option value="3" style="font-size: 16px;">PRIMERA CLASE</option>
-                                    </select>
-                                </div>
-                            </div>
-                        
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label><i class="icon-calendar-7" style="font-size: 22px;"></i> Fecha Salida</label>
-                                    <input type="text" id="salida-datepicker" class="form-control" placeholder="Fecha de salida" autocomplete="off" onchange="establecerRegreso()" style="background-color: white;">
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label><i class="icon-calendar-7" style="font-size: 22px;"></i> Fecha retorno</label>
-                                    <input type="text" id="retorno-datepicker" class="form-control" placeholder="Fecha de regreso" autocomplete="off" readonly style="background-color: white;">
-                                </div>
-                            </div>
                         </div>
-                        <hr>
-                        <button class="btn_1 green" style="background-color: var(--color-primario);" onclick="validarDatosVuelos()"><i class="icon-search"></i>Buscar ahora</button>
+                        <div class="row" id="buscadorVuelosDOM">
+                        </div>
+                       
                     </div>
                     <div class="tab-pane" id="tours">
                         <h3>Visitas guiadas y excursiones por todo el mundo</h3>
@@ -192,22 +179,23 @@
                     </div>
                     <!-- End rab -->
                     <div class="tab-pane" id="hotels">
+                        
                         <h3>Encuentra tu hotel ideal</h3>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label><i class="icon-airport" style="font-size: 22px;"></i> Destino</label>
-                                    <input type="text" id="destinoHotel" placeholder="Escriba una ciudad de su preferencia..." class="form-control dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" autocomplete="off" data-bs-display="static" oninput="buscadorDestinosHotel(event,1)"  onfocus="this.nextElementSibling.classList.add('show')" style="font-size: 16px; text-align: center;">
-                                    <div class="dropdown-menu" style="width: 100%; max-height: 50vh; overflow-y: auto;" id="dropdownHoteles">
-                                        <div id="spinnerContenidoHotel" style="text-align: center; display: none;">                
+                                    <input type="text" id="destinoHotel_0" placeholder="Escriba una ciudad de su preferencia..." class="form-control dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" autocomplete="off" data-bs-display="static" oninput="buscadorDestinosHotel(event,0)"  onfocus="this.nextElementSibling.classList.add('show')" style="font-size: 16px; text-align: center;">
+                                    <div class="dropdown-menu" style="width: 100%; max-height: 50vh; overflow-y: auto;" id="dropdownHoteles_0">
+                                        <div id="spinnerContenidoHotel_0" style="text-align: center; display: none;">                
                                             <div class="spinner-border avatar-lg m-2" role="status" style="color: var(--color-primario);"></div>
                                         </div>
-                                        <div id="buscadorContenidoHotel" style="display: block;">
+                                        <div id="buscadorContenidoHotel_0" style="display: block;">
                                             <div>
                                                 <h6 class="dropdown-header" style="font-size: 20px; color: var(--color-primario);">
                                                     <i class="fas fa-building"></i>
                                                     Destinos</h6>
-                                                <div class="row" id="listaDestinosHoteles">
+                                                <div class="row" id="listaDestinosHoteles_0">
                                                 </div>
                                             </div>
                                         </div>
@@ -217,9 +205,9 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label><i class="icon-group" style="font-size: 22px;"></i>Personas</label>
-                                    <div class="dropdown" style="width: 100%; position: relative; overflow: visible;"  id="dropdownPersonas">
+                                    <div class="dropdown" style="width: 100%; position: relative;"  id="dropdownPersonas">
                                         <input type="text" id="personasHoteles" name="firstname_booking" id="autocomplete" placeholder="👤 2 PERSONAS y 🏠 1 HABITACIÓN" class="form-control dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" autocomplete="off" data-bs-display="static" style="font-size: 16px; text-align: center; background-color: white;" readonly  onfocus="this.nextElementSibling.classList.add('show')">
-                                        <div class="dropdown-menu" style="width: 100%; max-height: 35vh; overflow-y: auto; z-index: 1516165;" id="dropdownPersonasHoteles">
+                                        <div class="dropdown-menu" style="width: 100%; max-height: 50vh; overflow-y: auto; z-index: 1050;" id="dropdownPersonasHoteles">
                                             <div class="row mb-3">
                                                 <div class="col-12 justify-content-between align-items-center" style="display: flex; margin-left: 15px;">
                                                     <strong><span style="font-size: 15px; color: var(--color-primario);">Añade mas habitaciones</span></strong> 
@@ -235,33 +223,80 @@
                                                 </h6>
                                             </div>
                                             <div class="row" style="margin-left: 15px; margin-right: 5px; align-items: center;">
-                                                <div class="col-lg-6 col-sm-12">
-                                                    <span>Adultos</span>
-                                                    <input type="number" value="2" min="1" max="8" id="numeroAdulto0" class="form-control" style="font-size: 18px; text-align: center; width: 50%;"  onchange="actualizarPersonas(0,0);" oninput="validarRango(this)">
+                                                
+                                                <div class="col-6">
+                                                    <div class="form-group">
+                                                        <label>Adultos</label>
+                                                        <div class="d-flex align-items-center">
+                                                            <button type="button" class="btn border-gray rounded" id="decremento`" onclick="actualizarValor(-1, 'numeroAdulto0',0,0,2,0,6)"><i class="icon-minus" style="color: #aaa9a9;"></i></button></button>
+                                                            <input type="text" value="2" id="numeroAdulto0" class="form-control form-control-lg" style="width:43px; background-color: white;" readonly  onchange="actualizarPersonas(0,0);">                                                                                    
+                                                            <button type="button" class="btn border-gray rounded" id="incremento`" onclick="actualizarValor(1, 'numeroAdulto0',0,0,2,0,6)"><i class="icon-plus" style="color: #aaa9a9;"></i></button>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="col-lg-6 col-sm-12">
-                                                    <span>Niños <span style="font-size: 10px;">2-11 años</span></span>
-                                                    <input type="number" value="0" min="0" max="4" id="numeroNino0" class="form-control" style="font-size: 18px; text-align: center; width: 50%;"  onchange="actualizarPersonas(1,0);" oninput="validarRango(this)">
+                                                
+
+
+                                                <div class="col-6">
+                                                    <div class="form-group">
+                                                        <label>Niños</label>
+                                                        <div class="d-flex align-items-center">
+                                                            <button type="button" class="btn border-gray rounded" id="decremento" onclick="actualizarValor( -1, 'numeroNino0',1,0,2,0,4)"><i class="icon-minus" style="color: #aaa9a9;"></i></button></button>
+                                                            <input type="text" value="0" id="numeroNino0" class="form-control form-control-lg" style="width:43px; background-color: white;" readonly onchange="actualizarPersonas(1,0);">
+                                                            <button type="button" class="btn border-gray rounded" id="incremento" onclick="actualizarValor( 1, 'numeroNino0',1,0,2,0,4)"><i class="icon-plus" style="color: #aaa9a9;"></i></button>
+                                                        </div>
+                                                    </div>
                                                 </div>
+                                                
+                                                
                                                 <div class="col-lg-12 col-sm-12" style="display: none;" id="edadesNinos_0">
-                                                    <span>Edad niños</span>
+                                                    <span>Edades niños</span>
                                                     <div class="row">
-                                                        <div class="col-3" style="display: flex; align-items: center; display: none;" id="ninoC_0_0">
-                                                            <input type="number" value="2" min="2" max="11" id="nino_0_0" class="form-control" style="font-size: 18px; text-align: center;" onchange="actualizarEdad(0,0)" oninput="validarRango(this)">
-                                                            <small style="margin-left: 15px; font-size: 12px;">años</small>
+                                                        
+                                                        <div class="col-4" style="display: flex; align-items: center; display: none;" id="ninoC_0_0">
+                                                            <div class="form-group">
+                                                                <div class="d-flex align-items-center">
+                                                                    <button type="button" class="btn border-gray rounded" id="decremento" onclick="actualizarValor(-1, 'nino_0_0',0,0,1,0,11)"><i class="icon-minus" style="color: #aaa9a9;"></i></button></button>
+                                                                    <input type="text" value="2" id="nino_0_0" class="form-control" onchange="actualizarEdad(0,0)" style="width:43px; background-color: white;" readonly>
+                                                                    <button type="button" class="btn border-gray rounded" id="incremento" onclick="actualizarValor(1, 'nino_0_0',0,0,1,0,11)"><i class="icon-plus" style="color: #aaa9a9;"></i></button>
+                                                                </div>
+                                                                <p style="text-align:center; font-size:13px;">años</p>
+                                                            </div>
                                                         </div>
-                                                        <div class="col-3" style="display: flex; align-items: center; display: none;" id="ninoC_0_1">
-                                                            <input type="number" value="2" min="2" max="11" id="nino_0_1" class="form-control" style="font-size: 18px; text-align: center;" onchange="actualizarEdad(0,1)" oninput="validarRango(this)">
-                                                            <small style="margin-left: 15px; font-size: 12px;">años</small>
+
+                                                            <div class="col-4" style="display: flex; align-items: center; display: none;" id="ninoC_0_1">
+                                                            <div class="form-group">
+                                                                <div class="d-flex align-items-center">
+                                                                    <button type="button" class="btn border-gray rounded" id="decremento" onclick="actualizarValor(-1, 'nino_0_1',0,1,1,0,11)"><i class="icon-minus" style="color: #aaa9a9;"></i></button></button>
+                                                                    <input type="text" value="2" id="nino_0_1" class="form-control" onchange="actualizarEdad(0,1)" style="width:43px; background-color: white;" readonly>
+                                                                    <button type="button" class="btn border-gray rounded" id="incremento" onclick="actualizarValor(1, 'nino_0_1',0,1,1,0,11)"><i class="icon-plus" style="color: #aaa9a9;"></i></button>
+                                                                </div>
+                                                                <p style="text-align:center; font-size:13px;">años</p>
+                                                            </div>
                                                         </div>
-                                                        <div class="col-3" style="display: flex; align-items: center; display: none;" id="ninoC_0_2">
-                                                            <input type="number" value="2" min="2" max="11" id="nino_0_2" class="form-control" style="font-size: 18px; text-align: center;" onchange="actualizarEdad(0,2)" oninput="validarRango(this)">
-                                                            <small style="margin-left: 15px; font-size: 12px;">años</small>
+
+                                                            <div class="col-4" style="display: flex; align-items: center; display: none;" id="ninoC_0_2">
+                                                            <div class="form-group">
+                                                                <div class="d-flex align-items-center">
+                                                                    <button type="button" class="btn border-gray rounded" id="decremento" onclick="actualizarValor(-1, 'nino_0_2',0,2,1,0,11)"><i class="icon-minus" style="color: #aaa9a9;"></i></button></button>
+                                                                    <input type="text" value="2" id="nino_0_2" class="form-control" onchange="actualizarEdad(0,2)" style="width:43px; background-color: white;" readonly>
+                                                                    <button type="button" class="btn border-gray rounded" id="incremento" onclick="actualizarValor(1, 'nino_0_2',0,2,1,0,11)"><i class="icon-plus" style="color: #aaa9a9;"></i></button>
+                                                                </div>
+                                                                <p style="text-align:center; font-size:13px;">años</p>
+                                                            </div>
                                                         </div>
-                                                        <div class="col-3" style="display: flex; align-items: center; display: none;" id="ninoC_0_3">
-                                                            <input type="number" value="2" min="2" max="11" id="nino_0_3" class="form-control" style="font-size: 18px; text-align: center;" onchange="actualizarEdad(0,3)" oninput="validarRango(this)">
-                                                            <small style="margin-left: 15px; font-size: 12px;">años</small>
+
+                                                            <div class="col-4" style="display: flex; align-items: center; display: none;" id="ninoC_0_3">
+                                                            <div class="form-group">
+                                                                <div class="d-flex align-items-center">
+                                                                    <button type="button" class="btn border-gray rounded" id="decremento" onclick="actualizarValor(-1, 'nino_0_3',0,3,1,0,11)"><i class="icon-minus" style="color: #aaa9a9;"></i></button></button>
+                                                                    <input type="text" value="2" id="nino_0_3" class="form-control" onchange="actualizarEdad(0,3)" style="width:43px; background-color: white;" readonly>
+                                                                    <button type="button" class="btn border-gray rounded" id="incremento" onclick="actualizarValor(1, 'nino_0_3',0,3,1,0,11)"><i class="icon-plus" style="color: #aaa9a9;"></i></button>
+                                                                </div>
+                                                                <p style="text-align:center; font-size:13px;">años</p>
+                                                            </div>
                                                         </div>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -278,7 +313,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label><i class="icon-calendar-7"></i> Check in</label>
-                                    <input class="date-pick form-control" type="text" id="chekInHotel" placeholder="Fecha de llegada" autocomplete="off" onchange="establecerRegresoHotel()" style="font-size: 16px; text-align: center; background-color: white;">
+                                    <input class="date-pick form-control" type="text" id="chekInHotel" placeholder="Fecha de llegada" autocomplete="off" onchange="establecerRegresoHotel('')" style="font-size: 18px; text-align: center; background-color: white;">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -288,9 +323,10 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        <hr>
-                        <button class="btn_1 green" style="background-color: var(--color-primario);" onclick="buscarHoteles()"><i class="icon-search"></i>Buscar ahora</button>
+                        <div class="col-md-12 mt-3" style="text-align: center;">
+                            <button class="btn_1 green" style="background-color: var(--color-primario);" onclick="buscarHoteles(0)"><i class="icon-search"></i>Buscar ahora</button>
+                        </div>
+
                     </div>
                     <div class="tab-pane" id="transfers">
                         <h3>Los traslados de tu viaje en nuestras manos</h3>
@@ -577,6 +613,7 @@
     <script src="js/modulos/home.js"></script>
     <script src="js/modulos/catalogo/catalogoComun.js"></script>
     <script src="js/modulos/banco.js"></script>
+    <script src="js/modulos/login.js"></script>
 
 
     <script>
@@ -586,9 +623,10 @@
             cerrarSpinner()
             scrollTop()
             //Vuelos
-            mostrarValoresDefaultVuelos(0)
-            mostrarValoresDefaultVuelos(1)
-            establecerSalida();
+            // mostrarValoresDefaultVuelos(0)
+            // mostrarValoresDefaultVuelos(1)
+            // establecerSalida();
+            plasmarTipoBuscadorVuelos(0) 
 
             //Actividades
             mostrarValoresDefaultActividades()
@@ -598,13 +636,17 @@
             mostrarValoresDefaultTraslados()
 
             //Hoteles
-            mostrarValoresDefaultHoteles()
+            mostrarValoresDefaultHoteles(0)
             establecerSalidaHoteles();
 
             //home
             consultarCatalogosHome()
             consultarBancosHome()
             cerrarMenu()
+
+            //login
+            // verificarAutenticacion()
+
 
         })
 

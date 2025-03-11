@@ -1,13 +1,12 @@
+var vuelosFormulario = [ 
+    {desde:"", hasta:"", fecha:""},
+    {desde:"", hasta:"", fecha:""}
+] 
+
 function validarDatosVuelos(){
-    if(
-        document.getElementById("salida").value.trim() !== '' &&
-        document.getElementById("destino").value.trim() !== '' &&
-        document.getElementById("salida-datepicker").value.trim() !== '' &&
-        document.getElementById("retorno-datepicker").value.trim() !== '' &&
-        document.getElementById("salida").value.trim() !== document.getElementById("destino").value.trim()
-    ){
-        let datos = armarArray()
-        buscarVuelos(datos) 
+    const datos = armarArray()
+    if(datos){
+        buscarVuelos(datos)
     }
     else{
         mensajeUsuario("info","Campos incorrectos","Hay algunos campos incorrectos, por favor revise la información")
@@ -17,77 +16,169 @@ function validarDatosVuelos(){
 
 
 
-function armarArray(){
+function armarArray() {
+    let tipo = document.getElementById("tipoVuelo").value
+    tipo = parseInt(tipo)
+    let datos = [];
+    let aux = true;
+    for (let indice = 0; indice < vuelosFormulario.length; indice++) {
+        // let element = itemsCotizaciones[index].formularioVuelo.vuelos[indice];
+        let salida = document.getElementById("salida_" + indice).value.substring(0, 3);
+        let destino = document.getElementById("destino_" + indice).value.substring(0, 3);
+        let fechaSalida = document.getElementById("salida-datepicker_" + indice).value;
+
+        if (!salida || !destino || !fechaSalida) {
+            aux = false;
+            return false;
+        }
+
+        let infoAux = {
+            desde: salida,
+            hasta: destino,
+            fecha: fechaSalida,
+        };
+        datos.push(infoAux);
+        if(tipo == 0){
+            
+            let fechaRetorno = document.getElementById("retorno-datepicker_" + indice).value;
+            if (!fechaRetorno) {
+                aux = false;
+                return false;
+            }
+            let infoAux = {
+                desde: destino,
+                hasta: salida,
+                fecha: fechaRetorno,
+                
+            };
+            datos.push(infoAux);
+            break;
+        }
+    };
+
+    return aux ? datos : false;
+}
+
+
+
+// function buscarVuelos(datos){
+//     var personasString = JSON.stringify(personas)
+//     var datosString = JSON.stringify(datos)
+//     var personasEncode = encodeURIComponent(personasString)
+//     var datosEncode = encodeURIComponent(datosString)
+//     var url = window.location.origin + "/listaVuelos?datos=" + datosEncode+"&personas="+ personasEncode;
+//     window.location.href = url;
+// }
+
+
+
+
+function buscarVuelos(vuelos){
     let datos = {
-        tipo: document.getElementById("tipo").value,
-        clase: document.getElementById("claseVuelo").value,
-        salida: document.getElementById("salida").value.substring(0, 3),
-        destino: document.getElementById("destino").value.substring(0, 3),
-        fechaSalida: document.getElementById("salida-datepicker").value, 
-        fechaRetorno: document.getElementById("retorno-datepicker").value
+        vuelos: JSON.parse(JSON.stringify(vuelos)),
+        pax: JSON.parse(JSON.stringify(personas))
     }
-    return datos
-}
+    // // vuelosFormulario = JSON.parse(JSON.stringify(datos.vuelos))
+    // consultarVuelos(datos,index)
 
 
-
-function buscarVuelos(datos){
-    var personasString = JSON.stringify(personas)
+    // var personasString = JSON.stringify(personas)
     var datosString = JSON.stringify(datos)
-    var personasEncode = encodeURIComponent(personasString)
+    // var personasEncode = encodeURIComponent(personasString)
     var datosEncode = encodeURIComponent(datosString)
-    var url = window.location.origin + "/listaVuelos?datos=" + datosEncode+"&personas="+ personasEncode;
+    var url = window.location.origin + "/listaVuelos?datos=" + datosEncode;
     window.location.href = url;
+
+
 }
 
 
 
 
 
+// document.getElementById("salida-datepicker").addEventListener("input", function() {
+//     // Cambia el color y tamaño del texto dentro del input
+//     this.style.fontSize = "18px"; // Cambia el tamaño del texto
+//     this.style.textAlign = "center"
+// });
 
-document.getElementById("salida-datepicker").addEventListener("input", function() {
-    // Cambia el color y tamaño del texto dentro del input
-    this.style.fontSize = "18px"; // Cambia el tamaño del texto
-    this.style.textAlign = "center"
-});
+// document.getElementById("retorno-datepicker").addEventListener("input", function() {
+//     // Cambia el color y tamaño del texto dentro del input
+//     this.style.fontSize = "18px"; // Cambia el tamaño del texto
+//     this.style.textAlign = "center"
 
-document.getElementById("retorno-datepicker").addEventListener("input", function() {
-    // Cambia el color y tamaño del texto dentro del input
-    this.style.fontSize = "18px"; // Cambia el tamaño del texto
-    this.style.textAlign = "center"
-
-});
+// });
 
 
 
 var personas = {
-    adultos: 1,
+    adultos: 2,
     ninos: 0,
-    bebes: 0,
-    viejos: 0,
+    infantes: 0,
+    adultos_mayores: 0,
     discapacitados: 0
 };
+// function cargarPersonas() {
+//     let adultos = document.getElementById("numeroAdulto").value
+//     let ninos = document.getElementById("numeroNino").value
+//     let bebes = document.getElementById("numeroBebe").value
+//     let viejos = document.getElementById("terceraEdad").value
+//     let discapacitados = document.getElementById("discapacitados").value
+
+//     if(parseInt(adultos,0) <= 0 || !adultos){
+//         adultos = 1
+//         document.getElementById("numeroAdulto").value = 1
+//     }
+//     if(!ninos){
+//         ninos=0
+//         document.getElementById("numeroNino").value = 0
+//     }
+//     if(!bebes){
+//         bebes=0
+//         document.getElementById("numeroBebe").value = 0
+//     }
+//     if(!viejos){
+//         viejos=0
+//         document.getElementById("terceraEdad").value = 0
+//     }
+//     if(!discapacitados){
+//         discapacitados=0
+//         document.getElementById("discapacitados").value = 0
+//     }
+//     personas.adultos = adultos
+//     personas.ninos = ninos
+//     personas.bebes = bebes
+//     personas.viejos = viejos
+//     personas.discapacitados = discapacitados
+//     var total = parseInt(adultos,10) + parseInt(ninos) + parseInt(bebes) + parseInt(viejos) + parseInt(discapacitados)
+//     document.getElementById("personas").value = total+" PERSONA(S)"
+//     cerrarDropdown("dropdownPersonasContent")
+// }
+
+
+
 function cargarPersonas() {
     let adultos = document.getElementById("numeroAdulto").value
     let ninos = document.getElementById("numeroNino").value
-    let bebes = document.getElementById("numeroBebe").value
-    let viejos = document.getElementById("terceraEdad").value
+    let infantes = document.getElementById("numeroBebe").value
+    let adultos_mayores = document.getElementById("terceraEdad").value
     let discapacitados = document.getElementById("discapacitados").value
 
-    if(parseInt(adultos,0) <= 0 || !adultos){
-        adultos = 1
-        document.getElementById("numeroAdulto").value = 1
+    
+    if(!adultos){
+        adultos = 0
+        document.getElementById("numeroAdulto").value = 0
     }
     if(!ninos){
         ninos=0
         document.getElementById("numeroNino").value = 0
     }
-    if(!bebes){
-        bebes=0
+    if(!infantes){
+        infantes=0
         document.getElementById("numeroBebe").value = 0
     }
-    if(!viejos){
-        viejos=0
+    if(!adultos_mayores){
+        adultos_mayores=0
         document.getElementById("terceraEdad").value = 0
     }
     if(!discapacitados){
@@ -96,13 +187,15 @@ function cargarPersonas() {
     }
     personas.adultos = adultos
     personas.ninos = ninos
-    personas.bebes = bebes
-    personas.viejos = viejos
+    personas.infantes = infantes
+    personas.adultos_mayores = adultos_mayores
     personas.discapacitados = discapacitados
-    var total = parseInt(adultos,10) + parseInt(ninos) + parseInt(bebes) + parseInt(viejos) + parseInt(discapacitados)
+    var total = parseInt(adultos,10) + parseInt(ninos) + parseInt(infantes) + parseInt(adultos_mayores) + parseInt(discapacitados)
     document.getElementById("personas").value = total+" PERSONA(S)"
     cerrarDropdown("dropdownPersonasContent")
 }
+
+
 
 
 
@@ -116,96 +209,98 @@ function cerrarDropdown(id) {
 
 
 
-function mostrarValoresDefaultVuelos(id){
+
+
+
+function mostrarValoresDefaultVuelos(id, index){
     var lista = `
         <div class="col-12">
-            <a class="dropdown-item text-wrap" href="#" onclick="escogerSalidaVuelos('UIO - Quito - Mariscal Sucre - Ecuador',`+id+`);return false;" style="white-space: normal;">
+            <a class="dropdown-item text-wrap" href="#" onclick="escogerSalidaVuelos('UIO - Quito - Mariscal Sucre - Ecuador',`+id+`,'`+index+`');return false;" style="white-space: normal;">
                 <strong style="font-size: 14px">UIO - Quito - Mariscal Sucre</strong> 
                 <span class="text-muted" style="font-size: 12px;">Ecuador</span>
             </a>
         </div>
          <div class="col-12">
-            <a class="dropdown-item text-wrap" href="#" onclick="escogerSalidaVuelos('JFK - New York - John F.Kennedy, NY - USA',`+id+`);return false;" style="white-space: normal;">
-                <strong style="font-size: 14px">JFK - New York - John F.Kennedy, NY</strong> 
-                <span class="text-muted" style="font-size: 12px;">USA</span>
+            <a class="dropdown-item text-wrap" href="#" onclick="escogerSalidaVuelos('GYE - Guayaquil - Ecuador',`+id+`,'`+index+`');return false;" style="white-space: normal;">
+                <strong style="font-size: 14px">GYE - Guayaquil</strong> 
+                <span class="text-muted" style="font-size: 12px;">Ecuador</span>
             </a>
         </div>
         <div class="col-12">
-            <a class="dropdown-item text-wrap" href="#" onclick="escogerSalidaVuelos('MIA - Miami, Florida - USA',`+id+`);return false;" style="white-space: normal;">
-                <strong style="font-size: 14px">MIA - Miami, Florida</strong> 
-                <span class="text-muted" style="font-size: 12px;">USA</span>
-            </a>
-        </div>
-        <div class="col-12">
-            <a class="dropdown-item text-wrap" href="#" onclick="escogerSalidaVuelos('PUJ - Punta Cana - Republica Dominicana',`+id+`);return false;" style="white-space: normal;">
-                <strong style="font-size: 14px">PUJ - Punta Cana</strong> 
-                <span class="text-muted" style="font-size: 12px;">Republica Dominicana</span>
-            </a>
-        </div>
-        <div class="col-12">
-            <a class="dropdown-item text-wrap" href="#" onclick="escogerSalidaVuelos('CUN - Cancún - México',`+id+`);return false;" style="white-space: normal;">
-                <strong style="font-size: 14px">CUN - Cancún </strong> 
-                <span class="text-muted" style="font-size: 12px;">México</span>
-            </a>
-        </div>
-        <div class="col-12">
-            <a class="dropdown-item text-wrap" href="#" onclick="escogerSalidaVuelos('ORL - Orlando international Airport - USA',`+id+`);return false;" style="white-space: normal;">
-                <strong style="font-size: 14px">ORL - Orlando international Airport</strong> 
-                <span class="text-muted" style="font-size: 12px;">USA</span>
-            </a>
-        </div>
-        <div class="col-12">
-            <a class="dropdown-item text-wrap" href="#" onclick="escogerSalidaVuelos('CTG - Cartagena - Colombia',`+id+`);return false;" style="white-space: normal;">
+            <a class="dropdown-item text-wrap" href="#" onclick="escogerSalidaVuelos('CTG - Cartagena - Colombia',`+id+`,'`+index+`');return false;" style="white-space: normal;">
                 <strong style="font-size: 14px">CTG - Cartagena</strong> 
                 <span class="text-muted" style="font-size: 12px;">Colombia</span>
             </a>
         </div>
+        <div class="col-12">
+            <a class="dropdown-item text-wrap" href="#" onclick="escogerSalidaVuelos('ADZ - San Andres - Colombia',`+id+`,'`+index+`');return false;" style="white-space: normal;">
+                <strong style="font-size: 14px">ADZ - San Andres</strong> 
+                <span class="text-muted" style="font-size: 12px;">Colombia</span>
+            </a>
+        </div>
+        <div class="col-12">
+            <a class="dropdown-item text-wrap" href="#" onclick="escogerSalidaVuelos('MDE - Medellin - Colombia',`+id+`,'`+index+`');return false;" style="white-space: normal;">
+                <strong style="font-size: 14px">MDE - Medellin</strong> 
+                <span class="text-muted" style="font-size: 12px;">Colombia</span>
+            </a>
+        </div>
+        <div class="col-12">
+            <a class="dropdown-item text-wrap" href="#" onclick="escogerSalidaVuelos('PTY - Ciudad de Panamá - Tocumen Internacional - Panama',`+id+`,'`+index+`');return false;" style="white-space: normal;">
+                <strong style="font-size: 14px">PTY - Ciudad de Panamá - Tocumen Internacional</strong> 
+                <span class="text-muted" style="font-size: 12px;">Panama</span>
+            </a>
+        </div>
     `
     if(id == 0){
-        $("#listaDestinos").html(lista)
+        $("#listaDestinos_"+index).html(lista)
 
     }else if(id == 1){
-        $("#listaDestinos_d").html(lista)
+        $("#listaDestinos_d_"+index).html(lista)
 
     }
 }
 
 
 
+
+
+
 var proteccion = true
-function buscadorDestinosVuelos(event, id){
+function buscadorDestinosVuelos(event, id, indice){
     if(id == 0){
-        $("#spinnerContenidoVuelos").show()
-        $("#buscadorContenidoVuelos").hide()
+        $("#spinnerContenidoVuelos_"+indice).show()
+        $("#buscadorContenidoVuelos_"+indice).hide()
         
         setTimeout(function() {
-            let textoIngresado = document.getElementById("salida").value;
+            let textoIngresado = document.getElementById("salida_"+indice).value;
+            // textoIngresado = textoIngresado.replace(/"/g, '\\"');
             let numero = parseInt(textoIngresado.length)
             if(numero >= 1 && proteccion){
                 proteccion = false
-                mostrarDestinosVuelos(textoIngresado, id)
+                mostrarDestinosVuelos(textoIngresado, id, indice)
             }else if(numero<3){
-                mostrarValoresDefaultVuelos(id)
-                $("#spinnerContenidoVuelos").hide()
-                $("#buscadorContenidoVuelos").show() 
+                mostrarValoresDefaultVuelos(id, indice)
+                $("#spinnerContenidoVuelos_"+indice).hide()
+                $("#buscadorContenidoVuelos_"+indice).show() 
             }       
         }, 1000);
     }
     
     else if(id == 1){
-        $("#spinnerContenidoVuelos_d").show()
-        $("#buscadorContenidoVuelos_d").hide()
+        $("#spinnerContenidoVuelos_d_"+indice).show()
+        $("#buscadorContenidoVuelos_d_"+indice).hide()
         
         setTimeout(function() {
-            let textoIngresado = document.getElementById("destino").value;
+            let textoIngresado = document.getElementById("destino_"+indice).value;
+            textoIngresado = textoIngresado.replace(/"/g, '\\"');
             let numero = parseInt(textoIngresado.length)
             if(numero >= 1 && proteccion){
                 proteccion = false
-                mostrarDestinosVuelos(textoIngresado, id)
+                mostrarDestinosVuelos(textoIngresado, id, indice)
             }else if(numero<3){
-                mostrarValoresDefaultVuelos(id)
-                $("#spinnerContenidoVuelos_d").hide()
-                $("#buscadorContenidoVuelos_d").show() 
+                mostrarValoresDefaultVuelos(id, indice)
+                $("#spinnerContenidoVuelos_d_"+indice).hide()
+                $("#buscadorContenidoVuelos_d_"+indice).show() 
             }       
         }, 1000);
     }
@@ -213,30 +308,40 @@ function buscadorDestinosVuelos(event, id){
 }
 
 
-function mostrarDestinosVuelos(buscador, id){
+
+
+function mostrarDestinosVuelos(buscador, id, indice){
     proteccion = false
     Obtener_API_Vuelos(null, '/api/chequeando/prebusqueda?buscador='+buscador, datos => {
         if (datos.estado) {
             let lista =""
             proteccion = true
-            datos.consulta.forEach((element, index) => {
+            datos.consulta.forEach((element) => {
                 lista += `
                 <div class="col-12">
-                    <a class="dropdown-item" href="#" onclick="escogerSalidaVuelos('`+element.code+ `-` +element.city+ `-` +element.country+`',`+id+`);return false;"><strong>`+element.code+`-`+element.city+`</strong> <span class="text-muted" style="font-size: small;">`+element.country+`</span></a>
+                    <a 
+                        class="dropdown-item" 
+                        href="#" 
+                        onclick="escogerSalidaVuelos('`+element.code.replace(/'/g, "\\'")+ `-` 
+                        +element.city.replace(/'/g, "\\'")+ `-` 
+                        +element.country.replace(/'/g, "\\'")+`',  '`+id+`'  ,  '`+indice+`' );return false;">
+                        <strong>`+element.code+`-`+element.city+`</strong> 
+                        <span class="text-muted" style="font-size: small;">`+element.country+`</span>
+                    </a>                
                 </div> `
             });
             let titulo = `<i class="fas fa-building"></i> Se ha encontrado:`
             if(id == 0){
-                $("#tituloSalida").html(titulo)
-                $("#listaDestinos").html(lista)
-                $("#buscadorContenidoVuelos").show()  
-                $("#spinnerContenidoVuelos").hide()
+                $("#tituloSalida_"+indice).html(titulo)
+                $("#listaDestinos_"+indice).html(lista)
+                $("#buscadorContenidoVuelos_"+indice).show()  
+                $("#spinnerContenidoVuelos_"+indice).hide()
             }
             else if(id == 1){
-                $("#tituloDestino").html(titulo)
-                $("#listaDestinos_d").html(lista)
-                $("#buscadorContenidoVuelos_d").show()  
-                $("#spinnerContenidoVuelos_d").hide()
+                $("#tituloDestino_"+indice).html(titulo)
+                $("#listaDestinos_d_"+indice).html(lista)
+                $("#buscadorContenidoVuelos_d_"+indice).show()  
+                $("#spinnerContenidoVuelos_d_"+indice).hide()
             }
             
         }
@@ -253,101 +358,115 @@ function mostrarDestinosVuelos(buscador, id){
 
 
 
-function escogerSalidaVuelos(ciudadEscogida, id){
+function escogerSalidaVuelos(ciudadEscogida, id, indice){
     if(id == 0){
-        document.getElementById("salida").value = ciudadEscogida.toUpperCase()
-        document.getElementById("salida").style.fontSize = "15px"        
-        document.getElementById("salida").style.textAlign = "center"        
-        document.getElementById("dropdownSalida").classList.remove("show");
+        document.getElementById("salida_"+indice).value = ciudadEscogida.toUpperCase()
+        // document.getElementById("salida_"+index).style.fontSize = "15px"        
+        // document.getElementById("salida_"+index).style.textAlign = "center"        
+        document.getElementById("dropdownSalida_"+indice).classList.remove("show");
     }
     else if (id == 1){
-        document.getElementById("destino").value = ciudadEscogida.toUpperCase()
-        document.getElementById("destino").style.fontSize = "15px"        
-        document.getElementById("dropdownDestino").classList.remove("show");
-        document.getElementById("destino").style.textAlign = "center"        
+        document.getElementById("destino_"+indice).value = ciudadEscogida.toUpperCase()
+        // document.getElementById("destino_"+indice).style.fontSize = "15px"        
+        document.getElementById("dropdownDestino_"+indice).classList.remove("show");
+        // document.getElementById("destino_"+indice).style.textAlign = "center"        
     }
 }
 
 
 
-document.addEventListener('click', function (event) {
-    const dropdownMenu = document.querySelector('.dropdown-menu');
-    const inputSalida = document.getElementById('salida');
-    const inputDestino = document.getElementById('destino');
-    const inputPersonas = document.getElementById('personas');
-    if(inputSalida){
-        if (inputSalida.contains(event.target)) {
-            const dropdown = bootstrap.Dropdown.getInstance(inputSalida);
-            if (dropdown) {
-                dropdown.show();
-            }
-        } else if (!dropdownMenu.contains(event.target)) {
-            // Ocultar el dropdown si el clic está fuera del dropdown
-            const dropdown = bootstrap.Dropdown.getInstance(inputSalida);
-            if (dropdown) {
-                dropdown.hide();
-            }
-        }
-    }
-    if(inputDestino){
-        if (inputDestino.contains(event.target)) {
-            const dropdown_d = bootstrap.Dropdown.getInstance(inputDestino);
-            if (dropdown_d) {
-                dropdown_d.show();
-            }
-        } else if (!dropdownMenu.contains(event.target)) {
-            // Ocultar el dropdown si el clic está fuera del dropdown
-            const dropdown_d = bootstrap.Dropdown.getInstance(inputDestino);
-            if (dropdown_d) {
-                dropdown_d.hide();
-            }
-        }
-    }
+// document.addEventListener('click', function (event) {
+//     const dropdownMenu = document.querySelector('.dropdown-menu');
+//     const inputSalida = document.getElementById('salida');
+//     const inputDestino = document.getElementById('destino');
+//     const inputPersonas = document.getElementById('personas');
+//     if(inputSalida){
+//         if (inputSalida.contains(event.target)) {
+//             const dropdown = bootstrap.Dropdown.getInstance(inputSalida);
+//             if (dropdown) {
+//                 dropdown.show();
+//             }
+//         } else if (!dropdownMenu.contains(event.target)) {
+//             // Ocultar el dropdown si el clic está fuera del dropdown
+//             const dropdown = bootstrap.Dropdown.getInstance(inputSalida);
+//             if (dropdown) {
+//                 dropdown.hide();
+//             }
+//         }
+//     }
+//     if(inputDestino){
+//         if (inputDestino.contains(event.target)) {
+//             const dropdown_d = bootstrap.Dropdown.getInstance(inputDestino);
+//             if (dropdown_d) {
+//                 dropdown_d.show();
+//             }
+//         } else if (!dropdownMenu.contains(event.target)) {
+//             // Ocultar el dropdown si el clic está fuera del dropdown
+//             const dropdown_d = bootstrap.Dropdown.getInstance(inputDestino);
+//             if (dropdown_d) {
+//                 dropdown_d.hide();
+//             }
+//         }
+//     }
 
-    if(inputPersonas){
-        if (inputPersonas.contains(event.target)) {
-            const dropdown_p = bootstrap.Dropdown.getInstance(inputPersonas);
-            if (dropdown_p) {
-                dropdown_p.show();
-            }
-        } else if (!dropdownMenu.contains(event.target)) {
-            // Ocultar el dropdown si el clic está fuera del dropdown
-            const dropdown_p = bootstrap.Dropdown.getInstance(inputPersonas);
-            if (dropdown_p) {
-                dropdown_p.hide();
-            }
-        }
-    }
-});
+//     if(inputPersonas){
+//         if (inputPersonas.contains(event.target)) {
+//             const dropdown_p = bootstrap.Dropdown.getInstance(inputPersonas);
+//             if (dropdown_p) {
+//                 dropdown_p.show();
+//             }
+//         } else if (!dropdownMenu.contains(event.target)) {
+//             // Ocultar el dropdown si el clic está fuera del dropdown
+//             const dropdown_p = bootstrap.Dropdown.getInstance(inputPersonas);
+//             if (dropdown_p) {
+//                 dropdown_p.hide();
+//             }
+//         }
+//     }
+// });
 
 
-function establecerSalida(){
-    flatpickr("#salida-datepicker", {
-        minDate: "today", // Bloquear fechas anteriores a hoy
+// function establecerSalida(){
+//     flatpickr("#salida-datepicker", {
+//         minDate: "today", // Bloquear fechas anteriores a hoy
+//         dateFormat: "Y-m-d",
+//         disableMobile: true, // Opcional: evita que el selector se convierta en un selector móvil
+//         locale: "es"
+//     }) 
+// }
+
+
+
+function establecerSalida(indice,fechaInicio, fechaDefault){
+    
+    flatpickr("#salida-datepicker_"+indice, {
+        minDate:fechaInicio, // Bloquear fechas anteriores a hoy
         dateFormat: "Y-m-d",
         disableMobile: true, // Opcional: evita que el selector se convierta en un selector móvil
-        locale: "es"
+        locale: "es",
+        default: fechaDefault
     }) 
 }
 
 
-function establecerRegreso(){
-    let forma = document.getElementById("tipo").value
-    if(forma == "ida_vuelta"){
-        var fechaSalida = document.getElementById("salida-datepicker").value
-        flatpickr("#retorno-datepicker", {
-            minDate: fechaSalida, 
-            dateFormat: "Y-m-d",
-            disableMobile: true,
-            locale: "es",
-            defaultDate: fechaSalida,
-            onReady: function(selectedDates, dateStr, instance) {
+
+
+function establecerRegreso(indice, fechaInicio, fechaSalida, abrir){
+    flatpickr("#retorno-datepicker_"+indice, {
+        minDate: fechaInicio, 
+        dateFormat: "Y-m-d",
+        disableMobile: true,
+        locale: "es",
+        defaultDate: fechaSalida,
+        onReady: function(selectedDates, dateStr, instance) {
+            if(abrir){
                 instance.open(); 
-        }
-        });
+            }
     }
-    
+    });
 }
+
+
 
 
 function actualizarBuscador(from, to){
@@ -400,4 +519,198 @@ if (dropdown) {
     dropdown.addEventListener('mousedown', () => {
         isDropdownOpen = true;
     });
+}
+
+
+
+function plasmarTipoBuscadorVuelos(tipo){
+    // 0 = ida y vuelta 
+    // 1 = multidestinos
+    // 2 = solo ida
+    let lista = ""
+    for (let indice = 0; indice < vuelosFormulario.length; indice++) {
+        let element = vuelosFormulario[indice];
+        lista += `
+        <div class="col-md-3">
+            <div class="form-group">
+                <label><i class="icon-airport" style="transform: rotate(45deg); display: inline-block; font-size: 22px;"></i>Salida</label>
+                <div class="dropdown" style="width: 100%;">
+                    <input type="text" value="`
+                    if(tipo == 1 && vuelosFormulario[indice-1]){
+                        lista += vuelosFormulario[indice-1].hasta
+                    }
+                    else{
+                        lista += element.desde
+                    }
+                    lista += 
+                    `" id="salida_${indice}" placeholder="Escriba una ciudad de su preferencia..." class="form-control dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" autocomplete="new-destination" data-bs-display="static" oninput="buscadorDestinosVuelos(event,0,'${indice}')"  onfocus="this.nextElementSibling.classList.add('show')">
+                    <div class="dropdown-menu" style="width: 100%; max-height: 45vh; overflow-y: auto;" id="dropdownSalida_${indice}">
+                        <div id="spinnerContenidoVuelos_${indice}" style="text-align: center; display: none;">                
+                            <div class="spinner-border avatar-lg m-2" role="status" style="color: var(--color-primario);"></div>
+                        </div>
+                        <div id="buscadorContenidoVuelos_${indice}" style="display: block;">
+                            <div>
+                                <h6 class="dropdown-header" style="font-size: 16px; color: var(--color-primario);" id="tituloSalida_${indice}">
+                                    <i class="fas fa-building"></i>
+                                    Principales Ciudades</h6>
+                                <div class="row" id="listaDestinos_${indice}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label><i class="icon-airport" style="transform: rotate(135deg); display: inline-block; font-size: 22px;"></i>Destino</label>
+                <input type="text" value="${element.hasta}" id="destino_${indice}" placeholder="Escriba una ciudad de su preferencia..." class="form-control dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" autocomplete="new-destination" data-bs-display="static" oninput="buscadorDestinosVuelos(event,1,'${indice}')"  onfocus="this.nextElementSibling.classList.add('show')">
+                <div class="dropdown-menu" style="width: 100%; max-height: 45vh; overflow-y: auto;" id="dropdownDestino_${indice}">
+                    <div id="spinnerContenidoVuelos_d_${indice}" style="text-align: center; display: none;">                
+                        <div class="spinner-border avatar-lg m-2" role="status" style="color: var(--color-primario);"></div>
+                    </div>
+                    <div id="buscadorContenidoVuelos_d_${indice}" style="display: block;">
+                        <div>
+                            <h6 class="dropdown-header" style="font-size: 16px; color: var(--color-primario);" id="tituloDestino_${indice}">
+                                <i class="fas fa-building"></i>
+                                Principales Ciudades</h6>
+                            <div class="row" id="listaDestinos_d_${indice}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                                
+        <div class="col-md-3">
+            <div class="form-group">
+                <label><i class="icon-calendar-7" style="font-size: 22px;"></i> Fecha Salida</label>
+                <input type="text" value="${element.fecha}" id="salida-datepicker_${indice}" class="form-control" placeholder="Fecha de salida" autocomplete="off" onchange="abrirRetorno('${indice}')" style="background-color: white;">
+            </div>
+        </div>`;
+        if (tipo == 0) {
+            lista += `
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label><i class="icon-calendar-7" style="font-size: 22px;"></i> Fecha retorno</label>
+                        <input type="text" id="retorno-datepicker_${indice}" value="${vuelosFormulario[indice + 1].fecha}" class="form-control" placeholder="Fecha de regreso" autocomplete="off" readonly style="background-color: white;">
+                    </div>
+                </div>`;
+                break
+        } else if (tipo == 1 && indice == 0) {
+            lista += `
+                <div class="col-md-3" style="display:flex; align-items: center; justify-content: center;">
+                    <button class="btn btn-primary" onclick="agregarVuelo_buscador()">Agregar otro vuelo</button>
+                </div>`;
+        } else if (tipo == 1 && indice > 0) {
+            lista += `
+                <div class="col-md-3" style="display:flex; align-items: center; justify-content: center;">
+                    <button class="btn btn-danger" onclick="eliminarVuelo_buscador('${indice}')">Eliminar vuelo</button>
+                </div>`;
+        } else if (tipo == 2){
+            lista += `
+                <div class="col-md-3" style="display: flex; align-items: center; justify-content: center;">
+                    <div style="visibility: hidden; width: 100%; height: 100%;">Contenido invisible</div>
+                    <button class="btn btn-primary" style="visibility: hidden;" onclick="agregarVuelo_buscador()">Agregar otro vuelo</button>
+                </div>`;
+        }
+    }
+    lista += `
+        <div class="col-md-12 mt-3" style="text-align: center;">
+            <button class="btn_1 green" style="background-color: var(--color-primario);" onclick="validarDatosVuelos()"><i class="icon-search"></i>Buscar ahora</button>
+        </div>
+    `
+    $("#buscadorVuelosDOM").html(lista)
+    setearValores()
+}
+
+
+
+
+function agregarVuelo_buscador(){
+    const tipo = document.getElementById("tipoVuelo").value
+
+    if(vuelosFormulario.length<4){
+        vuelosFormulario.forEach((element,indice) => {
+            let datos = {
+                desde: document.getElementById("salida_"+indice).value,
+                hasta: document.getElementById("destino_"+indice).value,
+                fecha: document.getElementById("salida-datepicker_"+ indice).value
+            }
+            vuelosFormulario[indice] = datos
+        });
+
+        setTimeout(() => {
+            const data = {desde:"", hasta:"", fecha:""}
+            vuelosFormulario.push(data)
+            plasmarTipoBuscadorVuelos(tipo)
+        }, 100);
+    }
+}
+
+
+
+
+function eliminarVuelo_buscador(indice){
+    vuelosFormulario.splice(indice, 1);
+    plasmarTipoBuscadorVuelos(1);
+}
+
+
+
+
+
+function setearValores(){
+    vuelosFormulario.forEach((element,indice) => {
+        mostrarValoresDefaultVuelos(0,indice)
+        mostrarValoresDefaultVuelos(1,indice)
+        if(vuelosFormulario[indice-1]){
+            establecerSalida(indice,vuelosFormulario[indice-1].fecha,vuelosFormulario[indice-1].fecha);
+        }
+        else{
+            establecerSalida(indice,"today","today");
+        }
+    });
+}
+
+
+
+function abrirRetorno(indice){
+    let tipo = document.getElementById("tipoVuelo").value
+    tipo = parseInt(tipo)
+    if(tipo == 0){
+        var fechaSalida = document.getElementById("salida-datepicker_"+indice).value
+        establecerRegreso(indice, fechaSalida, fechaSalida, true)
+    }
+}
+
+
+
+
+
+function revisarTipoVuelo(){
+    let tipo = document.getElementById("tipoVuelo").value
+    tipo = parseInt(tipo)
+    if(tipo == 0){
+        vuelosFormulario = [{desde:"", hasta:"", fecha:""},{desde:"", hasta:"", fecha:""}]
+    }
+    else if(tipo == 1){
+        vuelosFormulario = [{desde:"", hasta:"", fecha:""}]
+    }
+    else if(tipo == 2){
+        vuelosFormulario = [{desde:"", hasta:"", fecha:""}]
+    }
+    plasmarTipoBuscadorVuelos(tipo)
+}
+
+
+
+function verificarPasajerosVuelos(){
+    let adultos = document.getElementById("numeroAdulto").value
+    let ninos = document.getElementById("numeroNino").value
+    let infantes = document.getElementById("numeroBebe").value
+    let adultos_mayores = document.getElementById("terceraEdad").value
+    let discapacitados = document.getElementById("discapacitados").value
+    let total = parseInt(adultos) + parseInt(ninos) + parseInt(infantes) + parseInt(adultos_mayores) + parseInt(discapacitados)
+    return total
 }

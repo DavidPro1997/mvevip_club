@@ -1,83 +1,136 @@
 async function recibirInformacion() {
     const urlParams = new URLSearchParams(window.location.search);
     const date = urlParams.get('datos');
-    const person = urlParams.get('personas');
-    if (person && date) {
-        const personasDecoded = decodeURIComponent(person);
-        const personasObj = JSON.parse(personasDecoded);
-        const arrayDePares = Object.entries(personasObj);
-        let personas = transformArrayToObject(arrayDePares)
+    if (date) {
+        // const personasDecoded = decodeURIComponent(person);
+        // const personasObj = JSON.parse(personasDecoded);
+        // const arrayDePares = Object.entries(personasObj);
+        // let personas = transformArrayToObject(arrayDePares)
 
         const datosDecoded = decodeURIComponent(date);
         const datosObj = JSON.parse(datosDecoded);
         const arrayDePares2 = Object.entries(datosObj);
         let datos = transformArrayToObject(arrayDePares2)
         
-        seterBuscador(personas,datos)
-        consultarVuelos(personas,datos)
+        setearBuscadoresVuelos(datos)
+        consultarVuelos(datos)
     } else {
-        console.log ('Datos de vuelos no especificados, revisando cache...')
-        let datos = await recuperarDatosCache("cacheVuelos");
-        let vuelosCache = datos.datos
-        if(vuelosCache){
-            buscadorGlobalVuelos = vuelosCache.datos
-            personasGlobalVuelos = vuelosCache.personas
-            plasmarVuelos(vuelosCache.vuelos)
-            sacarFiltros(vuelosCache.vuelos)
-            seterBuscador(vuelosCache.personas,vuelosCache.datos)
-        }
-        else{
-            console.log("No hay datos en la cache")
-        }
+        // console.log ('Datos de vuelos no especificados, revisando cache...')
+        // let datos = await recuperarDatosCache("cacheVuelos");
+        // let vuelosCache = datos.datos
+        // if(vuelosCache){
+        //     buscadorGlobalVuelos = vuelosCache.datos
+        //     personasGlobalVuelos = vuelosCache.personas
+        //     plasmarVuelos(vuelosCache.vuelos)
+        //     sacarFiltros(vuelosCache.vuelos)
+        //     seterBuscador(vuelosCache.personas,vuelosCache.datos)
+        // }
+        // else{
+        //     console.log("No hay datos en la cache")
+        // }
         
     }
 }
 
 
-function seterBuscador(personas, datos){
-    document.getElementById("salida").value = datos.salida
-    document.getElementById("destino").value = datos.destino
-    document.getElementById("tipo").value = datos.tipo
-    document.getElementById("claseVuelo").value = datos.clase
-    document.getElementById("salida-datepicker").value = datos.fechaSalida
-    establecerRegreso()
-    document.getElementById("numeroAdulto").value = personas.adultos 
-    document.getElementById("numeroNino").value = personas.ninos
-    document.getElementById("numeroBebe").value = personas.bebes
-    document.getElementById("terceraEdad").value = personas.viejos
-    document.getElementById("discapacitados").value = personas.discapacitados
+
+function setearBuscadoresVuelos(datos){
+    let tipo = 0
+    if( datos.vuelos.length == 1){
+        tipo = 2
+    }
+    else if ( datos.vuelos.length == 2){
+        tipo = 0
+    }
+    else[
+        tipo = 1
+    ]
+    
+    document.getElementById("numeroAdulto").value = datos.pax.adultos 
+    document.getElementById("numeroNino").value = datos.pax.ninos
+    document.getElementById("numeroBebe").value = datos.pax.infantes
+    document.getElementById("terceraEdad").value = datos.pax.adultos_mayores
+    document.getElementById("discapacitados").value = datos.pax.discapacitados
+
+    vuelosFormulario = JSON.parse(JSON.stringify(datos.vuelos))
+    plasmarTipoBuscadorVuelos(tipo)
     cargarPersonas()
-    document.getElementById("retorno-datepicker").value = datos.fechaRetorno
-    var datePicker = flatpickr("#retorno-datepicker", {});
-    datePicker.close();
 }
+
+
+
+
+// function seterBuscador(personas, datos){
+//     document.getElementById("salida").value = datos.salida
+//     document.getElementById("destino").value = datos.destino
+//     document.getElementById("tipo").value = datos.tipo
+//     document.getElementById("claseVuelo").value = datos.clase
+//     document.getElementById("salida-datepicker").value = datos.fechaSalida
+//     establecerRegreso()
+//     document.getElementById("numeroAdulto").value = personas.adultos 
+//     document.getElementById("numeroNino").value = personas.ninos
+//     document.getElementById("numeroBebe").value = personas.bebes
+//     document.getElementById("terceraEdad").value = personas.viejos
+//     document.getElementById("discapacitados").value = personas.discapacitados
+//     cargarPersonas()
+//     document.getElementById("retorno-datepicker").value = datos.fechaRetorno
+//     var datePicker = flatpickr("#retorno-datepicker", {});
+//     datePicker.close();
+// }
 
 
 
 var buscadorGlobalVuelos = ""
 var personasGlobalVuelos = ""
-function consultarVuelos(personas,data){
+// function consultarVuelos(personas,data){
+//     abrirSpinner("Cargando sus vuelos, por favor espere...")
+//     Obtener_API_Vuelos(null, '/api/chequeando/busqueda?from='
+//         +data.fechaSalida+'&to='+data.fechaRetorno+'&departure='+data.salida+'&arrival='
+//         +data.destino+'&adults='+parseInt(personas.adultos)+'&children='+parseInt(personas.ninos)+'&infants='
+//         +parseInt(personas.bebes)+'&seniors='+parseInt(personas.viejos)+'&handicapped='+parseInt(personas.discapacitados)+'&type='
+//         +data.tipo, datos => {
+//             if (datos.estado) {
+//                 cerrarSpinner()
+//                 buscadorGlobalVuelos = data
+//                 personasGlobalVuelos = personas
+//                 plasmarVuelos(datos.consulta.vuelos)
+//                 sacarFiltros(datos.consulta.vuelos)
+//                 guardarDatosCache(personas, data, datos.consulta.vuelos)
+//             }
+//             else{
+//                 cerrarSpinner()
+//                 mensajeUsuario("error","Ooops...","Los vuelos seleccionados no estan disponibles")
+//             }
+//         })
+
+// }
+
+
+
+
+function consultarVuelos(data){
+    console.log("------------------------")
+    console.log("Se consultara estos vuelos: ")
+    console.log(data)
+    console.log("------------------------")
     abrirSpinner("Cargando sus vuelos, por favor espere...")
-    Obtener_API_Vuelos(null, '/api/chequeando/busqueda?from='
-        +data.fechaSalida+'&to='+data.fechaRetorno+'&departure='+data.salida+'&arrival='
-        +data.destino+'&adults='+parseInt(personas.adultos)+'&children='+parseInt(personas.ninos)+'&infants='
-        +parseInt(personas.bebes)+'&seniors='+parseInt(personas.viejos)+'&handicapped='+parseInt(personas.discapacitados)+'&type='
-        +data.tipo, datos => {
-            if (datos.estado) {
-                cerrarSpinner()
-                buscadorGlobalVuelos = data
-                personasGlobalVuelos = personas
+    Enviar_API_Vuelos(JSON.stringify(data), '/api/chequeando/busqueda', datos => {
+        if (datos.estado){
+            cerrarSpinner()
+                // guardarDatosCache_vuelos(personas, data, datos.consulta.vuelos, idTab)
+                buscadorGlobalVuelos = JSON.parse(JSON.stringify(data.vuelos))
+                personasGlobalVuelos = JSON.parse(JSON.stringify(data.pax))
                 plasmarVuelos(datos.consulta.vuelos)
                 sacarFiltros(datos.consulta.vuelos)
-                guardarDatosCache(personas, data, datos.consulta.vuelos)
-            }
-            else{
-                cerrarSpinner()
-                mensajeUsuario("error","Ooops...","Los vuelos seleccionados no estan disponibles")
-            }
-        })
-
+        }else{
+            cerrarSpinner()
+            mensajeUsuario('error','Oops...',datos.error)     
+        }
+    })
+    
+    
 }
+
 
 
 
@@ -90,28 +143,28 @@ function guardarDatosCache(personas, datos, vuelos){
 
 
 
-var vuelosGlobalFiltrados = {}
-var preciosGlobal = {min:0, max:0}
-var vuelosGlobal = {}
+var vuelosGlobalFiltrados = {};
+// var preciosGlobal = {min:0, max:0}
+var vuelosGlobal = "";	
+
 function sacarFiltros(vuelos){
-    vuelosGlobal = vuelos
+    vuelosGlobal = JSON.parse(JSON.stringify(vuelos))
     let vuelosFiltrados = {
         aereolinas: "",
-        escalas : "",
-        precios : ""
+        escalas : ""
     }
-    let precios = {min:1000000, max:0}
-    const vuelosAgrupados = {};
-    const escalasAgrupadas = {}
+    // let precios = {min:1000000, max:0}
+    let vuelosAgrupados = {};
+    let escalasAgrupadas = {}
     vuelos.forEach((element, index) => {
         element.id = index
-        //filtro por precio
-        if(element.price.total < precios.min){
-            precios.min = element.price.total
-        }
-        if(element.price.total > precios.max){
-            precios.max = element.price.total
-        }
+        // //filtro por precio
+        // if(element.price.total < precios.min){
+        //     precios.min = element.price.total
+        // }
+        // if(element.price.total > precios.max){
+        //     precios.max = element.price.total
+        // }
 
 
         //filtro por escala
@@ -138,12 +191,12 @@ function sacarFiltros(vuelos){
         }
         vuelosAgrupados[codigoAerolinea].push(element);
     });
-    preciosGlobal.min = precios.min.toFixed(2)
-    preciosGlobal.max = precios.max.toFixed(2)
+    // preciosGlobal.min = precios.min.toFixed(2)
+    // preciosGlobal.max = precios.max.toFixed(2)
     vuelosFiltrados.aereolinas = vuelosAgrupados
-    vuelosFiltrados.precios = precios
+    // vuelosFiltrados.precios = precios
     vuelosFiltrados.escalas = escalasAgrupadas
-    vuelosGlobalFiltrados = vuelosFiltrados
+    vuelosGlobalFiltrados = JSON.parse(JSON.stringify(vuelosFiltrados))
     armarFiltros(vuelosFiltrados)
 }
 
@@ -151,7 +204,7 @@ function sacarFiltros(vuelos){
 
 
 function armarFiltros(vuelosFiltrados){
-    armarFiltroPrecios(vuelosFiltrados.precios.min, vuelosFiltrados.precios.max)
+    // armarFiltroPrecios_vuelos(vuelosFiltrados.precios.min, vuelosFiltrados.precios.max, index)
     armarFiltroAeriolinas(Object.values(vuelosFiltrados.aereolinas))
     armarFiltroEscalas(vuelosFiltrados.escalas)
 }
@@ -223,7 +276,7 @@ function filtrar(){
     var vuelosFiltrados = {}
     vuelosFiltrados = validarEscala()
     vuelosFiltrados = validarAereolina(vuelosFiltrados)
-    vuelosFiltrados = validarPrecios(vuelosFiltrados)
+    // vuelosFiltrados = validarPrecios(vuelosFiltrados, index)
     plasmarVuelos(vuelosFiltrados)
 
 }
@@ -265,6 +318,24 @@ function validarEscala(){
         return vuelosGlobal
     }
 }
+
+
+// function validarEscala(indice){
+//     let vuelosFiltrados = {}
+//     const escalaSelec = document.querySelector('input[name="escala"]:checked');
+//     if(escalaSelec){
+//         Object.keys(vuelosGlobalFiltrados[indice].escalas).forEach(keyEscalasFiltrados => {
+//             if(keyEscalasFiltrados == escalaSelec.value){
+//                 vuelosFiltrados = (vuelosGlobalFiltrados[indice].escalas[keyEscalasFiltrados])
+//             }
+//         });
+//         return vuelosFiltrados
+//     }
+//     else{
+//         return vuelosGlobal[indice]
+//     }
+// }
+
 
 
 

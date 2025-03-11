@@ -7,7 +7,7 @@ function Obtener_API_Vuelos(campos, modulo, callback, ver_consola = true){
     $.ajax({
         url: apiVuelos+modulo,
         headers: {
-            'Authorization': localStorage.getItem("accessToken"),
+            'Authorization': "Bearer "+localStorage.getItem("authToken"),
             'Content-Type': 'application/json'
         },
         type: 'GET',
@@ -40,7 +40,7 @@ function Modificar_API(campos, modulo, callback){
     $.ajax({
         url: apiVuelos+modulo,
         headers: {
-            'Authorization': localStorage.getItem("accessToken")            
+            'Authorization': "Bearer "+localStorage.getItem("authToken"),
         },
         type: 'PUT',        
         data: campos,
@@ -66,7 +66,7 @@ function Eliminar_API(modulo, callback){
     $.ajax({
         url: apiVuelos+modulo,
         headers: {
-            'Authorization': localStorage.getItem("accessToken")            
+            'Authorization': "Bearer "+localStorage.getItem("authToken"),           
         },
         type: 'DELETE',        
 		dataType: 'json',
@@ -93,7 +93,7 @@ function Obtener_API(campos, modulo, callback, ver_consola = true){
     $.ajax({
         url: api+modulo,
         headers: {
-            'Authorization': localStorage.getItem("accessToken"),
+            'Authorization': "Bearer "+localStorage.getItem("authToken"),
             'Content-Type': 'application/json'
         },
         type: 'GET',
@@ -125,7 +125,7 @@ function Subir_Archivo_API(campos, modulo, callback){
     $.ajax({
         url: api+modulo,
         headers: {
-            'Authorization': localStorage.getItem("accessToken")
+            'Authorization': "Bearer "+localStorage.getItem("authToken"),
             // 'Content-Type': 'application/x-www-form-urlencoded'            
         },
         type: 'POST',
@@ -154,7 +154,7 @@ function Enviar_API(campos, modulo, callback){
     $.ajax({
         url: api+modulo,
         headers: {
-            'Authorization': localStorage.getItem("accessToken"),
+            'Authorization': "Bearer "+localStorage.getItem("authToken"),
             'Content-Type': 'application/json'
         },
         type: 'POST',
@@ -179,7 +179,7 @@ function Enviar_API_Vuelos(campos, modulo, callback){
     $.ajax({
         url: apiVuelos+modulo,
         headers: {
-            'Authorization': localStorage.getItem("accessToken"),
+            'Authorization': "Bearer "+localStorage.getItem("authToken"),
             'Content-Type': 'application/json'
         },
         type: 'POST',

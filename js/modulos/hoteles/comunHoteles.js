@@ -1,4 +1,4 @@
-
+var fee_por_habitacion = 1.70 
 
 function armarId(tipo,habitaciones, adultos, ninos, edades_ninos){
     let id = ""
@@ -56,9 +56,10 @@ function dividirPorIdRate(rooms) {
 function obtenerRooms(tipo, rooms_, id, codigoHotel, nombreHotel){
     let data = {
         lista: "",
-        precio: 0
+        precio: 0,
+        precioMin:0,
     }
-    rooms_.forEach(rooms => {
+    rooms_.forEach((rooms, indiceRooms) => {
         if(rooms.rates.length>0){
             data.lista += `
             <hr style="margin:0 0 10px 0; height: 2px;">
@@ -72,31 +73,35 @@ function obtenerRooms(tipo, rooms_, id, codigoHotel, nombreHotel){
             }
             data.lista +=`
             </small>`
-            rooms.rates.forEach(rates => {
+            rooms.rates.forEach((rates, indiceRates) => {
+                
                 data.lista += `
                     <div class="row mb-2">
-                        <div class="col-4 d-flex align-items-center">
+                        <div class="col-lg-4" style="text-align:center;">
                             <small style="margin-left:15px;">`+rates.boardName+`</small>
                         </div>
-                        <div class="col-5" style="text-align:center;" >
+                        <div class="col-lg-5" style="text-align:center;" >
                             `+cancelacion(rates)+`
                         </div>
-                        <div class="col-2 justify-content-center" style="display: flex; flex-direction: column; align-items: end;">
+                        <div class="col-lg-2" style="display: flex; flex-direction: column;">
                             <span style="font-size: 14px"><strong>$`
                             let precio
                             if(rates.sellingRate){
-                                precio = parseFloat(rates.sellingRate)
-                                data.lista += (precio*1.75).toFixed(2)
+                                precio = parseFloat(rates.sellingRate*fee_por_habitacion)
+                                data.lista += precio.toFixed(2)
                             }else{
-                                precio = parseFloat(rates.net)
-                                data.lista += (precio*1.75).toFixed(2)
+                                precio = parseFloat(rates.net*fee_por_habitacion)
+                                data.lista += precio.toFixed(2)
+                            }
+                            if(indiceRates == 0 && indiceRooms == 0){
+                                data.precioMin = precio
                             }
                             data.precio = precio
                             data.lista +=` USD</strong></span>
                         </div>`
                         if(tipo){
                             data.lista += `
-                                <div class="col-1 d-flex align-items-center justify-content-center">
+                                <div class="col-lg-1">
                                     <input class="form-check-input" type="radio" name="radio`+id+`" id="customradio2" style="transform: scale(1.4);" value='`+JSON.stringify(informacionResumen(id,rates.adults,rates.children,rates.childrenAges,rates,codigoHotel,nombreHotel,rooms.name))+`' onclick="escogerHotel(this.value)">
                                 </div>
                             `
