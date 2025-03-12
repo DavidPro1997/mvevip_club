@@ -6,8 +6,8 @@ var fee_por_persona = {
 } 
 
 
-function obtenerFee(personas,price){
-    const numePax = contarPersonas(personas, price)
+function obtenerFee(price){
+    const numePax = contarPersonas(price)
     let fee = 0
     if(numePax == 1){
         fee = fee_por_persona.fee_1_persona
@@ -27,7 +27,7 @@ function obtenerFee(personas,price){
 
 
 
-function armarCostos(precios, personas){
+function armarCostos(precios){
     let lista = ""
     lista += `
        
@@ -36,7 +36,7 @@ function armarCostos(precios, personas){
                 <div class="table-responsive">
                     <table class="table mb-0">
                         <tbody>`
-                            const fee = obtenerFee(personas, precios)
+                            const fee = obtenerFee(precios)
                             if(precios.adults){
                                 lista +=`<tr>
                                 <td>`+precios.adults.quantity+` Adultos:</td>
@@ -68,7 +68,7 @@ function armarCostos(precios, personas){
                             </tr>
                             <tr>
                                 <th><strong>Total:<strong></th>
-                                <th>$`+totalPrecioVuelo(personas, precios).toFixed(2)+`</th>
+                                <th>$`+totalPrecioVuelo(precios).toFixed(2)+`</th>
                             </tr>
                         </tbody>
                     </table>
@@ -240,7 +240,7 @@ function calculateTimeDifference(fecha1, hora1, fecha2, hora2) {
 }
 
 
-function armarVuelos(vuelos, buscador, personas, aux){
+function armarVuelos(vuelos, aux){
     let lista = ""
     vuelos.forEach((element,index) => {
         lista += `
@@ -254,7 +254,7 @@ function armarVuelos(vuelos, buscador, personas, aux){
                         <div class="col-4" style="display:flex; align-items:center; justify-content:center; flex-direction:column;">
                         </div>
                         <div class="col-4" style="text-align:end;">
-                            <span><strong>$`+totalPrecioVuelo(personas, element.price).toFixed(2)+` USD </strong></span><br>
+                            <span><strong>$`+totalPrecioVuelo(element.price).toFixed(2)+` USD </strong></span><br>
                             <small class="small-text" style="font-size: 0.8rem;">Ida y vuelta </small> 
                         </div>
                     </div>
@@ -269,14 +269,14 @@ function armarVuelos(vuelos, buscador, personas, aux){
                                 lista += `8`
                             }
                             lista += `">
-                            `+armarDetalleVuelo(element.segments, buscador, index, aux)+`
+                            `+armarDetalleVuelo(element.segments, index, aux)+`
                         </div>
                         <div class="col-md-4" style="padding:30px; `
                             if(aux == 15){
                                 lista += `display: none;`
                             }
                             lista += `">
-                            `+armarCostos(element.price,personas,0)+`
+                            `+armarCostos(element.price,0)+`
                             `
                             if(aux){
                                 lista += `
@@ -307,7 +307,7 @@ function resumenNombreAereolina(str) {
 }
 
 
-function armarDetalleVuelo(segmentos, buscador, index, aux){
+function armarDetalleVuelo(segmentos, index, aux){
     let lista =""
 
     segmentos.forEach((vuelo,auxIndex) => {
@@ -317,7 +317,7 @@ function armarDetalleVuelo(segmentos, buscador, index, aux){
                 <div class="col-12" style="display: flex; align-items: center;">
                     <i class="icon-plane" style="transform: rotate(45deg); margin-right: 10px; font-size: 20px;"></i>
                     <h5 style="margin-right: 20px; font-size: 16px;">Vuelo `+(auxIndex+1)+`</h5>
-                    <h5 style="font-size: 16px;"> `+buscador[auxIndex].fecha+`</h5>
+                    <h5 style="font-size: 16px;"> `+vuelo.departure_date+`</h5>
                 </div>
             </div>
         `
@@ -452,14 +452,14 @@ function actualizarFeePrecios(personas, precios){
 
 
 
-function totalPrecioVuelo(personas, precios){
-    const numPax = contarPersonas(personas, precios)
-    const fee = obtenerFee(personas,precios)
+function totalPrecioVuelo(precios){
+    const numPax = contarPersonas(precios)
+    const fee = obtenerFee(precios)
     return precios.total+(numPax*fee)
 }
 
 
-function contarPersonas(personas, precios){
+function contarPersonas(precios){
     let contador = 0
     if(precios.adults){
         contador = contador + precios.adults.quantity

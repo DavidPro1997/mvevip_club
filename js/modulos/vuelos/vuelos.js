@@ -398,7 +398,7 @@ function reservar(id){
 function plasmarVuelos(vuelos){
     var datos = ""
     if(vuelos.length>0){
-         datos = armarVuelos(vuelos, buscadorGlobalVuelos, personasGlobalVuelos,5)
+         datos = armarVuelos(vuelos,5)
     }else if(vuelos.length == 0){
         datos = '<h3 style="text-align: center; color: var(--color-primario);">No se ha encontrado vuelos</h3>'
     }

@@ -34,7 +34,7 @@
                 </div>
             </div>   
 
-            <div id="mkv_conSesion" style="display: none;">
+            <div id="mkv_conSesion" style="display: none; width: 100%;">
                 <ul class="nav nav-tabs">
                     <li><a href="#vuelos" data-bs-toggle="tab" class="active show"><i class="icon-airport"></i>Vuelos</a></li>
                     <li><a href="#hotels" data-bs-toggle="tab"><i class="icon-commerical-building"></i>Hoteles</a></li>
@@ -170,12 +170,14 @@
                                             </div>
                                         </div>
                                     </div>                                       
-                                    </div>
+                                </div>
                             </div>
                             <div class="col-md-12"><p style="color: transparent;">hello</p></div>
                         </div>
                         <hr>
-                        <button class="btn_1 green" style="background-color: var(--color-primario);" onclick="listarActividades()"><i class="icon-search"></i>Buscar ahora</button>
+                        <div class="col-md-12" style="text-align: center;">
+                            <button class="btn_1 green" style="background-color: var(--color-primario);" onclick="listarActividades()"><i class="icon-search"></i>Buscar ahora</button>
+                        </div>
                     </div>
                     <!-- End rab -->
                     <div class="tab-pane" id="hotels">
@@ -387,14 +389,13 @@
                                 </div>
                             </div>
                         </div>
-                        <hr>
                         <div class="row">
-                            <div class="col-md-5">
-                                <button class="btn_1 green" style="background-color: var(--color-primario);" onclick="verTraslados()"><i class="icon-search"></i>Buscar ahora</button>
-                            </div>
-                            <div class="col-md-7" id="faqTraslados" style="display: none;">
+                            <div class="col-md-12" id="faqTraslados" style="display: none; text-align: center;">
                                 <div class="spinner-border avatar-sm m-2 spinner-cargando" role="status" style="color: var(--color-primario);" id="spinnerTraslado"></div>
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#full-width-modal" id="linkContenido"></a>
+                            </div>
+                            <div class="col-md-12" style="text-align: center;">
+                                <button class="btn_1 green" style="background-color: var(--color-primario);" onclick="verTraslados()"><i class="icon-search"></i>Buscar ahora</button>
                             </div>
                         </div>
                     </div>

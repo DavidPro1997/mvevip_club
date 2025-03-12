@@ -103,6 +103,7 @@ function restablecerEmail(){
 
 
 function iniciarSesion(){
+    abrirSpinner("Espere, por favor...")
     const info = {
         username: document.getElementById("emailSesion").value,
         password: document.getElementById("passwordSesion").value
@@ -110,12 +111,14 @@ function iniciarSesion(){
 
     Enviar_API_Vuelos(JSON.stringify(info), '/api/v2/login', datos => {
         if (datos.estado){
+            cerrarSpinner()
             localStorage.setItem("authToken",datos.token)
             mensajeUsuario('success','¡Bien!',"Sesión iniciada correctamente.").then(() => {
                 window.location.href = "/home";
             });
             
         }else{
+            cerrarSpinner()
             mensajeUsuario('info','Oops...',datos.error)
         }
 

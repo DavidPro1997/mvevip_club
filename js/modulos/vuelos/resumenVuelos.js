@@ -13,7 +13,7 @@ function recibirInformacion() {
         const idResumenDecoded = decodeURIComponent(idResumen);
         const idResumenObj = JSON.parse(idResumenDecoded);
         
-        consultarResumen(idResumenObj, personas)
+        consultarResumen(idResumenObj)
         
     } 
     else {
@@ -23,19 +23,19 @@ function recibirInformacion() {
 
 
 
-function consultarResumen(idResumen, personas){
+function consultarResumen(idResumen){
     abrirSpinner("Cargando...")
     Obtener_API_Vuelos(null, '/api/chequeando/resumen/'+idResumen, datos => {
         if (datos.estado) { 
             setearNumReserva(datos.consulta.pnr)
-            let buscador = {
-                salida: datos.consulta.completo.cluster.segments[0].origin.code,
-                destino: datos.consulta.completo.cluster.segments[0].destination.code,
-                fechaSalida: datos.consulta.completo.cluster.segments[0].departure_date,
-                fechaRetorno: datos.consulta.completo.cluster.segments[1].destination.date
-            }
+            // let buscador = {
+            //     salida: datos.consulta.completo.cluster.segments[0].origin.code,
+            //     destino: datos.consulta.completo.cluster.segments[0].destination.code,
+            //     fechaSalida: datos.consulta.completo.cluster.segments[0].departure_date,
+            //     fechaRetorno: datos.consulta.completo.cluster.segments[1].destination.date
+            // }
             let vuelo = [datos.consulta.completo.cluster]
-            plasmarVuelos(vuelo, buscador, personas)
+            plasmarVuelos(vuelo)
             armarPasajeros(datos.consulta.completo.passengers)  
             cerrarSpinner()
         }
@@ -57,8 +57,8 @@ function setearNumReserva(pnr){
 }
 
 
-function plasmarVuelos(vuelos, buscador, personas){
-    var datos = armarVuelos(vuelos, buscador, personas, "")
+function plasmarVuelos(vuelos){
+    var datos = armarVuelos(vuelos, "")
     $("#listaVuelos").html(datos)
 }
 
