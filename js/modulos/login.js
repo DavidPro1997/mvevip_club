@@ -136,7 +136,6 @@ function verificarAutenticacion() {
     if (!token) {
         sinSesion()
     } else {
-        console.log("Verificando token")
         apiToken().then((datos) => {
             conSesion(datos)
         })
