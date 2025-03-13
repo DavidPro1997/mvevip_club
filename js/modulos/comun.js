@@ -6,6 +6,24 @@ var tiktok = "https://www.tiktok.com/@marketingvipecuador"
 var youtube = "https://www.youtube.com/channel/UCTb9vJwhQcB7Ea_1va1o7bg"
 
 
+var fee_por_habitacion = 1
+var fee_por_persona = {
+    fee_1_persona: 35,
+    fee_2_persona: 25,
+    fee_3_persona: 20,
+    fee_4_persona: 15,
+} 
+
+
+function modificarFee(datos){
+    fee_por_habitacion = datos.porcentajes[1].percentage
+    fee_por_persona.fee_1_persona = datos.porcentajes[0].person_1
+    fee_por_persona.fee_2_persona = datos.porcentajes[0].person_2
+    fee_por_persona.fee_3_persona = datos.porcentajes[0].person_3
+    fee_por_persona.fee_4_persona = datos.porcentajes[0].person_4
+
+}
+
 function abrirSpinner(mensaje){
     $("#mensajeSpinner").html(mensaje)
     $("#centermodal").modal({

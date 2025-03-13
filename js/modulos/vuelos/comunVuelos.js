@@ -1,9 +1,4 @@
-var fee_por_persona = {
-    fee_1_persona: 35,
-    fee_2_persona: 25,
-    fee_3_persona: 20,
-    fee_4_persona: 15,
-} 
+
 
 
 function obtenerFee(price){

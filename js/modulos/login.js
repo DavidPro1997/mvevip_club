@@ -14,7 +14,8 @@ function abrirModalPolitica(){
 }
 
 
-function conSesion(){
+function conSesion(datos){
+    modificarFee(datos)
     $("#mkv_sinSesion").hide()
     $("#mkv_conSesion").show()
     $("#botonInciarSession").hide()
@@ -28,6 +29,8 @@ function sinSesion(){
     $("#mkv_conSesion").hide()
     $("#botonCerrarSession").hide()
     $("#botonInciarSession").show()
+    // const url = window.location.origin + "/home"
+    // window.location.href = url; 
 }
 
 
@@ -134,11 +137,11 @@ function verificarAutenticacion() {
         sinSesion()
     } else {
         console.log("Verificando token")
-        apiToken().then(() => {
-            conSesion()
+        apiToken().then((datos) => {
+            conSesion(datos)
         })
         .catch(error => {
-            console.error("Error:", error);
+            sinSesion()
         });
     }
 }
@@ -149,7 +152,7 @@ function apiToken() {
     return new Promise((resolve, reject) => {
         Obtener_API_Vuelos(null, '/api/v2/sesion', datos => {
             if (datos.estado) {
-                resolve(datos.datos); // Resuelve la promesa con verdadero si el token es válido
+                resolve(datos.consulta); // Resuelve la promesa con verdadero si el token es válido
             } else {
                 sinSesion()
                 reject(datos.mensaje); // Rechaza la promesa si hay un error

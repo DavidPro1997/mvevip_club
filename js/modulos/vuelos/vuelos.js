@@ -368,29 +368,29 @@ function validarAereolina(vuelosFiltrados){
 
 
 function reservar(id){
-    const group0Radios = document.getElementsByName('customRadio'+id+'_0');
-    const group1Radios = document.getElementsByName('customRadio'+id+'_1');
-    let vueloIdaId = null;
-    let vueloVueltaId = null;
-    for (let radio of group0Radios) {
-        if (radio.checked) {
-            vueloIdaId = radio.value;
-            break;
-        }
-    }
-    for (let radio of group1Radios) {
-        if (radio.checked) {
-            vueloVueltaId = radio.value;
-            break;
-        }
-    }
-    if (vueloIdaId && vueloVueltaId) {
-        console.log("Hols")
-        var personasString = JSON.stringify(personasGlobalVuelos)
-        var personasEncode = encodeURIComponent(personasString)
-        var url = window.location.origin + "/formularioVuelos?idVueloIda=" + encodeURIComponent(vueloIdaId)+"&idVueloVuelta="+ encodeURIComponent(vueloVueltaId)+"&personas="+ personasEncode;
-        window.location.href = url;
-    }
+    // const group0Radios = document.getElementsByName('customRadio'+id+'_0');
+    // const group1Radios = document.getElementsByName('customRadio'+id+'_1');
+    // let vueloIdaId = null;
+    // let vueloVueltaId = null;
+    // for (let radio of group0Radios) {
+    //     if (radio.checked) {
+    //         vueloIdaId = radio.value;
+    //         break;
+    //     }
+    // }
+    // for (let radio of group1Radios) {
+    //     if (radio.checked) {
+    //         vueloVueltaId = radio.value;
+    //         break;
+    //     }
+    // }
+    // if (vueloIdaId && vueloVueltaId) {
+    //     console.log("Hols")
+    //     var personasString = JSON.stringify(personasGlobalVuelos)
+    //     var personasEncode = encodeURIComponent(personasString)
+    //     var url = window.location.origin + "/formularioVuelos?idVueloIda=" + encodeURIComponent(vueloIdaId)+"&idVueloVuelta="+ encodeURIComponent(vueloVueltaId)+"&personas="+ personasEncode;
+    //     window.location.href = url;
+    // }
 
 }
 

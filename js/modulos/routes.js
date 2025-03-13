@@ -76,9 +76,13 @@ app.config(['$routeProvider', '$locationProvider',function($routeProvider, $loca
             templateUrl : 'carrito.html',
             controller : 'CarritoController'
         })
-        .when('/carritoDetalles', {
-            templateUrl : 'carrito_detalles.html',
-            controller : 'CarritoDetallesController'
+        .when('/carritoPrecios', {
+            templateUrl : 'carrito_precios.html',
+            controller : 'CarritoPreciosController'
+        })
+        .when('/carritoFormulario', {
+            templateUrl : 'carrito_formulario.html',
+            controller : 'CarritoFormularioController'
         })
         .when('/listaTraslados', {
             templateUrl : 'lista_traslados.html',
@@ -197,8 +201,12 @@ app.controller('CarritoController', ['$scope', function($scope) {
     $scope.message = 'Bienvenido al carrito';
 }]);
 
-app.controller('CarritoDetallesController', ['$scope', function($scope) {
-    $scope.message = 'Bienvenido al detalle del carrito';
+app.controller('CarritoPreciosController', ['$scope', function($scope) {
+    $scope.message = 'Bienvenido a los precios de tu carrito';
+}]);
+
+app.controller('CarritoFormularioController', ['$scope', function($scope) {
+    $scope.message = 'Bienvenido al formulario del carrito';
 }]);
 
 app.controller('ListaTrasladosController', ['$scope', function($scope) {

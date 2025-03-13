@@ -57,11 +57,13 @@
         <script src="/js/modulos/comun.js"></script>
 		<script src="js/modulos/catalogo/catalogos.js"></script>
 		<script src="js/modulos/catalogo/catalogoComun.js"></script>
+		<script src="js/modulos/login.js"></script>
 
 
 		<script>
             
             $(document).ready(e => {
+				verificarAutenticacion()
                 scrollTop()
 				consultarCatalogos()
 				$("#numero2").html(obtenerNumero())

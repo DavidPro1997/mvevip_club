@@ -344,24 +344,24 @@ function dividirHabitaciones(rooms){
 
 
 function reservarHotel(){
-    let informacion={
-        rooms: []
-    }
-    if(resumenCompra.length>0){
-        resumenCompra.forEach(element => {
-            let nuevoRoom ={
-                rateKey : element.rateKey    
-            }
-            ocupantes.forEach((aux,index) => {
-                const id = armarId(0,aux.rooms,aux.adults, aux.children, aux.paxes)
-                if(id == element.id){
-                    ocupantes[index].ratekey = element.rateKey
-                }
-            });
-            informacion.rooms.push(nuevoRoom)
-        });
-        hacerReserva(informacion)
-    }        
+    // let informacion={
+    //     rooms: []
+    // }
+    // if(resumenCompra.length>0){
+    //     resumenCompra.forEach(element => {
+    //         let nuevoRoom ={
+    //             rateKey : element.rateKey    
+    //         }
+    //         ocupantes.forEach((aux,index) => {
+    //             const id = armarId(0,aux.rooms,aux.adults, aux.children, aux.paxes)
+    //             if(id == element.id){
+    //                 ocupantes[index].ratekey = element.rateKey
+    //             }
+    //         });
+    //         informacion.rooms.push(nuevoRoom)
+    //     });
+    //     hacerReserva(informacion)
+    // }        
 }
 
 

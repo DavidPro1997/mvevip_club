@@ -398,7 +398,120 @@ var jsonCarritoEjemplo = {
         }
 
     ],
-    actividades: [],
+    actividades: [
+            {
+              activity: {
+                id: 65,
+                title: 'Contrastes de Nueva York',
+                providerId: 131,
+                categories: [
+                  {
+                    id: 1,
+                    description: 'Visitas guiadas y free tours'
+                  }
+                ]
+              },
+              date: '2025-03-14',
+              details: {
+                MinimumPaxPerBooking: null,
+                accessibility: {
+                  code: 121,
+                  description: 'Sí, solo para sillas de ruedas plegables de pequeñas dimensiones'
+                },
+                address: '',
+                latitude: 40.754373895559,
+                longitude: -73.9927084408204,
+                shortAddress: 'Hotel Courtyard New York Manhattan/Times Square West.',
+                zoom: 16
+              },
+              advance: {
+                days: 0,
+                hour: null,
+                minutes_before: 600
+              },
+              amountType: 'PVP',
+              cancelPolicies: [
+                {
+                  hours: 24,
+                  penalty: 0,
+                  type: 'percent'
+                }
+              ],
+              cancelPolicy: '¡Gratis! Cancela sin gastos hasta 24 horas antes de la actividad. Si cancelas con menos tiempo, llegas tarde o no te presentas, no se ofrecerá ningún reembolso.',
+              category: {
+                id: 1,
+                description: 'Visitas guiadas y free tours'
+              },
+              currency: 'USD',
+              description: '<strong>Contrastes de Nueva York</strong> es la excursión más popular de la ciudad que nunca duerme y en ella conoceremos los <b>barrios de Queens,&nbsp;</b><strong>el Bronx y Brooklyn</strong>.',
+              destinationId: 8,
+              duration: {
+                min: 240,
+                max: 0,
+                duration: 240
+              },
+              guideLanguages: ['es'],
+              hasAdditionalQuestions: false,
+              hasDynamicPrice: false,
+              hasPassengersQuestions: false,
+              id: 65,
+              included: [
+                'Transporte en autobús.',
+                'Guía de habla española.'
+              ],
+              infoVoucher: "<p><strong>15 minutos antes</strong> de la hora indicada, debéis presentaros en el siguiente punto de Nueva York: <strong>entrada del Hotel Courtyard New York Manhattan/Times Square West</strong>, situado en el<strong>&nbsp;número&nbsp;307 de la calle West 37th Street</strong>. Se ruega puntualidad.</p>",
+              isCategoryPaxGroup: false,
+              isFreeTour: false,
+              lang: 'es',
+              longDescription: "<p><strong>Contrastes de Nueva York</strong> es una excursión que abarca los barrios más significativos de la ciudad: <strong>el Bronx, Queens y Brooklyn</strong>. Durante 4 horas, se exploran las áreas de mayor diversidad cultural, accesibles principalmente mediante un tour guiado.</p>\n\n<h2>Itinerario</h2>\n\n<p>A la hora fijada, nos encontraremos en el <b>Hotel Courtyard New York Manhattan/Times Square West</b> para comenzar el <b>tour de contrastes</b>. Iniciaremos en el <strong>oeste de Manhattan</strong>, donde se podrán observar el <strong>portaaviones Intrepid</strong> y el complejo de edificios Trump, así como las vistas del río Hudson.</p>\n\n<p>La primera parada será en <strong>el Bronx</strong>, conocido como el <strong>distrito de la salsa</strong> y cuna de <strong>Jennifer López</strong>. Visitarán el <strong>Estadio de los Yankees</strong>, el <strong>Palacio de Justicia</strong>, los juzgados y la Corte Criminal del Bronx. También se verá la exterior de la Comisaría 32, la <strong>Avenida Grand Concord</strong> y el <strong>South Bronx</strong>, famoso por sus grafitis.</p>\n\n<p>Continuaremos hacia <strong>Queens</strong>, el distrito más extenso y multicultural de Nueva York. Atravesaremos el <strong>puente Whitestone</strong> y visitaremos la zona de <strong>Malba</strong> y <strong>Flushing Meadows Corona Park</strong>, donde se encuentran el <strong>Estadio de los Mets</strong> y el globo terráqueo <strong>Unisphere</strong>.</p>\n\n<p>Tras dejar Queens, llegaremos a <strong>Brooklyn</strong>, donde recorreremos el <strong>barrio judío de Williamsburg</strong>, notable por su comunidad judía ortodoxa. El tour culminará tras <strong>4 horas</strong>, ofreciendo dos opciones al final:</p>\n\n<ul class=\"listado\">\n\t<li><b>Quedar en Brooklyn</b> y cruzar el <b>puente sobre el río Este</b>.</li>\n\t<li><b>Continuar a Mulberry Street en Chinatown</b>, con acceso a <b>Little Italy, SoHo o Greenwich Village</b>.</li>\n</ul>\n\n<h2>Tour de contrastes VIP</h2>\n\n<p>Se puede optar por el <strong>tour de contrastes VIP</strong>, que incluye <strong>recogida en hoteles de Manhattan</strong> y una parada adicional. Existe también la opción de contratar un <strong>tour privado de contrastes de Nueva York</strong> para mayor comodidad.</p>",
+              maximumPaxPerActivity: null,
+              minAge: 0,
+              minimumPaxPerActivity: 0,
+              minimumPrice: 49,
+              notIncluded: [],
+              originalPrice: 49,
+              photos: {
+                gallery: [
+                  {
+                    caption: "Puente de Brooklyn",
+                    paths: {
+                      big: "https://f.civitatis.com/estados-unidos/nueva-york/galeria/big/vista-brooklyn-bridge.jpg",
+                      original: "https://f.civitatis.com/estados-unidos/nueva-york/galeria/vista-brooklyn-bridge.jpg",
+                      thumbnail: "https://f.civitatis.com/estados-unidos/nueva-york/galeria/thumbs/vista-brooklyn-bridge.jpg"
+                    }
+                  }
+                ],
+                header: [
+                  {
+                    caption: "Contrastes de Nueva York",
+                    paths: {
+                      grid: "https://f.civitatis.com/estados-unidos/nueva-york/contrastes-nueva-york-grid.jpg",
+                      list: "https://f.civitatis.com/estados-unidos/nueva-york/contrastes-nueva-york-list.jpg",
+                      list_responsive: "https://f.civitatis.com/estados-unidos/nueva-york/contrastes-nueva-york-list-m.jpg",
+                      original: "https://f.civitatis.com/estados-unidos/nueva-york/contrastes-nueva-york.jpg",
+                      thumbnail: "https://f.civitatis.com/estados-unidos/nueva-york/contrastes-nueva-york-m.jpg"
+                    }
+                  }
+                ]
+              },
+              rates: [{}],
+              rawLongDescription: "Contrastes de Nueva York es una excursión que abarca los barrios más significativos de la ciudad: el Bronx, Queens y Brooklyn. Durante 4 horas, se exploran las áreas de mayor diversidad cultural, accesibles principalmente mediante un tour guiado.\n\nItinerario\n\nA la hora fijada, nos encontraremos en el Hotel Courtyard New York Manhattan/Times Square West para comenzar el tour de contrastes. Iniciaremos en el oeste de Manhattan, donde se podrán observar el portaaviones Intrepid y el complejo de edificios Trump, así como las vistas del río Hudson.\n\nLa primera parada será en el Bronx, conocido como el distrito de la salsa y cuna de Jennifer López. Visitarán el Estadio de los Yankees, el Palacio de Justicia, los juzgados y la Corte Criminal del Bronx. También se verá la exterior de la Comisaría 32, la Avenida Grand Concord y el South Bronx, famoso por sus grafitis.\n\nContinuaremos hacia Queens, el distrito más extenso y multicultural de Nueva York. Atravesaremos el puente Whitestone y visitaremos la zona de Malba y Flushing Meadows Corona Park, donde se encuentran el Estadio de los Mets y el globo terráqueo Unisphere.\n\nTras dejar Queens, llegaremos a Brooklyn, donde recorreremos el barrio judío de Williamsburg, notable por su comunidad judía ortodoxa. El tour culminará tras 4 horas, ofreciendo dos opciones al final:\n\n\n\tQuedar en Brooklyn y cruzar el puente sobre el río Este.\n\tContinuar a Mulberry Street en Chinatown, con acceso a Little Italy, SoHo o Greenwich Village.\n\n\nTour de contrastes VIP\n\nSe puede optar por el tour de contrastes VIP, que incluye recogida en hoteles de Manhattan y una parada adicional. Existe también la opción de contratar un tour privado de contrastes de Nueva York para mayor comodidad.",
+              raw_description: "Contrastes de Nueva York es la excursión más popular de la ciudad que nunca duerme y en ella conoceremos los barrios de Queens,&nbsp;el Bronx y Brooklyn.",
+              relatedActivities: [{}, {}, {}, {}],
+              reviews: 26581,
+              score: 9.1,
+              secondaryDestinationId: [],
+              subcategory: {
+                id: 3,
+                description: 'Tour en vehículo'
+              },
+              title: "Contrastes de Nueva York",
+              type: 1,
+              typologies: [{}],
+              url: "https://www.civitatis.com/es/nueva-york/contrastes-nueva-york",
+              voucherType: 0
+            }
+    ],
     tranfer: [],
     precios: [],
     

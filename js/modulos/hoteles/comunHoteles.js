@@ -1,4 +1,4 @@
-var fee_por_habitacion = 1.70 
+
 
 function armarId(tipo,habitaciones, adultos, ninos, edades_ninos){
     let id = ""

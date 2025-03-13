@@ -188,3 +188,11 @@ function plasmarHabitaciones(habitacionesDivididas,codigoHotel, indiceHotel){
     $("#precioHotel_"+indiceHotel+"_"+codigoHotel).html(parseFloat(precioHotel).toFixed(2))
     
 }
+
+
+
+
+function avanzar_precios(){
+    var url = window.location.origin + "/carritoPrecios"
+    window.location.href = url;
+}

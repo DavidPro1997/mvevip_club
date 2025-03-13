@@ -254,6 +254,7 @@
 	<script src="/js/modulos/vuelos/vuelos.js"></script>
 	<script src="/js/modulos/comun.js"></script>
 	<script src="/js/modulos/vuelos/buscadorVuelos.js"></script>
+	<script src="js/modulos/login.js"></script>
 
 	
 
@@ -263,6 +264,7 @@
 		$('#cat_nav').mobileMenu();
 
 		$(document).ready(e => {
+			verificarAutenticacion()
             scrollTop()
 			recibirInformacion()
 			mostrarValoresDefaultVuelos(0)

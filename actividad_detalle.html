@@ -150,6 +150,7 @@
 	<script src="/js/modulos/comun.js"></script>
 	<script src="/js/modulos/actividades/detalleActividad.js"></script>
 	<script src="/js/modulos/actividades/comunActividades.js"></script>
+	<script src="js/modulos/login.js"></script>
 
 
 	<!-- Gallery -->
@@ -160,6 +161,7 @@
 		$(document).ready(function ($) {
 			scrollTop()
 			obtenerFechas()
+			verificarAutenticacion()
 			recibirInformacion()
 			$('#Img_carousel').sliderPro({
 				width: 1000,

@@ -178,8 +178,16 @@
 
 
 		<script src="js/functions.js?v=1.0.0" defer></script>
+		<script src="js/modulos/login.js"></script>
 
 	<script>
+
+		$(document).ready(e => {
+			verificarAutenticacion()
+			scrollTop()
+			cerrarMenu()
+		})
+		
 		if ($('.prod-tabs .tab-btn').length) {
 			$('.prod-tabs .tab-btn').on('click', function (e) {
 				e.preventDefault();

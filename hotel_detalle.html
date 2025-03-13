@@ -138,6 +138,7 @@
 	<script src="js/modulos/hoteles/detalleHoteles.js"></script>
 	<script src="js/modulos/hoteles/comunHoteles.js"></script>
 	<script src="js/modulos/comun.js"></script>
+	<script src="js/modulos/login.js"></script>
 
 
 	<!-- Gallery -->
@@ -149,6 +150,7 @@
 	<script>
 		$('#cat_nav').mobileMenu();
 		$(document).ready(function ($) {
+			verificarAutenticacion()
 			scrollTop()
 			// obtenerFechas()
 			recibirInformacion()

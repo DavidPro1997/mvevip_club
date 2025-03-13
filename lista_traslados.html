@@ -96,6 +96,7 @@
 	<script src="/js/modulos/traslados/traslados.js"></script>
 	<script src="/js/modulos/comun.js"></script>
 	<script src="/js/modulos/traslados/buscadorTraslados.js"></script>
+	<script src="js/modulos/login.js"></script>
 
 	
 
@@ -105,6 +106,7 @@
 		$('#cat_nav').mobileMenu();
 
 		$(document).ready(e => {
+			verificarAutenticacion()
             scrollTop()
 			recibirInformacion()
 			

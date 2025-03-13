@@ -1,0 +1,115 @@
+<section id="hero" class="background-image" data-background="url(https://s1.ppllstatics.com/diariovasco/www/multimedia/202204/29/media/cortadas/compras-online-kJOI-U1601835431030PgD-1248x770@Diario%20Vasco.jpg)">
+	<div class="opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)">
+		<div class="intro_title">
+			<h3 class="animated fadeInDown" id="tituloDestino">RESUMEN DE PRECIOS</h3>
+		</div>
+		<div class="animated fadeInDown" style="position: absolute; bottom: 0; left: 20px; padding: 20px; color: white;">
+			<button class="btn_1 green" style="background-color: var(--color-primario); display: flex; align-items: center; justify-content: center;" onclick="regresarDetalle()">
+				<i class="icon-right" style="font-size: 20px;"></i>
+				Mi Carrito
+			</button>	
+		</div>
+		<div class="animated fadeInDown" style="position: absolute; bottom: 0; right: 20px; padding: 20px; color: white;">
+			<button class="btn_1 green" style="background-color: var(--color-primario); display: flex; align-items: center; justify-content: center;" onclick="avanzarFormulario()">
+				Ir a formulario de pago
+				<i class="icon-left" style="font-size: 20px;"></i>
+			</button>	
+		</div>
+	</div>
+	<!-- End opacity-mask-->
+</section>
+<!-- End Section -->
+
+	<div id="position">
+		<div class="container">
+			<ul>
+				<li><a href="/home">Home</a>
+				</li>
+				<li><a href="/carrito">Carrito</a>
+				</li>
+				<li>Resumen Precios</li>
+			</ul>
+		</div>
+	</div>
+	<!-- End Position -->
+
+	<div class="container margin_60">
+		<div class="cart-section">
+			<table class="table table-striped cart-list shopping-cart">
+				<thead>
+					<tr>
+						<th>
+							Descripción
+						</th>
+						<th>
+							Total
+						</th>
+						<th>
+							Eliminar
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<div class="thumb_cart">
+								<a href="#"><img src="img/carrito/vuelo.jpg" alt="">
+								</a>
+							</div>
+							<strong class="item_cart">Vuelo Quito - Cartagena, ida y vuelta, para 5 personas</strong>
+						</td>
+						<td>
+							<strong>€24,71</strong>
+						</td>
+						<td class="options">
+							<a href="#"><i class=" icon-trash"></i></a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="thumb_cart">
+								<a href="#"><img src="img/carrito/hotel.jpg" alt="">
+								</a>
+							</div>
+							<strong class="item_cart">Hotel Hilton en cartagena para 3 personas por 4 dias</strong>
+						</td>
+						<td>
+							<strong>€24,71</strong>
+						</td>
+						<td class="options">
+							<a href="#"><i class=" icon-trash"></i></a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div class="row justify-content-end">
+				<div class="column col-lg-4 col-md-6">
+					<ul class="totals-table">
+						<li class="clearfix"><span class="col">Subtotal</span><span class="col">$15.00</span>
+						</li>
+						<li class="clearfix total"><span class="col">Total</span><span class="col">$15.00</span>
+						</li>
+					</ul>
+					<a href="/carritoFormulario" class="btn_full">Ir a formulario de pago <i class="icon-left"></i></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+		<script src="js/functions.js?v=1.0.0" defer></script>
+		<script src="/js/modulos/carrito/carritoPrecios.js"></script>
+		<script src="/js/modulos/comun.js"></script>
+		<script src="js/modulos/login.js"></script>
+
+		<script>
+
+		$(document).ready(e => {
+			verificarAutenticacion()
+			scrollTop()
+			cerrarMenu()
+			
+		})
+
+		</script>
+	

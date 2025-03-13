@@ -130,6 +130,7 @@
 	<script src="js/functions.js?v=1.0.0" defer></script>
 	<script src="js/modulos/catalogo/catalogoDetalle.js"></script>
 	<script src="js/modulos/catalogo/catalogoComun.js"></script>
+	<script src="js/modulos/login.js"></script>
 	<script src="js/modulos/comun.js"></script>
 	<!-- Gallery -->
 	<script src="js/jquery.sliderPro.js"></script>
@@ -137,6 +138,7 @@
 	<script>
 
 		$(document).ready(e => {
+			verificarAutenticacion()
 			scrollTop()
 			recibirInformacion()
 			establecerDateReserva()
