@@ -613,3 +613,64 @@ var jsonCarritoEjemplo = {
     ]
     
 };
+
+
+var jsonCarritoPrecioEjemplo = {
+    vuelos: [
+        {
+            description: "Vuelo multidestino UIO --> CTG --> MDE --> UIO, para 5 pasajeros",
+            precio: 500
+            
+        },
+        {
+            description: "Vuelo ida y vuelta UIO --> GYE, para 2 pasajeros",
+            precio: 400
+            
+        },
+    ],
+    
+    hoteles: [
+        {
+            description: "Hotel Hilton Colon, por 3 noches para 2 psajares",
+            precio: 150
+            
+        },
+        {
+            description: "Hotel Decameron, por 1 noche para 2 psajares",
+            precio: 200
+            
+        },
+    ],
+
+    actividades: [
+        {
+            description: "Tour al castillo san felipe, para 4 pasajeros",
+            precio: 120
+            
+        },
+        {
+            description: "Tour por la ciudad en Panama, para 3 pasajeros",
+            precio: 30
+            
+        },
+    ],
+
+    transfer: [
+        {
+            description: "Traslado hotel - aereopuerto en Cartagena, para 3 personas",
+            precio: 500
+            
+        },
+        {
+            description: "Traslado aereopuerto - hotel en Cartagena, para 2 personas",
+            precio: 30
+            
+        },
+    ],
+
+    preciosTotal: {
+        subtotal: 15250,
+        total: 64156
+    }
+    
+}
