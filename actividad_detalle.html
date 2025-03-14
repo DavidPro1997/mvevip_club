@@ -134,7 +134,7 @@
 					<div class="box_style_4">
 						<i class="icon_set_1_icon-90"></i>
 						<h4><span>Reservar</span> por teléfono</h4>
-						<a href="tel://004542344599" class="phone">+59388182490</a>
+						<a href="#" onclick="abrirChatWhatsApp()" class="phone" id="numero0"></a>
 						<small>¿Dificultades para reservar? Llámanos y uno de nuestros asesores te asistirá personalmente para asegurar tu reserva de forma rápida y sencilla.</small>
 					</div>
 
@@ -159,6 +159,7 @@
 
 
 		$(document).ready(function ($) {
+			$("#numero0").html(obtenerNumero())
 			scrollTop()
 			obtenerFechas()
 			verificarAutenticacion()

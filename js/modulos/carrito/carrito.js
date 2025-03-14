@@ -277,9 +277,7 @@ function armarActividadesCarrito(datos){
 
 
 
-function removerPuntos(cadena) {
-    return cadena.replace(/\./g, '__');
-}
+
 
 
 function llamarHoteles(hoteles){

@@ -674,3 +674,231 @@ var jsonCarritoPrecioEjemplo = {
     }
     
 }
+
+
+var jsonCarritoFormularioEjemplo = {
+    vuelos: [
+        {
+            identificador: "UIO-CTG-UIO",
+            adultos: 2,
+            ninos: 0,
+            infantes: 0,
+            adultos_mayores: 0,
+            discapacitados: 0
+        },
+        {
+            identificador: "UIO-CTG-MDE-UIO",
+            adultos: 1,
+            ninos: 2,
+            infantes: 0,
+            adultos_mayores: 0,
+            discapacitados: 0
+        }
+    
+    ],
+    hoteles : [
+        {
+            identificador: "Hilton CTG",
+            ocupantes: [
+                {
+                    adults: 2,
+                    children: 0,
+                    paxes: [],
+                    ratekey: "20250516|20250518|W|296|162425|TWN.EJ-1|ID_B2B_88|FB|B2BUSUS|1~2~0||N@07~A-SIC~21b25a~-1761046117~N~~~NOR~~99C70FF345ED459174181415177905AAEC0134011900130821b25a",
+                    rooms: 1
+                },
+                {
+                    adults: 1,
+                    children: 0,
+                    paxes: [],
+                    ratekey: "20250516|20250518|W|296|162425|TWN.EJ-1|ID_B2B_88|FB|B2BUSUS|1~2~0||N@07~A-SIC~21b25a~-1761046117~N~~~NOR~~99C70FF345ED459174181415177905AAEC0134011900130821b25a",
+                    rooms: 1
+                }
+            ]
+        },
+        {
+            identificador: "Decameron PTY",
+            ocupantes: [
+                {
+                    adults: 1,
+                    children: 1,
+                    paxes: [
+                        {type: 'CH', age: 4}
+                    ],
+                    ratekey: "20250516|20250518|W|296|162425|TWN.EJ-1|ID_B2B_88|FB|B2BUSUS|1~2~0||N@07~A-SIC~21b25a~-1761046117~N~~~NOR~~99C70FF345ED459174181415177905AAEC0134011900130821b25a",
+                    rooms: 1
+                }
+            ]
+        }
+        
+    ],
+    actividades: [
+        {
+            identificador: "Nueva York - Tour contraste",
+            details: {
+                booking: [
+                    {
+                        id: "comentarios-67d45e390b5d96.70602017",
+                        label: "comments_string",
+                        labelTranslated: "Comentarios",
+                        options: null,
+                        regex: null,
+                        required: false,
+                        type: "text",
+                        uuid: null,
+                        value: ""
+                    }
+                ],
+                passengers: null
+            },
+            errors: ['undefined'],
+            id: "67d45e390b5d96.70602017"
+        },
+        {
+            identificador: "Quito - Tour 2 dias por los Volcanes",
+            details: {
+                booking: [
+                    {
+                        id: "comentarios-67d46ccd5b0fc8.47317905",
+                        label: "comments_string",
+                        labelTranslated: "Comentarios",
+                        options: null,
+                        regex: null,
+                        required: false,
+                        type: "text",
+                        uuid: null,
+                        value: ""
+                    }
+                ],
+                passengers: [
+                    {
+                        id: "passenger-37-0-67d46ccd5b0fc8.47317905",
+                        label: "Nombre y apellidos",
+                        options: null,
+                        regex: null,
+                        required: false,
+                        type: "text",
+                        uuid: null,
+                        value: ""
+                    },
+                    {
+                        id: "passenger-5-0-67d46ccd5b0fc8.47317905",
+                        label: "Pasaporte",
+                        options: null,
+                        regex: null,
+                        required: false,
+                        type: "text",
+                        uuid: null,
+                        value: ""
+                    },
+                    {
+                        id: "passenger-9-0-67d46ccd5b0fc8.47317905",
+                        label: "Edad",
+                        options: null,
+                        regex: null,
+                        required: false,
+                        type: "number",
+                        uuid: null,
+                        value: ""
+                    }
+                ]
+            },
+            errors: [],
+            id: "67d46ccd5b0fc8.47317905",
+        },
+    ],
+    tranfer: [
+        {
+            identificador: "Furgoneta de 14 plazas Cartagena",
+            details: {
+                booking: [
+                    {
+                        id: "comentarios-67d47e873ff781.52994882",
+                        label: "comments_string",
+                        labelTranslated: "Comentarios",
+                        options: null,
+                        regex: null,
+                        required: false,
+                        type: "text",
+                        uuid: null,
+                        value: {
+                            value: "",
+                            label: "comments_string",
+                            name: "comentarios-67d47e873ff781.52994882"
+                        }
+                    },
+                    {
+                        id: "arrivalFlightNumber-67d47e873ff781.52994882",
+                        label: "Airline and return flight number",
+                        labelTranslated: "Airline and return flight number",
+                        options: null,
+                        regex: null,
+                        required: true,
+                        type: "text",
+                        uuid: null,
+                        value: ""
+                    },
+                    {
+                        id: "departureOriginCity-67d47e873ff781.52994882",
+                        label: "City of departure",
+                        labelTranslated: "City of departure",
+                        options: null,
+                        regex: null,
+                        required: true,
+                        type: "text",
+                        uuid: null,
+                        value: ""
+                    },
+                    {
+                        id: "departureFlightNumber-67d47e873ff781.52994882",
+                        label: "Airline and flight number",
+                        labelTranslated: "Airline and flight number",
+                        options: null,
+                        regex: null,
+                        required: true,
+                        type: "text",
+                        uuid: null,
+                        value: ""
+                    },
+                    {
+                        id: "kid-weight-67d47e873ff781.52994882",
+                        label: "kid_weight",
+                        labelTranslated: "kid_weight",
+                        options: null,
+                        regex: null,
+                        required: false,
+                        type: "text",
+                        uuid: null,
+                        value: null
+                    },
+                    {
+                        id: "kid-age-67d47e873ff781.52994882",
+                        label: "kid_age",
+                        labelTranslated: "kid_age",
+                        options: null,
+                        regex: null,
+                        required: false,
+                        type: "text",
+                        uuid: null,
+                        value: null
+                    },
+                    {
+                        id: "luggage-67d47e873ff781.52994882",
+                        label: "Only hand bags?",
+                        labelTranslated: "Only hand bags?",
+                        options: null,
+                        regex: null,
+                        required: true,
+                        type: "boolean",
+                        uuid: null,
+                        value: false
+                    }
+                ],
+                passengers: null
+            },
+            errors: [],
+            id: "67d46cd5b0fcHG8.4731V905",
+        }
+            
+    ]
+}

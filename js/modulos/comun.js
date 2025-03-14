@@ -14,6 +14,31 @@ var fee_por_persona = {
     fee_4_persona: 15,
 } 
 
+function removerPuntos(cadena) {
+    return cadena.replace(/\./g, '__');
+}
+
+
+function traducirPalabra(palabra) {
+    const diccionario = {
+        "email":"Correo Electrónico",
+        "phone": "Teléfono",
+        "prefix": "Prefijo",
+        "firstName":"Nombre",
+        "lastName":"Apellido",
+        "Pickup point":"Punto de recogida",
+        "Hotel or accommodation name":"Nombre del hotel o alojamiento",
+        "Hotel or accommodation address":"Dirección del hotel o alojamiento",
+        "City of departure":"Ciudad de salida",
+        "Airline and flight number":"Aerolínea y número de vuelo",
+        "kid_weight":"Peso del niño",
+        "kid_age":"Edad del niño",
+        "Only hand bags?":"¿Trae solo bolsos de mano?",
+        "Airline and return flight number":"Número de aerolínea y vuelo de regreso"
+    };
+    return diccionario[palabra] || palabra;
+}
+
 
 function modificarFee(datos){
     fee_por_habitacion = datos.porcentajes[1].percentage

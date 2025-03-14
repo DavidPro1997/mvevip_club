@@ -76,7 +76,7 @@
 					<div class="box_style_2 d-none d-sm-block">
 						<i class="icon_set_1_icon-57"></i>
 						<h4>¿Necesitas <span>Ayuda?</span></h4>
-						<a href="tel://+59388182490" class="phone">+59388182490</a>
+						<a href="#" onclick="abrirChatWhatsApp()" class="phone" id="numero0"></a>
 						<small>Contactanos para ayudarte con tu reserva</small>
 					</div>
 				</aside>
@@ -109,6 +109,7 @@
 			verificarAutenticacion()
             scrollTop()
 			recibirInformacion()
+			$("#numero0").html(obtenerNumero())
 			
         })
 	</script>
